@@ -4,7 +4,7 @@
       class="h-100 w-100 pa-2 sidebar-card"
       :style="{ 'background-image': `url(${background})` }"
     >
-      <v-row no-gutters>
+      <v-row class="h-100" no-gutters>
         <v-col>
           <v-row class="py-6" no-gutters align="center" justify="center">
             <span>PNDB</span>
@@ -14,13 +14,28 @@
             v-for="item in sidebarItems"
             :key="item.name"
             class="py-4 pl-12 sidebar-item"
-            align="center"
             no-gutters
+            align="center"
             v-ripple
             @click="changeView(item.name)"
           >
             <v-icon class="mr-2" :icon="item.icon"></v-icon>
             <span>{{ item.title }}</span>
+          </v-row>
+          <v-row class="py-4" no-gutters align="center" justify="center">
+            <v-btn
+              v-if="isAuthenticated"
+              color="primary"
+              block
+              @click="logut()"
+            >
+              <v-icon class="mr-2" icon="logout"></v-icon>
+              <span>Logout</span>
+            </v-btn>
+            <v-btn v-else color="primary" block @click="login()">
+              <v-icon class="mr-2" icon="login"></v-icon>
+              <span>Login</span>
+            </v-btn>
           </v-row>
         </v-col>
       </v-row>
@@ -36,6 +51,7 @@ export default defineComponent({
   components: {},
   data() {
     return {
+      isAuthenticated: true,
       background: require("../assets/sidebar-background.png"),
       sidebarItems: [
         {
@@ -59,6 +75,12 @@ export default defineComponent({
   methods: {
     changeView(view: string) {
       this.$emit("changeView", view);
+    },
+    login() {
+      console.log("LOGIN");
+    },
+    logout() {
+      console.log("LOGOUT");
     },
   },
 });
