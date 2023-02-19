@@ -10,6 +10,7 @@
   "dependencies": {
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vuetify": "^3.1.5",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
@@ -42,7 +43,14 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
+    }
   },
   "browserslist": [
     "> 1%",
