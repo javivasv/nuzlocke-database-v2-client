@@ -7,7 +7,13 @@
         </v-row>
       </v-col>
       <v-col cols="10">
-        <v-row class="h-100" no-gutters>
+        <v-row
+          id="content"
+          class="h-100"
+          no-gutters
+          style="background-repeat: repeat"
+          :style="{ backgroundImage: `url(${background})` }"
+        >
           <Home v-if="currentView === 'home'" />
           <Nuzlockes v-if="currentView === 'nuzlockes'" />
           <About v-if="currentView === 'about'" />
@@ -35,6 +41,8 @@ export default defineComponent({
   data() {
     return {
       currentView: "home",
+      background: require("../assets/pokeball_pattern_opaque.png"),
+      backgroundDark: require("../assets/pokeball_pattern_dark_opaque.png"),
     };
   },
   methods: {
