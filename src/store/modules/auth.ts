@@ -25,10 +25,9 @@ export const auth: Module<AuthState, State> = {
     REGISTER_USER: ({ commit, state }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000"}/users`, data)
+          .post(`${"http://localhost:5000/api"}/users`, data)
           .then((res) => {
-            console.log("RES: ", res);
-            resolve(res);
+            resolve(res.data);
           })
           .catch((error) => {
             console.log("ERROR: ", error);
