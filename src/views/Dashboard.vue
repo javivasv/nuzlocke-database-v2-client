@@ -1,5 +1,5 @@
 <template>
-  <div id="dashboard">
+  <div id="dashboard" class="h-100">
     <v-row class="h-100" no-gutters>
       <v-col cols="2">
         <v-row class="h-100" no-gutters>
@@ -53,8 +53,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-#dashboard {
-  height: 100%;
-}
-</style>
+<style></style>

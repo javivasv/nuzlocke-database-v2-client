@@ -1,5 +1,5 @@
 <template>
-  <div id="sidebar">
+  <div id="sidebar" class="h-100 w-100">
     <v-card
       class="h-100 w-100 pa-2 sidebar-card"
       :style="{ 'background-image': `url(${background})` }"
@@ -51,7 +51,7 @@ export default defineComponent({
   components: {},
   data() {
     return {
-      isAuthenticated: true,
+      isAuthenticated: false,
       background: require("../assets/sidebar-background.png"),
       sidebarItems: [
         {
@@ -78,6 +78,7 @@ export default defineComponent({
     },
     login() {
       console.log("LOGIN");
+      this.$router.push("login");
     },
     logout() {
       console.log("LOGOUT");
@@ -87,10 +88,6 @@ export default defineComponent({
 </script>
 
 <style>
-#sidebar {
-  height: 100%;
-  width: 100%;
-}
 .sidebar-card {
   background-size: cover !important;
 }
