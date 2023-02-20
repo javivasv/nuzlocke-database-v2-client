@@ -89,7 +89,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import { mapActions } from "vuex";
 export default defineComponent({
   name: "Login",
   components: {},
@@ -109,11 +109,21 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapActions("auth", {
+      registerUser: "REGISTER_USER",
+    }),
     login() {
       console.log("LOGIN");
     },
     register() {
-      console.log("REGISTER");
+      const userData = {
+        username: this.newUserData.username,
+        password: this.newUserData.password,
+      };
+
+      this.registerUser(userData).then((res) => {
+        console.log("RES: ", res);
+      });
     },
     changeForm(val: boolean) {
       this.newUser = val;
