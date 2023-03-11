@@ -9,60 +9,81 @@
         <v-row class="w-100" no-gutters align="center" justify="center">
           <v-card id="login-card" class="pa-6">
             <v-row v-if="newUser" no-gutters>
-              <v-col>
-                <v-row no-gutters>
-                  <v-text-field
-                    v-model="newUserData.username"
-                    label="Username"
-                    variant="outlined"
-                  ></v-text-field>
-                </v-row>
-                <v-row no-gutters>
-                  <v-text-field
-                    v-model="newUserData.password"
-                    label="Password"
-                    variant="outlined"
-                    type="password"
-                  ></v-text-field>
-                </v-row>
-                <v-row no-gutters>
-                  <v-text-field
-                    v-model="newUserData.passwordConfirmation"
-                    label="Password confirmation"
-                    variant="outlined"
-                    type="password"
-                  ></v-text-field>
-                </v-row>
-                <v-row class="py-3" no-gutters align="center" justify="center">
-                  <v-btn color="primary" @click="register()">Register</v-btn>
-                </v-row>
-                <v-row class="pt-3" no-gutters align="center" justify="center">
-                  <span
-                    >Already have an account?
-                    <span
-                      class="form-action text-primary"
-                      @click="changeForm(false)"
-                      >Login</span
-                    ></span
+              <v-form
+                ref="registerForm"
+                class="w-100"
+                @submit.prevent="register()"
+              >
+                <v-col>
+                  <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="newUserData.username"
+                      label="Username"
+                      variant="outlined"
+                      :rules="usernameRules"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="newUserData.password"
+                      label="Password"
+                      variant="outlined"
+                      type="password"
+                      :rules="passwordRules"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="newUserData.passwordConfirmation"
+                      label="Password confirmation"
+                      variant="outlined"
+                      type="password"
+                      :rules="passwordConfirmationRules"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row
+                    class="py-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
                   >
-                </v-row>
-              </v-col>
+                    <v-btn color="primary" type="submit">Register</v-btn>
+                  </v-row>
+                  <v-row
+                    class="pt-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <span
+                      >Already have an account?
+                      <span
+                        class="form-action text-primary"
+                        @click="changeForm(false)"
+                        >Login</span
+                      ></span
+                    >
+                  </v-row>
+                </v-col>
+              </v-form>
             </v-row>
             <v-row v-else no-gutters>
               <v-col>
-                <v-row no-gutters>
+                <v-row class="py-1" no-gutters>
                   <v-text-field
                     v-model="userData.username"
                     label="Username"
                     variant="outlined"
+                    :rules="usernameRules"
                   ></v-text-field>
                 </v-row>
-                <v-row no-gutters>
+                <v-row class="py-1" no-gutters>
                   <v-text-field
                     v-model="userData.password"
                     label="Password"
                     variant="outlined"
                     type="password"
+                    :rules="passwordRules"
                   ></v-text-field>
                 </v-row>
                 <v-row class="py-3" no-gutters align="center" justify="center">
@@ -88,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations } from "vuex";
 export default defineComponent({
   name: "Login",
@@ -106,6 +127,12 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       },
+      usernameRules: [(value: string) => this.required(value, "username")],
+      passwordRules: [(value: string) => this.required(value, "password")],
+      passwordConfirmationRules: [
+        (value: string) => this.required(value, "password"),
+        (value: string) => this.passwordMatch(value),
+      ],
     };
   },
   methods: {
@@ -118,7 +145,15 @@ export default defineComponent({
     login() {
       console.log("LOGIN");
     },
-    register() {
+    async register() {
+      const { valid } = await (
+        this.$refs.registerForm as HTMLFormElement
+      ).validate();
+
+      if (!valid) {
+        return;
+      }
+
       const userData = {
         username: this.newUserData.username,
         password: this.newUserData.password,
@@ -146,6 +181,18 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       };
+    },
+    test(value: string) {
+      if (value === this.newUserData.password) return true;
+      return "test";
+    },
+    required(value: string, type: string) {
+      if (value) return true;
+      return `You must enter a ${type}`;
+    },
+    passwordMatch(value: string) {
+      if (value === this.newUserData.password) return true;
+      return "The passwords must match";
     },
   },
 });
