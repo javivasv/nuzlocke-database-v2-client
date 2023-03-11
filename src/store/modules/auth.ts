@@ -30,8 +30,7 @@ export const auth: Module<AuthState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            console.log("ERROR: ", error);
-            reject(error);
+            reject(error.response);
           });
       });
     },

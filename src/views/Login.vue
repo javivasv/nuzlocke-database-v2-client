@@ -89,7 +89,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default defineComponent({
   name: "Login",
   components: {},
@@ -112,6 +112,9 @@ export default defineComponent({
     ...mapActions("auth", {
       registerUser: "REGISTER_USER",
     }),
+    ...mapMutations("notifications", {
+      setSnackbarText: "SET_SNACKBAR_TEXT",
+    }),
     login() {
       console.log("LOGIN");
     },
@@ -121,16 +124,23 @@ export default defineComponent({
         password: this.newUserData.password,
       };
 
-      this.registerUser(userData).then((res) => {
-        console.log("RES: ", res);
-      });
+      this.registerUser(userData)
+        .then((res) => {
+          this.setSnackbarText(res.msg);
+          this.changeForm(false);
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
     changeForm(val: boolean) {
       this.newUser = val;
+
       this.userData = {
         username: "",
         password: "",
       };
+
       this.newUserData = {
         username: "",
         password: "",

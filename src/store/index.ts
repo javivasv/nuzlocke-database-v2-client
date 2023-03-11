@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { auth } from "./modules/auth";
+import { notifications } from "./modules/notifications";
 import { nuzlockes } from "./modules/nuzlockes";
 
 export interface State {
@@ -9,6 +10,7 @@ export interface State {
 export default createStore<State>({
   modules: {
     auth,
+    notifications,
     nuzlockes,
   },
   state: {
