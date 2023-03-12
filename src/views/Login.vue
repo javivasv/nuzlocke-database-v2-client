@@ -68,38 +68,50 @@
               </v-form>
             </v-row>
             <v-row v-else no-gutters>
-              <v-col>
-                <v-row class="py-1" no-gutters>
-                  <v-text-field
-                    v-model="userData.username"
-                    label="Username"
-                    variant="outlined"
-                    :rules="usernameRules"
-                  ></v-text-field>
-                </v-row>
-                <v-row class="py-1" no-gutters>
-                  <v-text-field
-                    v-model="userData.password"
-                    label="Password"
-                    variant="outlined"
-                    type="password"
-                    :rules="passwordRules"
-                  ></v-text-field>
-                </v-row>
-                <v-row class="py-3" no-gutters align="center" justify="center">
-                  <v-btn color="primary" @click="login()">Login</v-btn>
-                </v-row>
-                <v-row class="pt-3" no-gutters align="center" justify="center">
-                  <span
-                    >Don't have an account?
-                    <span
-                      class="form-action text-primary"
-                      @click="changeForm(true)"
-                      >Register</span
-                    ></span
+              <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
+                <v-col>
+                  <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="userData.username"
+                      label="Username"
+                      variant="outlined"
+                      :rules="usernameRules"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="userData.password"
+                      label="Password"
+                      variant="outlined"
+                      type="password"
+                      :rules="passwordRules"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row
+                    class="py-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
                   >
-                </v-row>
-              </v-col>
+                    <v-btn color="primary" type="submit">Login</v-btn>
+                  </v-row>
+                  <v-row
+                    class="pt-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <span
+                      >Don't have an account?
+                      <span
+                        class="form-action text-primary"
+                        @click="changeForm(true)"
+                        >Register</span
+                      ></span
+                    >
+                  </v-row>
+                </v-col>
+              </v-form>
             </v-row>
           </v-card>
         </v-row>
@@ -109,7 +121,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { mapActions, mapMutations } from "vuex";
 export default defineComponent({
   name: "Login",
@@ -137,13 +149,28 @@ export default defineComponent({
   },
   methods: {
     ...mapActions("auth", {
+      doLogin: "LOGIN",
       registerUser: "REGISTER_USER",
     }),
     ...mapMutations("notifications", {
       setSnackbarText: "SET_SNACKBAR_TEXT",
     }),
-    login() {
-      console.log("LOGIN");
+    async login() {
+      const { valid } = await (
+        this.$refs.loginForm as HTMLFormElement
+      ).validate();
+
+      if (!valid) {
+        return;
+      }
+
+      this.doLogin(this.userData)
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
     async register() {
       const { valid } = await (
@@ -181,10 +208,6 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       };
-    },
-    test(value: string) {
-      if (value === this.newUserData.password) return true;
-      return "test";
     },
     required(value: string, type: string) {
       if (value) return true;

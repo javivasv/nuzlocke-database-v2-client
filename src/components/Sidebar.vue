@@ -23,12 +23,7 @@
             <span>{{ item.title }}</span>
           </v-row>
           <v-row class="py-4" no-gutters align="center" justify="center">
-            <v-btn
-              v-if="isAuthenticated"
-              color="primary"
-              block
-              @click="logut()"
-            >
+            <v-btn v-if="getUser" color="primary" block @click="logout()">
               <v-icon class="mr-2" icon="logout"></v-icon>
               <span>Logout</span>
             </v-btn>
@@ -45,13 +40,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import { mapGetters, mapActions } from "vuex";
 export default defineComponent({
   name: "Sidebar",
   components: {},
+  computed: {
+    ...mapGetters("auth", {
+      getUser: "GET_USER",
+    }),
+  },
   data() {
     return {
-      isAuthenticated: false,
       background: require("../assets/sidebar-background.png"),
       sidebarItems: [
         {
@@ -73,15 +72,17 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapActions("auth", {
+      doLogout: "LOGOUT",
+    }),
     changeView(view: string) {
       this.$emit("changeView", view);
     },
     login() {
-      console.log("LOGIN");
       this.$router.push("login");
     },
     logout() {
-      console.log("LOGOUT");
+      this.doLogout();
     },
   },
 });

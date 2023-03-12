@@ -22,6 +22,22 @@ export const auth: Module<AuthState, State> = {
     },
   },
   actions: {
+    LOGIN: ({ commit, state }, data: UserData) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${"http://localhost:5000/api"}/login`, data)
+          .then((res) => {
+            commit("SET_USER", res.data.user);
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
+    LOGOUT: ({ commit, state }) => {
+      commit("SET_USER", null);
+    },
     REGISTER_USER: ({ commit, state }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
