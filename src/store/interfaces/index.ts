@@ -12,3 +12,9 @@ export interface Nuzlocke {
     game: "";
   };
 }
+
+export interface Token {
+  ist: number;
+  id: string;
+  username: string;
+}

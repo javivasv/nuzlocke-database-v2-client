@@ -1,7 +1,8 @@
 import { Module } from "vuex";
 import { State } from "../index";
 import axios from "axios";
-import { UserData } from "../interfaces/index";
+import { UserData, Token } from "../interfaces/index";
+import jwtDecode from "jwt-decode";
 
 export interface AuthState {
   user: null;
@@ -27,7 +28,9 @@ export const auth: Module<AuthState, State> = {
         axios
           .post(`${"http://localhost:5000/api"}/login`, data)
           .then((res) => {
-            commit("SET_USER", res.data.user);
+            window.localStorage.setItem("pndb_token", res.data.token);
+            const token = jwtDecode(res.data.token) as Token;
+            commit("SET_USER", { id: token.id, username: token.username });
             resolve(res.data);
           })
           .catch((error) => {
@@ -36,6 +39,7 @@ export const auth: Module<AuthState, State> = {
       });
     },
     LOGOUT: ({ commit, state }) => {
+      window.localStorage.removeItem("pndb_token");
       commit("SET_USER", null);
     },
     REGISTER_USER: ({ commit, state }, data: UserData) => {
