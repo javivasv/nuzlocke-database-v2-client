@@ -19,3 +19,9 @@ export interface Token {
   id: string;
   username: string;
 }
+
+export interface Video {
+  name: string;
+  channel: string;
+  url: string;
+}

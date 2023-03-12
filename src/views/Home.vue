@@ -30,6 +30,23 @@
           <v-card-title>
             <h2>Relevant Nuzlocke Videos</h2>
           </v-card-title>
+          <v-row no-gutters>
+            <v-carousel v-model="currentVideo">
+              <v-carousel-item
+                v-for="(video, index) in randomizedVideos"
+                :key="video.url"
+              >
+                <iframe
+                  v-if="currentVideo === index"
+                  class="video-iframe"
+                  :src="`https://www.youtube.com/embed/${video.url}`"
+                  :title="video.name"
+                  allowfullscreen
+                  style="border: none"
+                ></iframe>
+              </v-carousel-item>
+            </v-carousel>
+          </v-row>
         </v-card>
       </v-col>
       <v-col class="pa-3" cols="4">
@@ -117,9 +134,30 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import { mapGetters } from "vuex";
+import { Video } from "../store/interfaces/index";
 export default defineComponent({
   name: "Home",
   components: {},
+  computed: {
+    ...mapGetters("videos", {
+      getVideos: "GET_VIDEOS",
+    }),
+    randomizedVideos(): Array<Video> {
+      return [...this.getVideos].sort(() => Math.random() - 0.5);
+    },
+  },
+  data() {
+    return {
+      currentVideo: 0,
+    };
+  },
 });
 </script>
+
+<style>
+.video-iframe {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+</style>
