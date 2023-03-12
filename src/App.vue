@@ -6,10 +6,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Snackbar from "@/components/Snackbar";
 export default {
   components: {
     Snackbar,
+  },
+  mounted() {
+    this.validateSession();
+  },
+  methods: {
+    ...mapActions("auth", {
+      validateSession: "VALIDATE_SESSION",
+    }),
   },
 };
 </script>

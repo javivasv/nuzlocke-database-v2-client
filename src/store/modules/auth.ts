@@ -54,5 +54,30 @@ export const auth: Module<AuthState, State> = {
           });
       });
     },
+    VALIDATE_SESSION: ({ commit, state, dispatch }) => {
+      const token = window.localStorage.getItem("pndb_token");
+
+      if (!token) {
+        return;
+      }
+
+      const data = {
+        token,
+      };
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${"http://localhost:5000/api"}/session`, data)
+          .then((res) => {
+            const token = jwtDecode(data.token) as Token;
+            commit("SET_USER", { id: token.id, username: token.username });
+            resolve(res.data);
+          })
+          .catch((error) => {
+            dispatch("LOGOUT");
+            reject(error.response);
+          });
+      });
+    },
   },
 };

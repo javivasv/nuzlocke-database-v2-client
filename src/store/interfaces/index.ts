@@ -14,7 +14,8 @@ export interface Nuzlocke {
 }
 
 export interface Token {
-  ist: number;
+  exp: number;
+  iat: number;
   id: string;
   username: string;
 }
