@@ -4,6 +4,11 @@ import axios from "axios";
 import { UserData, Token } from "../interfaces/index";
 import jwtDecode from "jwt-decode";
 
+axios.interceptors.request.use((config) => {
+  config.headers["Authorization"] = window.localStorage.getItem("pndb_token");
+  return config;
+});
+
 export interface AuthState {
   user: null;
 }
