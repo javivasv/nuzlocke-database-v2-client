@@ -1,5 +1,6 @@
 import { Module } from "vuex";
 import { State } from "../index";
+import axios from "axios";
 
 export interface NuzlockesState {
   nuzlockes: [];
@@ -19,5 +20,19 @@ export const nuzlockes: Module<NuzlockesState, State> = {
       state.nuzlockes = nuzlockes;
     },
   },
-  actions: {},
+  actions: {
+    FETCH_NUZLOCKES: ({ commit, state }) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"http://localhost:5000/api"}/nuzlockes`)
+          .then((res) => {
+            commit("SET_NUZLOCKES", res.data.nuzlockes);
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
+  },
 };

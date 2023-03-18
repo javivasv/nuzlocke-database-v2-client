@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Nuzlocke } from "../store/interfaces";
 export default defineComponent({
   name: "Nuzlockes",
@@ -71,6 +71,9 @@ export default defineComponent({
     ...mapGetters("nuzlockes", {
       getNuzlockes: "GET_NUZLOCKES",
     }),
+  },
+  mounted() {
+    this.fetchNuzlockes();
   },
   data() {
     return {
@@ -95,6 +98,9 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapActions("nuzlockes", {
+      fetchNuzlockes: "FETCH_NUZLOCKES",
+    }),
     checkNuzlocke(nuzlocke: Nuzlocke) {
       console.log("NUZLOCKE: ", nuzlocke);
     },
