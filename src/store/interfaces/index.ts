@@ -11,14 +11,12 @@ export interface UserData {
 }
 
 export interface Nuzlocke {
-  nuzlocke: {
-    _id: string;
-    name: string;
-    game: string;
-    status: string;
-    user: string;
-    pokemon: Array<Pokemon>;
-  };
+  _id: string;
+  name: string;
+  game: string;
+  status: string;
+  user: string;
+  pokemon: Array<Pokemon>;
 }
 
 export interface Pokemon {

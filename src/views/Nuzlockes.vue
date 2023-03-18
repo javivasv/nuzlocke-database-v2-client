@@ -29,9 +29,10 @@
                   </v-row>
                   <v-row
                     v-for="nuzlocke in getNuzlockes"
-                    :key="nuzlocke.id"
+                    :key="nuzlocke._id"
+                    class="nuzlocke-row py-3"
                     no-gutters
-                    @click:row="checkNuzlocke(nuzlocke)"
+                    @click="checkNuzlocke(nuzlocke)"
                   >
                     <v-col cols="6">
                       <v-row no-gutters align="center" justify="center">
@@ -102,8 +103,17 @@ export default defineComponent({
       fetchNuzlockes: "FETCH_NUZLOCKES",
     }),
     checkNuzlocke(nuzlocke: Nuzlocke) {
-      console.log("NUZLOCKE: ", nuzlocke);
+      console.log("NUZLOCKE: ", { ...nuzlocke });
     },
   },
 });
 </script>
+
+<style>
+.nuzlocke-row {
+  cursor: pointer;
+}
+.nuzlocke-row:hover {
+  background-color: #9e9e9e4d;
+}
+</style>
