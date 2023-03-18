@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    <v-row class="h-100" no-gutters>
+  <div class="content home">
+    <v-row class="h-100 w-100" no-gutters>
       <v-col class="pa-3" cols="8">
-        <v-card class="pa-4 mb-4">
+        <v-card class="pa-4 mb-4 w-100">
           <v-card-title>
             <h2>Welcome to the Pokemon Nuzlocke DataBase!</h2>
           </v-card-title>

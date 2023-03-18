@@ -3,7 +3,7 @@
     <v-row class="h-100" no-gutters>
       <v-col cols="2">
         <v-row class="h-100" no-gutters>
-          <Sidebar :current-view="currentView" @changeView="changeView" />
+          <Sidebar @changeView="changeView" />
         </v-row>
       </v-col>
       <v-col cols="10">
@@ -32,18 +32,20 @@ export default defineComponent({
   },
   data() {
     return {
-      currentView: "home",
       background: require("../assets/pokeball_pattern_opaque.png"),
       backgroundDark: require("../assets/pokeball_pattern_dark_opaque.png"),
     };
   },
   methods: {
     changeView(view: string) {
-      this.currentView = view;
       this.$router.push(view);
     },
   },
 });
 </script>
 
-<style></style>
+<style>
+.content {
+  width: 100%;
+}
+</style>

@@ -17,7 +17,7 @@
                 (item.name === 'nuzlockes' && getUser)
               "
               class="py-4 pl-12 sidebar-item"
-              :class="currentView === item.name ? 'sidebar-item-active' : ''"
+              :class="$route.name === item.name ? 'sidebar-item-active' : ''"
               no-gutters
               align="center"
               v-ripple
@@ -49,12 +49,7 @@ import { mapGetters, mapActions } from "vuex";
 export default defineComponent({
   name: "Sidebar",
   components: {},
-  props: {
-    currentView: {
-      type: String,
-      default: "home",
-    },
-  },
+  props: {},
   computed: {
     ...mapGetters("auth", {
       getUser: "GET_USER",
