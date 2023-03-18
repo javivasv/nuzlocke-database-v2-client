@@ -56,7 +56,42 @@
           </v-card>
         </v-row>
       </v-col>
-      <v-col class="pa-3" cols="4"></v-col>
+      <v-col class="pa-3" cols="4">
+        <div class="h-100" style="text-align: -webkit-center">
+          <v-img
+            class="pokeball"
+            eager
+            :src="require('../assets/pokeball.png')"
+          ></v-img>
+          <v-card class="info-card px-4 pb-4 w-100">
+            <v-card-title>
+              <v-btn color="secondary" @click="newNuzlocke()">
+                New nuzlocke
+              </v-btn>
+            </v-card-title>
+            <v-divider class="my-3"></v-divider>
+            <v-card-subtitle>
+              <strong>Relevant websites</strong>
+            </v-card-subtitle>
+            <v-card-text>
+              <v-col>
+                <v-row
+                  v-for="website in websites"
+                  :key="website.url"
+                  class="py-1"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <a class="website-link" :href="website.url" target="_blank">
+                    {{ website.name }}
+                  </a>
+                </v-row>
+              </v-col>
+            </v-card-text>
+          </v-card>
+        </div>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -78,6 +113,7 @@ export default defineComponent({
   },
   data() {
     return {
+      pokeball: require("../assets/sidebar-background.png"),
       search: "",
       headers: [
         {
@@ -96,6 +132,20 @@ export default defineComponent({
           cols: 3,
         },
       ],
+      websites: [
+        {
+          name: "Bulbapedia",
+          url: "https://bulbapedia.bulbagarden.net/wiki/Main_Page",
+        },
+        {
+          name: "Pokemon Showdown Damage Calculator",
+          url: "https://calc.pokemonshowdown.com",
+        },
+        {
+          name: "Serebii",
+          url: "https://www.serebii.net/index2.shtml",
+        },
+      ],
     };
   },
   methods: {
@@ -104,6 +154,9 @@ export default defineComponent({
     }),
     checkNuzlocke(nuzlocke: Nuzlocke) {
       console.log("NUZLOCKE: ", { ...nuzlocke });
+    },
+    newNuzlocke() {
+      console.log("NEW NUZLOCKE");
     },
   },
 });
@@ -115,5 +168,17 @@ export default defineComponent({
 }
 .nuzlocke-row:hover {
   background-color: #9e9e9e4d;
+}
+.pokeball {
+  width: 195px;
+  z-index: 100 !important;
+}
+.info-card {
+  top: -97.5px;
+  padding-top: 112.5px !important;
+}
+.website-link {
+  text-decoration: none;
+  color: #1685c5;
 }
 </style>

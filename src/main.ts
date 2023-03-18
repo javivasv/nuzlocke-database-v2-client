@@ -14,6 +14,7 @@ const customLightTheme = {
   dark: false,
   colors: {
     primary: "#EE1515",
+    secondary: "#1685C5",
     /*
     background: "#FFFFFF",
     surface: "#FFFFFF",

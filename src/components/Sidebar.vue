@@ -16,10 +16,11 @@
                 item.name !== 'nuzlockes' ||
                 (item.name === 'nuzlockes' && getUser)
               "
-              class="py-4 pl-12 sidebar-item"
+              class="py-4 sidebar-item"
               :class="$route.name === item.name ? 'sidebar-item-active' : ''"
               no-gutters
               align="center"
+              justify="center"
               v-ripple
               @click="changeView(item.name)"
             >
