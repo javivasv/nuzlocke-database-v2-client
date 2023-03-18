@@ -17,6 +17,7 @@
                 (item.name === 'nuzlockes' && getUser)
               "
               class="py-4 pl-12 sidebar-item"
+              :class="currentView === item.name ? 'sidebar-item-active' : ''"
               no-gutters
               align="center"
               v-ripple
@@ -48,6 +49,12 @@ import { mapGetters, mapActions } from "vuex";
 export default defineComponent({
   name: "Sidebar",
   components: {},
+  props: {
+    currentView: {
+      type: String,
+      default: "home",
+    },
+  },
   computed: {
     ...mapGetters("auth", {
       getUser: "GET_USER",
@@ -98,5 +105,13 @@ export default defineComponent({
 }
 .sidebar-item {
   cursor: pointer;
+  border-radius: 4px;
+}
+.sidebar-item:hover {
+  background-color: #9e9e9e4d;
+}
+.sidebar-item-active {
+  background-color: #ee1515;
+  color: #ffffff;
 }
 </style>

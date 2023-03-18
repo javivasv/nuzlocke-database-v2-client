@@ -3,7 +3,7 @@
     <v-row class="h-100" no-gutters>
       <v-col cols="2">
         <v-row class="h-100" no-gutters>
-          <Sidebar @changeView="changeView" />
+          <Sidebar :current-view="currentView" @changeView="changeView" />
         </v-row>
       </v-col>
       <v-col cols="10">
@@ -39,6 +39,7 @@ export default defineComponent({
   },
   methods: {
     changeView(view: string) {
+      this.currentView = view;
       this.$router.push(view);
     },
   },
