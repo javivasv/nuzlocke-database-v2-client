@@ -35,7 +35,7 @@ export const auth: Module<AuthState, State> = {
           .then((res) => {
             window.localStorage.setItem("pndb_token", res.data.token);
             const token = jwtDecode(res.data.token) as Token;
-            commit("SET_USER", { id: token.id, username: token.username });
+            commit("SET_USER", { _id: token._id, username: token.username });
             resolve(res.data);
           })
           .catch((error) => {
@@ -75,7 +75,7 @@ export const auth: Module<AuthState, State> = {
           .post(`${"http://localhost:5000/api"}/session`, data)
           .then((res) => {
             const token = jwtDecode(data.token) as Token;
-            commit("SET_USER", { id: token.id, username: token.username });
+            commit("SET_USER", { _id: token._id, username: token.username });
             resolve(res.data);
           })
           .catch((error) => {
