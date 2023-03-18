@@ -1,12 +1,32 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
+import Home from "../views/Home.vue";
+import Nuzlockes from "../views/Nuzlockes.vue";
+import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "home",
+    name: "dashboard",
     component: Dashboard,
+    children: [
+      {
+        path: "home",
+        name: "home",
+        component: Home,
+      },
+      {
+        path: "nuzlockes",
+        name: "nuzlockes",
+        component: Nuzlockes,
+      },
+      {
+        path: "about",
+        name: "about",
+        component: About,
+      },
+    ],
   },
   {
     path: "/login",
@@ -18,6 +38,24 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, _from, next) => {
+  const token = window.localStorage.getItem("pndb_token");
+
+  if (!token) {
+    if (to.name === "login" || to.name === "home" || to.name === "about") {
+      next();
+    } else {
+      next("/home");
+    }
+  } else {
+    if (to.name === "login") {
+      next("/home");
+    } else {
+      next();
+    }
+  }
 });
 
 export default router;

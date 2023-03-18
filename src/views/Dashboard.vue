@@ -14,9 +14,7 @@
           style="background-repeat: repeat"
           :style="{ backgroundImage: `url(${background})` }"
         >
-          <Home v-if="currentView === 'home'" />
-          <Nuzlockes v-if="currentView === 'nuzlockes'" />
-          <About v-if="currentView === 'about'" />
+          <router-view />
         </v-row>
       </v-col>
     </v-row>
@@ -26,17 +24,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
-import Home from "@/views/Home.vue";
-import Nuzlockes from "@/views/Nuzlockes.vue";
-import About from "@/views/About.vue";
 
 export default defineComponent({
   name: "Dashboard",
   components: {
     Sidebar,
-    Home,
-    Nuzlockes,
-    About,
   },
   data() {
     return {
@@ -47,7 +39,7 @@ export default defineComponent({
   },
   methods: {
     changeView(view: string) {
-      this.currentView = view;
+      this.$router.push(view);
     },
   },
 });

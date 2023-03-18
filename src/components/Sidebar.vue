@@ -10,18 +10,22 @@
             <span>PNDB</span>
           </v-row>
           <v-divider class="my-3"></v-divider>
-          <v-row
-            v-for="item in sidebarItems"
-            :key="item.name"
-            class="py-4 pl-12 sidebar-item"
-            no-gutters
-            align="center"
-            v-ripple
-            @click="changeView(item.name)"
-          >
-            <v-icon class="mr-2" :icon="item.icon"></v-icon>
-            <span>{{ item.title }}</span>
-          </v-row>
+          <template v-for="item in sidebarItems" :key="item.name">
+            <v-row
+              v-if="
+                item.name !== 'nuzlockes' ||
+                (item.name === 'nuzlockes' && getUser)
+              "
+              class="py-4 pl-12 sidebar-item"
+              no-gutters
+              align="center"
+              v-ripple
+              @click="changeView(item.name)"
+            >
+              <v-icon class="mr-2" :icon="item.icon"></v-icon>
+              <span>{{ item.title }}</span>
+            </v-row>
+          </template>
           <v-row class="py-4" no-gutters align="center" justify="center">
             <v-btn v-if="getUser" color="primary" block @click="logout()">
               <v-icon class="mr-2" icon="logout"></v-icon>
