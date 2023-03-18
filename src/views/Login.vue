@@ -14,103 +14,107 @@
                 class="w-100"
                 @submit.prevent="register()"
               >
-                <v-col>
-                  <v-row class="py-1" no-gutters>
-                    <v-text-field
-                      v-model="newUserData.username"
-                      label="Username"
-                      variant="outlined"
-                      :rules="usernameRules"
-                    ></v-text-field>
-                  </v-row>
-                  <v-row class="py-1" no-gutters>
-                    <v-text-field
-                      v-model="newUserData.password"
-                      label="Password"
-                      variant="outlined"
-                      type="password"
-                      :rules="passwordRules"
-                    ></v-text-field>
-                  </v-row>
-                  <v-row class="py-1" no-gutters>
-                    <v-text-field
-                      v-model="newUserData.passwordConfirmation"
-                      label="Password confirmation"
-                      variant="outlined"
-                      type="password"
-                      :rules="passwordConfirmationRules"
-                    ></v-text-field>
-                  </v-row>
-                  <v-row
-                    class="py-3"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <v-btn color="primary" type="submit">Register</v-btn>
-                  </v-row>
-                  <v-row
-                    class="pt-3"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span
-                      >Already have an account?
-                      <span
-                        class="form-action text-primary"
-                        @click="changeForm(false)"
-                        >Login</span
-                      ></span
+                <v-row no-gutters>
+                  <v-col>
+                    <v-row class="py-1" no-gutters>
+                      <v-text-field
+                        v-model="newUserData.username"
+                        label="Username"
+                        variant="outlined"
+                        :rules="usernameRules"
+                      ></v-text-field>
+                    </v-row>
+                    <v-row class="py-1" no-gutters>
+                      <v-text-field
+                        v-model="newUserData.password"
+                        label="Password"
+                        variant="outlined"
+                        type="password"
+                        :rules="passwordRules"
+                      ></v-text-field>
+                    </v-row>
+                    <v-row class="py-1" no-gutters>
+                      <v-text-field
+                        v-model="newUserData.passwordConfirmation"
+                        label="Password confirmation"
+                        variant="outlined"
+                        type="password"
+                        :rules="passwordConfirmationRules"
+                      ></v-text-field>
+                    </v-row>
+                    <v-row
+                      class="py-3"
+                      no-gutters
+                      align="center"
+                      justify="center"
                     >
-                  </v-row>
-                </v-col>
+                      <v-btn color="primary" type="submit">Register</v-btn>
+                    </v-row>
+                    <v-row
+                      class="pt-3"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <span
+                        >Already have an account?
+                        <span
+                          class="form-action text-primary"
+                          @click="changeForm(false)"
+                          >Login</span
+                        ></span
+                      >
+                    </v-row>
+                  </v-col>
+                </v-row>
               </v-form>
             </v-row>
             <v-row v-else no-gutters>
               <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
-                <v-col>
-                  <v-row class="py-1" no-gutters>
-                    <v-text-field
-                      v-model="userData.username"
-                      label="Username"
-                      variant="outlined"
-                      :rules="usernameRules"
-                    ></v-text-field>
-                  </v-row>
-                  <v-row class="py-1" no-gutters>
-                    <v-text-field
-                      v-model="userData.password"
-                      label="Password"
-                      variant="outlined"
-                      type="password"
-                      :rules="passwordRules"
-                    ></v-text-field>
-                  </v-row>
-                  <v-row
-                    class="py-3"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <v-btn color="primary" type="submit">Login</v-btn>
-                  </v-row>
-                  <v-row
-                    class="pt-3"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span
-                      >Don't have an account?
-                      <span
-                        class="form-action text-primary"
-                        @click="changeForm(true)"
-                        >Register</span
-                      ></span
+                <v-row no-gutters>
+                  <v-col>
+                    <v-row class="py-1" no-gutters>
+                      <v-text-field
+                        v-model="userData.username"
+                        label="Username"
+                        variant="outlined"
+                        :rules="usernameRules"
+                      ></v-text-field>
+                    </v-row>
+                    <v-row class="py-1" no-gutters>
+                      <v-text-field
+                        v-model="userData.password"
+                        label="Password"
+                        variant="outlined"
+                        type="password"
+                        :rules="passwordRules"
+                      ></v-text-field>
+                    </v-row>
+                    <v-row
+                      class="py-3"
+                      no-gutters
+                      align="center"
+                      justify="center"
                     >
-                  </v-row>
-                </v-col>
+                      <v-btn color="primary" type="submit">Login</v-btn>
+                    </v-row>
+                    <v-row
+                      class="pt-3"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <span
+                        >Don't have an account?
+                        <span
+                          class="form-action text-primary"
+                          @click="changeForm(true)"
+                          >Register</span
+                        ></span
+                      >
+                    </v-row>
+                  </v-col>
+                </v-row>
               </v-form>
             </v-row>
           </v-card>

@@ -14,6 +14,7 @@ export interface Nuzlocke {
   _id: string;
   name: string;
   game: string;
+  description: string;
   status: string;
   user: string;
   pokemon: Array<Pokemon>;

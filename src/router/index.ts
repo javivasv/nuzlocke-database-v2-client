@@ -3,6 +3,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Home from "../views/Home.vue";
 import Nuzlockes from "../views/Nuzlockes.vue";
 import About from "../views/About.vue";
+import NewNuzlocke from "../views/NewNuzlocke.vue";
 import Login from "../views/Login.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "about",
         name: "about",
         component: About,
+      },
+      {
+        path: "new-nuzlocke",
+        name: "new-nuzlocke",
+        component: NewNuzlocke,
       },
     ],
   },

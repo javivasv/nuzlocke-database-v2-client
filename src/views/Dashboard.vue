@@ -8,7 +8,6 @@
       </v-col>
       <v-col cols="10">
         <v-row
-          id="content"
           class="h-100"
           no-gutters
           style="background-repeat: repeat"

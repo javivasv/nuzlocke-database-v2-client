@@ -1,5 +1,5 @@
 <template>
-  <div class="content home">
+  <div id="home" class="content">
     <v-row class="h-100 w-100" no-gutters>
       <v-col class="pa-3" cols="8">
         <v-card class="pa-4 mb-4 w-100">
