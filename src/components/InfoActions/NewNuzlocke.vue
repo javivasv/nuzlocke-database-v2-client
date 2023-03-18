@@ -1,6 +1,6 @@
 <template>
   <v-card-title>
-    <v-btn color="secondary" @click="createNuzlocke()"> New nuzlocke </v-btn>
+    <v-btn color="secondary" @click="createNuzlocke()">Create nuzlocke</v-btn>
   </v-card-title>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
@@ -33,6 +33,7 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsNewNuzlocke",
+  emits: ["createNuzlocke"],
   components: {},
   computed: {},
   data() {
@@ -40,7 +41,7 @@ export default defineComponent({
   },
   methods: {
     createNuzlocke() {
-      console.log("CREATE NUZLOCKE");
+      this.$emit("createNuzlocke");
     },
   },
 });

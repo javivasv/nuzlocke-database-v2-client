@@ -7,7 +7,10 @@
     ></v-img>
     <v-card class="info-card px-4 pb-4 w-100">
       <Nuzlockes v-if="type === 'nuzlockes'" />
-      <NewNuzlocke v-if="type === 'new-nuzlocke'" />
+      <NewNuzlocke
+        v-if="type === 'new-nuzlocke'"
+        @createNuzlocke="createNuzlocke()"
+      />
     </v-card>
   </div>
 </template>
@@ -32,7 +35,11 @@ export default defineComponent({
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    createNuzlocke() {
+      this.$emit("createNuzlocke");
+    },
+  },
 });
 </script>
 

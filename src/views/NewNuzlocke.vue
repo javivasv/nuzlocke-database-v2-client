@@ -9,31 +9,34 @@
         </v-row>
         <v-row no-gutters>
           <v-card class="pa-4 w-100">
-            <v-form>
+            <v-form ref="nuzlockeForm">
               <v-row no-gutters>
                 <v-col>
-                  <v-row no-gutters>
+                  <v-row class="py-1" no-gutters>
                     <v-text-field
                       v-model="nuzlocke.name"
                       placeholder="Name"
                       variant="outlined"
                       color="secondary"
+                      :rules="nameRules"
                     ></v-text-field>
                   </v-row>
-                  <v-row no-gutters>
+                  <v-row class="py-1" no-gutters>
                     <v-text-field
                       v-model="nuzlocke.game"
                       placeholder="Game"
                       variant="outlined"
                       color="secondary"
+                      :rules="gameRules"
                     ></v-text-field>
                   </v-row>
-                  <v-row no-gutters>
+                  <v-row class="py-1" no-gutters>
                     <v-textarea
                       v-model="nuzlocke.description"
                       placeholder="Description"
                       variant="outlined"
                       color="secondary"
+                      no-resize
                     ></v-textarea>
                   </v-row>
                 </v-col>
@@ -43,7 +46,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card :type="'new-nuzlocke'" />
+        <Card :type="'new-nuzlocke'" @createNuzlocke="createNuzlocke()" />
       </v-col>
     </v-row>
   </div>
@@ -51,6 +54,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
   name: "NewNuzlocke",
@@ -65,11 +69,39 @@ export default defineComponent({
         game: "",
         description: "",
       },
+      nameRules: [(value: string) => this.required(value, "name")],
+      gameRules: [(value: string) => this.required(value, "game")],
     };
   },
   methods: {
+    ...mapActions("nuzlockes", {
+      createNewNuzlocke: "CREATE_NUZLOCKE",
+    }),
     toNuzlockes() {
       this.$router.push("nuzlockes");
+    },
+    required(value: string, type: string) {
+      if (value) return true;
+      return `You must enter a ${type}`;
+    },
+    async createNuzlocke() {
+      console.log("CREATE NUZLOCKE");
+
+      const { valid } = await (
+        this.$refs.nuzlockeForm as HTMLFormElement
+      ).validate();
+
+      if (!valid) {
+        return;
+      }
+
+      this.createNewNuzlocke(this.nuzlocke)
+        .then((res) => {
+          console.log("RES: ", res);
+        })
+        .catch((error) => {
+          console.log("ERROR: ", error);
+        });
     },
   },
 });

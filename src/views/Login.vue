@@ -21,6 +21,7 @@
                         v-model="newUserData.username"
                         label="Username"
                         variant="outlined"
+                        color="secondary"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
@@ -30,6 +31,7 @@
                         label="Password"
                         variant="outlined"
                         type="password"
+                        color="secondary"
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>
@@ -39,6 +41,7 @@
                         label="Password confirmation"
                         variant="outlined"
                         type="password"
+                        color="secondary"
                         :rules="passwordConfirmationRules"
                       ></v-text-field>
                     </v-row>
@@ -78,6 +81,7 @@
                         v-model="userData.username"
                         label="Username"
                         variant="outlined"
+                        color="secondary"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
@@ -87,6 +91,7 @@
                         label="Password"
                         variant="outlined"
                         type="password"
+                        color="secondary"
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>
