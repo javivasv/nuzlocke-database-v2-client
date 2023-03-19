@@ -97,9 +97,9 @@
                             align="center"
                             justify="center"
                           >
-                            <span>
-                              {{ pokemon.obtained }}
-                            </span>
+                            <v-icon
+                              :icon="obtainedIcon(pokemon.obtained)"
+                            ></v-icon>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
@@ -110,7 +110,7 @@
                             justify="center"
                           >
                             <v-icon
-                              v-if="pokemon.obtained !== 'notCaught'"
+                              v-if="pokemon.obtained !== 'not'"
                               :icon="
                                 pokemon.fainted ? 'heart_broken' : 'favorite'
                               "
@@ -201,7 +201,7 @@ export default defineComponent({
         gifted: false,
         hatched: false,
         traded: false,
-        notCaught: false,
+        not: false,
       },
     };
   },
@@ -240,7 +240,7 @@ export default defineComponent({
             (this.filters.gifted && pokemon.obtained !== "gifted") ||
             (this.filters.hatched && pokemon.obtained !== "hatched") ||
             (this.filters.traded && pokemon.obtained !== "traded") ||
-            (this.filters.notCaught && pokemon.obtained !== "notCaught")) &&
+            (this.filters.not && pokemon.obtained !== "not")) &&
           !this.filters[pokemon.obtained as keyof Filters]
         ) {
           return false;
@@ -254,6 +254,19 @@ export default defineComponent({
     updateFilter(filter: string) {
       this.filters[filter as keyof Filters] =
         !this.filters[filter as keyof Filters];
+    },
+    obtainedIcon(obtained: string) {
+      if (obtained === "caught") {
+        return "catching_pokemon";
+      } else if (obtained === "gifted") {
+        return "card_giftcard";
+      } else if (obtained === "hatched") {
+        return "egg";
+      } else if (obtained === "traded") {
+        return "sync_alt";
+      } else {
+        return "close";
+      }
     },
   },
 });

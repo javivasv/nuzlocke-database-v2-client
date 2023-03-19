@@ -59,5 +59,5 @@ export interface Filters {
   gifted: false;
   hatched: false;
   traded: false;
-  notCaught: false;
+  not: false;
 }

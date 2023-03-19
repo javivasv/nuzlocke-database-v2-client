@@ -47,6 +47,26 @@
       </v-col>
     </v-row>
   </v-card-text>
+  <v-divider class="my-3"></v-divider>
+  <v-card-text>
+    <v-row no-gutters>
+      <v-col>
+        <v-row class="py-1" no-gutters align="center" justify="center">
+          <span>
+            Not all the pokemon listed have a sprite and not all the pokemon
+            that have one, have a sprite with the shiny coloration. This data
+            comes from the
+            <a
+              class="website-link"
+              href="https://pokeapi.co/docs/v2"
+              target="_blank"
+              >PokeAPI V2</a
+            >
+          </span>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-card-text>
 </template>
 
 <script lang="ts">

@@ -131,12 +131,12 @@ export default defineComponent({
         },
         nickname: "",
         location: "",
-        obtained: "caught",
+        obtained: "Caught",
         original: false,
         sprite: "",
         fainted: false,
       },
-      obtained: ["caught", "gifted", "hatched", "traded", "not"],
+      obtained: ["Caught", "Gifted", "Hatched", "Traded", "Not"],
       normalSpriteUrl: "",
       shinySpriteUrl: "",
       shiny: false,
@@ -148,8 +148,12 @@ export default defineComponent({
   mounted() {
     if (this.getPokemon.length === 0) {
       this.fetchPokemonList().then(() => {
-        //this.pokemon.species = "bulbasaur";
-        //this.pokemonSprite();
+        this.pokemon.species = {
+          codedSpecies: "bulbasaur",
+          formattedSpecies: "Bulbasaur",
+        };
+
+        this.pokemonSprite();
       });
     }
   },
@@ -218,6 +222,8 @@ export default defineComponent({
         this.pokemon.species.formattedSpecies =
           this.pokemon.species.codedSpecies;
       }
+
+      this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
 
       const data = {
         id: this.$route.params.id,

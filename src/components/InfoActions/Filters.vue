@@ -53,11 +53,11 @@
         @update:modelValue="updateFilter('traded', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="filters.notCaught"
+        v-model="filters.not"
         label="Not caught"
         hide-details
         color="secondary"
-        @update:modelValue="updateFilter('notCaught', $event)"
+        @update:modelValue="updateFilter('not', $event)"
       ></v-checkbox>
     </v-row>
   </v-card>
@@ -79,7 +79,7 @@ export default defineComponent({
         gifted: false,
         hatched: false,
         traded: false,
-        notCaught: false,
+        not: false,
       },
     };
   },
