@@ -34,7 +34,12 @@ export default defineComponent({
   },
   methods: {
     toAddPokemon() {
-      console.log("ADD POKEMON");
+      this.$router.push({
+        name: "pokemon-form",
+        params: {
+          id: this.$route.params.id,
+        },
+      });
     },
   },
 });

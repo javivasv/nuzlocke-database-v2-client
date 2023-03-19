@@ -7,19 +7,19 @@
     <v-row no-gutters>
       <v-col>
         <v-row class="py-1" no-gutters>
-          <span class="new-nuzlocke-info">
+          <span class="nuzlocke-form-info">
             <strong>Name:</strong>
             The name of the playthrough
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="new-nuzlocke-info">
+          <span class="nuzlocke-form-info">
             <strong>Game:</strong>
             The name of the game
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="new-nuzlocke-info">
+          <span class="nuzlocke-form-info">
             <strong>Description:</strong>
             Relevant information of the playthrough, such as extra rules
           </span>
@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "InfoActionsNewNuzlocke",
+  name: "InfoActionsNuzlockeForm",
   emits: ["createNuzlocke"],
   components: {},
   computed: {},
@@ -48,7 +48,7 @@ export default defineComponent({
 </script>
 
 <style>
-.new-nuzlocke-info {
+.nuzlocke-form-info {
   text-align: start;
 }
 </style>

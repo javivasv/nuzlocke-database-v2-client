@@ -1,5 +1,5 @@
 <template>
-  <div id="new-nuzlocke" class="content">
+  <div id="nuzlocke-form" class="content">
     <v-row class="h-100 w-100" no-gutters>
       <v-col class="pa-3" cols="8">
         <v-row class="py-3" no-gutters>
@@ -46,7 +46,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card :type="'new-nuzlocke'" @createNuzlocke="createNuzlocke()" />
+        <Card :type="'nuzlocke-form'" @createNuzlocke="createNuzlocke()" />
       </v-col>
     </v-row>
   </div>
@@ -57,7 +57,7 @@ import { defineComponent } from "vue";
 import { mapActions, mapMutations } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
-  name: "NewNuzlocke",
+  name: "NuzlockeForm",
   components: {
     Card,
   },
