@@ -12,7 +12,7 @@ export const pokemon: Module<PokemonState, State> = {
   getters: {},
   mutations: {},
   actions: {
-    ADD_POKEMON: ({ commit, rootGetters }, data: PokemonData) => {
+    ADD_POKEMON: ({ commit }, data: PokemonData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(

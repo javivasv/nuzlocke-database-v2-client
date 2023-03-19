@@ -34,7 +34,7 @@
                       <v-row no-gutters>
                         <v-text-field
                           v-if="pokemon.original"
-                          v-model="pokemon.species"
+                          v-model="pokemon.species.codedSpecies"
                           placeholder="Species"
                           variant="outlined"
                           color="secondary"
@@ -46,10 +46,10 @@
                           placeholder="Species"
                           variant="outlined"
                           color="secondary"
-                          :items="getPokemon"
-                          item-title="name"
-                          item-value="name"
-                          :return-object="false"
+                          :items="formattedSpecies()"
+                          item-title="formattedSpecies"
+                          item-value="codedSpecies"
+                          return-object
                           :rules="speciesRules"
                           @update:modelValue="pokemonSprite()"
                         ></v-autocomplete>
@@ -111,6 +111,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
+import { PokemonSpeciesDataFromApi } from "../store/interfaces/index";
 export default defineComponent({
   name: "PokemonForm",
   components: {
@@ -124,7 +125,10 @@ export default defineComponent({
   data() {
     return {
       pokemon: {
-        species: "",
+        species: {
+          codedSpecies: "",
+          formattedSpecies: "",
+        },
         nickname: "",
         location: "",
         obtained: "caught",
@@ -143,7 +147,10 @@ export default defineComponent({
   },
   mounted() {
     if (this.getPokemon.length === 0) {
-      this.fetchPokemonList();
+      this.fetchPokemonList().then(() => {
+        //this.pokemon.species = "bulbasaur";
+        //this.pokemonSprite();
+      });
     }
   },
   methods: {
@@ -166,7 +173,7 @@ export default defineComponent({
       });
     },
     pokemonSprite() {
-      this.fetchPokemon(this.pokemon.species)
+      this.fetchPokemon(this.pokemon.species.codedSpecies)
         .then((res) => {
           this.normalSpriteUrl = res.sprites.front_default
             ? res.sprites.front_default
@@ -186,7 +193,8 @@ export default defineComponent({
         });
     },
     pokemonOriginal() {
-      this.pokemon.species = "";
+      this.pokemon.species.codedSpecies = "";
+      this.pokemon.species.formattedSpecies = "";
       this.pokemon.sprite = "";
       this.normalSpriteUrl = "";
       this.shinySpriteUrl = "";
@@ -204,6 +212,11 @@ export default defineComponent({
 
       if (!valid) {
         return;
+      }
+
+      if (this.pokemon.original) {
+        this.pokemon.species.formattedSpecies =
+          this.pokemon.species.codedSpecies;
       }
 
       const data = {
@@ -224,6 +237,20 @@ export default defineComponent({
     required(value: string, type: string) {
       if (value) return true;
       return `You must enter a ${type}`;
+    },
+    formattedSpecies() {
+      return this.getPokemon.map((pokemon: PokemonSpeciesDataFromApi) => {
+        let unformattedSpecies = pokemon.name.split("-");
+
+        unformattedSpecies = unformattedSpecies.map((word: string) => {
+          return word.replace(word[0], word[0].toUpperCase());
+        });
+
+        return {
+          codedSpecies: pokemon.name,
+          formattedSpecies: unformattedSpecies.join(" "),
+        };
+      });
     },
   },
 });

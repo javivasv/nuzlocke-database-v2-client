@@ -61,9 +61,7 @@
                           >
                             <span>
                               {{
-                                pokemon.nickname !== ""
-                                  ? pokemon.nickname !== ""
-                                  : "-"
+                                pokemon.nickname !== "" ? pokemon.nickname : "-"
                               }}
                             </span>
                           </v-row>
@@ -76,7 +74,7 @@
                             justify="center"
                           >
                             <span>
-                              {{ pokemon.species }}
+                              {{ pokemon.species.formattedSpecies }}
                             </span>
                           </v-row>
                         </v-col>
@@ -224,7 +222,7 @@ export default defineComponent({
         if (
           this.search !== "" &&
           !pokemon.nickname.includes(this.search) &&
-          !pokemon.species.includes(this.search) &&
+          !pokemon.species.formattedSpecies.includes(this.search) &&
           !pokemon.location.includes(this.search)
         ) {
           return false;

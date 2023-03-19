@@ -24,7 +24,7 @@ export const pokeapi: Module<PokeapiState, State> = {
     FETCH_POKEMON_LIST: ({ commit, state }) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${"https://pokeapi.co/api/v2"}/pokemon-species/?limit=1010`)
+          .get(`${"https://pokeapi.co/api/v2"}/pokemon/?limit=1281`)
           .then((res) => {
             commit("SET_POKEMON", res.data.results);
             resolve(res.data);

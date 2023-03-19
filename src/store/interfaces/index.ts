@@ -22,13 +22,23 @@ export interface Nuzlocke {
 
 export interface Pokemon {
   _id: string;
-  species: string;
+  species: PokemonSpecies;
   nickname: string;
   location: string;
   obtained: string;
   original: boolean;
   sprite: string;
   fainted: boolean;
+}
+
+export interface PokemonSpecies {
+  codedSpecies: string;
+  formattedSpecies: string;
+}
+
+export interface PokemonSpeciesDataFromApi {
+  name: string;
+  url: string;
 }
 
 export interface PokemonData {
