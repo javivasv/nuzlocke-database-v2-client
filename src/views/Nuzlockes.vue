@@ -112,9 +112,6 @@ export default defineComponent({
     ...mapActions("nuzlockes", {
       fetchNuzlockes: "FETCH_NUZLOCKES",
     }),
-    checkNuzlocke(nuzlocke: Nuzlocke) {
-      console.log("NUZLOCKE: ", { ...nuzlocke });
-    },
     filteredNuzlockes() {
       if (this.search === "") {
         return this.getNuzlockes;
@@ -125,6 +122,14 @@ export default defineComponent({
           nuzlocke.name.includes(this.search) ||
           nuzlocke.game.includes(this.search)
       );
+    },
+    checkNuzlocke(nuzlocke: Nuzlocke) {
+      this.$router.push({
+        name: "nuzlocke",
+        params: {
+          id: nuzlocke._id,
+        },
+      });
     },
   },
 });

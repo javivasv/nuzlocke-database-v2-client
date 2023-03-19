@@ -11,6 +11,7 @@
         v-if="type === 'new-nuzlocke'"
         @createNuzlocke="createNuzlocke()"
       />
+      <Nuzlocke v-if="type === 'nuzlocke'" />
     </v-card>
   </div>
 </template>
@@ -19,11 +20,13 @@
 import { defineComponent } from "vue";
 import Nuzlockes from "./Nuzlockes.vue";
 import NewNuzlocke from "./NewNuzlocke.vue";
+import Nuzlocke from "./Nuzlocke.vue";
 export default defineComponent({
   name: "InfoActionsCard",
   components: {
     Nuzlockes,
     NewNuzlocke,
+    Nuzlocke,
   },
   props: {
     type: {

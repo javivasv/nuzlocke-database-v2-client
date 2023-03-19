@@ -175,7 +175,9 @@ export default defineComponent({
 
       this.doLogin(this.userData)
         .then(() => {
-          this.$router.push("home");
+          this.$router.push({
+            name: "home",
+          });
         })
         .catch((error) => {
           this.setSnackbarText(error.data.msg);

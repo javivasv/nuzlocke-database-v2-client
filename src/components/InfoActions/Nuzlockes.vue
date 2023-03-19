@@ -1,6 +1,6 @@
 <template>
   <v-card-title>
-    <v-btn color="secondary" @click="toNewNuzlocke()"> New nuzlocke </v-btn>
+    <v-btn color="secondary" @click="toNewNuzlocke()">New nuzlocke</v-btn>
   </v-card-title>
   <v-divider class="my-3"></v-divider>
   <v-card-subtitle>
@@ -52,7 +52,9 @@ export default defineComponent({
   },
   methods: {
     toNewNuzlocke() {
-      this.$router.push("new-nuzlocke");
+      this.$router.push({
+        name: "new-nuzlocke",
+      });
     },
   },
 });

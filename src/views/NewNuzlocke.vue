@@ -81,7 +81,9 @@ export default defineComponent({
       setSnackbarText: "SET_SNACKBAR_TEXT",
     }),
     toNuzlockes() {
-      this.$router.push("nuzlockes");
+      this.$router.push({
+        name: "nuzlockes",
+      });
     },
     required(value: string, type: string) {
       if (value) return true;

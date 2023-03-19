@@ -37,7 +37,9 @@ export default defineComponent({
   },
   methods: {
     changeView(view: string) {
-      this.$router.push(view);
+      this.$router.push({
+        name: view,
+      });
     },
   },
 });

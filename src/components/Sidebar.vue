@@ -86,7 +86,9 @@ export default defineComponent({
       this.$emit("changeView", view);
     },
     login() {
-      this.$router.push("login");
+      this.$router.push({
+        name: "login",
+      });
     },
     logout() {
       this.doLogout();
