@@ -30,7 +30,7 @@
                       </v-col>
                     </v-row>
                     <v-row
-                      v-for="nuzlocke in getNuzlockes"
+                      v-for="nuzlocke in filteredNuzlockes()"
                       :key="nuzlocke._id"
                       class="nuzlocke-row py-3"
                       no-gutters
@@ -114,6 +114,17 @@ export default defineComponent({
     }),
     checkNuzlocke(nuzlocke: Nuzlocke) {
       console.log("NUZLOCKE: ", { ...nuzlocke });
+    },
+    filteredNuzlockes() {
+      if (this.search === "") {
+        return this.getNuzlockes;
+      }
+
+      return this.getNuzlockes.filter(
+        (nuzlocke: Nuzlocke) =>
+          nuzlocke.name.includes(this.search) ||
+          nuzlocke.game.includes(this.search)
+      );
     },
   },
 });
