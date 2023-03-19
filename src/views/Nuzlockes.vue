@@ -6,7 +6,7 @@
           <v-card class="pa-4 w-100">
             <v-row no-gutters>
               <v-col>
-                <v-row no-gutters>
+                <v-row class="mb-3" no-gutters>
                   <v-text-field
                     v-model="search"
                     prepend-inner-icon="search"
@@ -18,7 +18,7 @@
                 </v-row>
                 <v-row no-gutters>
                   <v-col>
-                    <v-row class="py-5" no-gutters>
+                    <v-row class="py-5 table-header" no-gutters>
                       <v-col
                         v-for="header in headers"
                         :key="header.name"

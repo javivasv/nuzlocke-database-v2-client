@@ -49,4 +49,10 @@ export default defineComponent({
 .content {
   width: 100%;
 }
+.table-header {
+  color: #ffffff;
+  background-color: #1685c5;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
 </style>
