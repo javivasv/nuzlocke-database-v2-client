@@ -27,9 +27,13 @@ export interface Pokemon {
   location: string;
   obtained: string;
   original: boolean;
-  number?: string;
   sprite?: string;
   fainted: boolean;
+}
+
+export interface PokemonData {
+  id: string;
+  pokemon: Pokemon;
 }
 
 export interface Video {

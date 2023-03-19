@@ -42,32 +42,63 @@
                         no-gutters
                       >
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
-                            {{ pokemon.sprite }}
+                          <v-row
+                            v-if="pokemon.sprite !== ''"
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
+                            <v-img :src="pokemon.sprite" height="100px"></v-img>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
                             {{ pokemon.nickname }}
                           </v-row>
                         </v-col>
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
                             {{ pokemon.species }}
                           </v-row>
                         </v-col>
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
                             {{ pokemon.location }}
                           </v-row>
                         </v-col>
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
                             {{ pokemon.obtained }}
                           </v-row>
                         </v-col>
                         <v-col cols="2">
-                          <v-row no-gutters align="center" justify="center">
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
                             {{ pokemon.status }}
                           </v-row>
                         </v-col>
