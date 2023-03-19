@@ -90,8 +90,6 @@ export default defineComponent({
       return `You must enter a ${type}`;
     },
     async createNuzlocke() {
-      console.log("CREATE NUZLOCKE");
-
       const { valid } = await (
         this.$refs.nuzlockeForm as HTMLFormElement
       ).validate();

@@ -15,6 +15,20 @@
                   <v-row v-if="pokemon.sprite !== ''" class="py-1" no-gutters>
                     <v-img :src="pokemon.sprite" height="150px"></v-img>
                   </v-row>
+                  <v-row
+                    v-if="shinySpriteUrl"
+                    class="py-1"
+                    style="padding-left: 45%"
+                    no-gutters
+                  >
+                    <v-checkbox
+                      v-model="shiny"
+                      label="Shiny"
+                      hide-details
+                      color="secondary"
+                      @update:modelValue="pokemonShiny()"
+                    ></v-checkbox>
+                  </v-row>
                   <v-row class="py-1" no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters>
@@ -24,8 +38,9 @@
                           placeholder="Species"
                           variant="outlined"
                           color="secondary"
+                          :rules="speciesRules"
                         ></v-text-field>
-                        <v-combobox
+                        <v-autocomplete
                           v-else
                           v-model="pokemon.species"
                           placeholder="Species"
@@ -35,8 +50,9 @@
                           item-title="name"
                           item-value="name"
                           :return-object="false"
+                          :rules="speciesRules"
                           @update:modelValue="pokemonSprite()"
-                        ></v-combobox>
+                        ></v-autocomplete>
                       </v-row>
                     </v-col>
                     <v-col cols="3">
@@ -65,6 +81,7 @@
                       placeholder="Location"
                       variant="outlined"
                       color="secondary"
+                      :rules="locationRules"
                     ></v-text-field>
                   </v-row>
                   <v-row class="py-1" no-gutters>
@@ -74,6 +91,7 @@
                       variant="outlined"
                       color="secondary"
                       :items="obtained"
+                      :rules="obtainedRules"
                     ></v-select>
                   </v-row>
                 </v-col>
@@ -115,6 +133,12 @@ export default defineComponent({
         fainted: false,
       },
       obtained: ["caught", "gifted", "hatched", "traded", "not"],
+      normalSpriteUrl: "",
+      shinySpriteUrl: "",
+      shiny: false,
+      speciesRules: [(value: string) => this.required(value, "species")],
+      locationRules: [(value: string) => this.required(value, "location")],
+      obtainedRules: [(value: string) => this.required(value, "obtained")],
     };
   },
   mounted() {
@@ -144,9 +168,18 @@ export default defineComponent({
     pokemonSprite() {
       this.fetchPokemon(this.pokemon.species)
         .then((res) => {
-          this.pokemon.sprite = res.sprites.front_default
+          this.normalSpriteUrl = res.sprites.front_default
             ? res.sprites.front_default
             : "";
+          this.shinySpriteUrl = res.sprites.front_shiny
+            ? res.sprites.front_shiny
+            : "";
+
+          if (this.shinySpriteUrl === "") {
+            this.shiny = false;
+          }
+
+          this.pokemonShiny();
         })
         .catch(() => {
           this.setSnackbarText("An error occured during the process");
@@ -155,8 +188,24 @@ export default defineComponent({
     pokemonOriginal() {
       this.pokemon.species = "";
       this.pokemon.sprite = "";
+      this.normalSpriteUrl = "";
+      this.shinySpriteUrl = "";
+      this.shiny = false;
     },
-    addPokemon() {
+    pokemonShiny() {
+      this.pokemon.sprite = this.shiny
+        ? this.shinySpriteUrl
+        : this.normalSpriteUrl;
+    },
+    async addPokemon() {
+      const { valid } = await (
+        this.$refs.pokemonForm as HTMLFormElement
+      ).validate();
+
+      if (!valid) {
+        return;
+      }
+
       const data = {
         id: this.$route.params.id,
         pokemon: {
@@ -171,6 +220,10 @@ export default defineComponent({
         .catch((error) => {
           this.setSnackbarText(error.data.msg);
         });
+    },
+    required(value: string, type: string) {
+      if (value) return true;
+      return `You must enter a ${type}`;
     },
   },
 });
