@@ -5,16 +5,18 @@
     </v-card-subtitle>
     <v-row no-gutters>
       <v-checkbox
-        v-model="aliveFilter"
+        v-model="filters.alive"
         label="Alive"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('alive', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="faintedFilter"
+        v-model="filters.fainted"
         label="Fainted"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('fainted', $event)"
       ></v-checkbox>
     </v-row>
     <v-divider class="my-3"></v-divider>
@@ -23,34 +25,39 @@
     </v-card-subtitle>
     <v-row no-gutters>
       <v-checkbox
-        v-model="caughtFilter"
+        v-model="filters.caught"
         label="Caught"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('caught', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="giftedFilter"
+        v-model="filters.gifted"
         label="Gifted"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('gifted', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="hatchedFilter"
+        v-model="filters.hatched"
         label="Hatched"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('hatched', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="tradedFilter"
+        v-model="filters.traded"
         label="Traded"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('traded', $event)"
       ></v-checkbox>
       <v-checkbox
-        v-model="notCaughtFilter"
+        v-model="filters.notCaught"
         label="Not caught"
         hide-details
         color="secondary"
+        @update:modelValue="updateFilter('notCaught', $event)"
       ></v-checkbox>
     </v-row>
   </v-card>
@@ -65,16 +72,22 @@ export default defineComponent({
   computed: {},
   data() {
     return {
-      aliveFilter: false,
-      faintedFilter: false,
-      caughtFilter: false,
-      giftedFilter: false,
-      hatchedFilter: false,
-      tradedFilter: false,
-      notCaughtFilter: false,
+      filters: {
+        alive: false,
+        fainted: false,
+        caught: false,
+        gifted: false,
+        hatched: false,
+        traded: false,
+        notCaught: false,
+      },
     };
   },
-  methods: {},
+  methods: {
+    updateFilter(filter: string) {
+      this.$emit("updateFilter", filter);
+    },
+  },
 });
 </script>
 

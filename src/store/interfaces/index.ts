@@ -23,11 +23,11 @@ export interface Nuzlocke {
 export interface Pokemon {
   _id: string;
   species: string;
-  nickname?: string;
+  nickname: string;
   location: string;
   obtained: string;
   original: boolean;
-  sprite?: string;
+  sprite: string;
   fainted: boolean;
 }
 
@@ -40,4 +40,14 @@ export interface Video {
   name: string;
   channel: string;
   url: string;
+}
+
+export interface Filters {
+  alive: false;
+  fainted: false;
+  caught: false;
+  gifted: false;
+  hatched: false;
+  traded: false;
+  notCaught: false;
 }

@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { State } from "../index";
 import axios from "axios";
-import { Nuzlocke, Pokemon } from "../interfaces/index";
+import { Nuzlocke } from "../interfaces/index";
 
 export interface NuzlockesState {
   nuzlockes: [];

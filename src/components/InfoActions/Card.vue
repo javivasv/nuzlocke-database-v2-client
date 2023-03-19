@@ -16,7 +16,7 @@
       <PokemonForm v-if="type === 'pokemon-form'" @addPokemon="addPokemon()" />
       <Nuzlocke v-if="type === 'nuzlocke'" />
     </v-card>
-    <Filters v-if="type === 'nuzlocke'" />
+    <Filters v-if="type === 'nuzlocke'" @updateFilter="updateFilter" />
   </div>
 </template>
 
@@ -52,6 +52,9 @@ export default defineComponent({
     },
     addPokemon() {
       this.$emit("addPokemon");
+    },
+    updateFilter(filter: string) {
+      this.$emit("updateFilter", filter);
     },
   },
 });

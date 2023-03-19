@@ -112,7 +112,11 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card v-if="getNuzlocke" :type="'nuzlocke'" />
+        <Card
+          v-if="getNuzlocke"
+          :type="'nuzlocke'"
+          @updateFilter="updateFilter"
+        />
       </v-col>
     </v-row>
   </div>
@@ -122,6 +126,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
+import { Pokemon, Filters } from "../store/interfaces/index";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
@@ -170,6 +175,15 @@ export default defineComponent({
           cols: 2,
         },
       ],
+      filters: {
+        alive: false,
+        fainted: false,
+        caught: false,
+        gifted: false,
+        hatched: false,
+        traded: false,
+        notCaught: false,
+      },
     };
   },
   methods: {
@@ -182,7 +196,42 @@ export default defineComponent({
       });
     },
     filteredPokemon() {
-      return this.getNuzlocke.pokemon;
+      let list = this.getNuzlocke.pokemon.filter((pokemon: Pokemon) => {
+        if (
+          this.search !== "" &&
+          !pokemon.nickname.includes(this.search) &&
+          !pokemon.species.includes(this.search) &&
+          !pokemon.location.includes(this.search)
+        ) {
+          return false;
+        }
+
+        if (
+          (this.filters.alive && !this.filters.fainted && pokemon.fainted) ||
+          (this.filters.fainted && !this.filters.alive && !pokemon.fainted)
+        ) {
+          return false;
+        }
+
+        if (
+          ((this.filters.caught && pokemon.obtained !== "caught") ||
+            (this.filters.gifted && pokemon.obtained !== "gifted") ||
+            (this.filters.hatched && pokemon.obtained !== "hatched") ||
+            (this.filters.traded && pokemon.obtained !== "traded") ||
+            (this.filters.notCaught && pokemon.obtained !== "notCaught")) &&
+          !this.filters[pokemon.obtained as keyof Filters]
+        ) {
+          return false;
+        }
+
+        return true;
+      });
+
+      return list;
+    },
+    updateFilter(filter: string) {
+      this.filters[filter as keyof Filters] =
+        !this.filters[filter as keyof Filters];
     },
   },
 });
