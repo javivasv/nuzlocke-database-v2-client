@@ -5,6 +5,7 @@ import { Nuzlocke } from "../interfaces/index";
 
 export interface NuzlockesState {
   nuzlockes: [];
+  nuzlocke: null;
 }
 
 export const nuzlockes: Module<NuzlockesState, State> = {
@@ -12,13 +13,18 @@ export const nuzlockes: Module<NuzlockesState, State> = {
   namespaced: true,
   state: {
     nuzlockes: [],
+    nuzlocke: null,
   },
   getters: {
     GET_NUZLOCKES: (state: NuzlockesState) => state.nuzlockes,
+    GET_NUZLOCKE: (state: NuzlockesState) => state.nuzlocke,
   },
   mutations: {
     SET_NUZLOCKES: (state: NuzlockesState, nuzlockes: []) => {
       state.nuzlockes = nuzlockes;
+    },
+    SET_NUZLOCKE: (state: NuzlockesState, nuzlocke: null) => {
+      state.nuzlocke = nuzlocke;
     },
   },
   actions: {
@@ -41,6 +47,19 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           .post(`${"http://localhost:5000/api"}/nuzlockes`, data)
           .then((res) => {
             commit("SET_NUZLOCKES", res.data.nuzlockes);
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
+    FETCH_NUZLOCKE: ({ commit, state }, id: string) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
+          .then((res) => {
+            commit("SET_NUZLOCKE", res.data.nuzlocke);
             resolve(res.data);
           })
           .catch((error) => {

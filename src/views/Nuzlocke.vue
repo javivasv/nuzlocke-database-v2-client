@@ -16,7 +16,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card :type="'nuzlocke'" />
+        <Card v-if="getNuzlocke" :type="'nuzlocke'" />
       </v-col>
     </v-row>
   </div>
@@ -24,17 +24,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
     Card,
   },
-  computed: {},
+  computed: {
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
+    }),
+  },
+  mounted() {
+    this.fetchNuzlocke(this.$route.params.id);
+  },
   data() {
     return {};
   },
   methods: {
+    ...mapActions("nuzlockes", {
+      fetchNuzlocke: "FETCH_NUZLOCKE",
+    }),
     toNuzlockes() {
       this.$router.push({
         name: "nuzlockes",
