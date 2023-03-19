@@ -10,7 +10,72 @@
         <v-row no-gutters>
           <v-card class="pa-4 w-100">
             <v-row no-gutters>
-              <v-col></v-col>
+              <v-col>
+                <v-row no-gutters>
+                  <v-text-field
+                    v-model="search"
+                    prepend-inner-icon="search"
+                    placeholder="Search"
+                    hide-details
+                    variant="outlined"
+                    color="secondary"
+                  ></v-text-field>
+                </v-row>
+                <v-row no-gutters>
+                  <v-col>
+                    <v-row class="py-5" no-gutters>
+                      <v-col
+                        v-for="header in headers"
+                        :key="header.name"
+                        :cols="header.cols"
+                      >
+                        <v-row no-gutters align="center" justify="center">
+                          {{ header.text }}
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                    <template v-if="getNuzlocke">
+                      <v-row
+                        v-for="pokemon in filteredPokemon()"
+                        :key="pokemon._id"
+                        class="pokemon-row py-3"
+                        no-gutters
+                      >
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.sprite }}
+                          </v-row>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.nickname }}
+                          </v-row>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.species }}
+                          </v-row>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.location }}
+                          </v-row>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.obtained }}
+                          </v-row>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-row no-gutters align="center" justify="center">
+                            {{ pokemon.status }}
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </template>
+                  </v-col>
+                </v-row>
+              </v-col>
             </v-row>
           </v-card>
         </v-row>
@@ -40,7 +105,41 @@ export default defineComponent({
     this.fetchNuzlocke(this.$route.params.id);
   },
   data() {
-    return {};
+    return {
+      search: "",
+      headers: [
+        {
+          name: "sprite",
+          text: "",
+          cols: 2,
+        },
+        {
+          name: "nickname",
+          text: "Nickname",
+          cols: 2,
+        },
+        {
+          name: "species",
+          text: "Species",
+          cols: 2,
+        },
+        {
+          name: "location",
+          text: "Location",
+          cols: 2,
+        },
+        {
+          name: "obtained",
+          text: "Obtained",
+          cols: 2,
+        },
+        {
+          name: "status",
+          text: "Status",
+          cols: 2,
+        },
+      ],
+    };
   },
   methods: {
     ...mapActions("nuzlockes", {
@@ -51,8 +150,18 @@ export default defineComponent({
         name: "nuzlockes",
       });
     },
+    filteredPokemon() {
+      return this.getNuzlocke.pokemon;
+    },
   },
 });
 </script>
 
-<style></style>
+<style>
+.pokemon-row {
+  cursor: pointer;
+}
+.pokemon-row:hover {
+  background-color: #9e9e9e4d;
+}
+</style>
