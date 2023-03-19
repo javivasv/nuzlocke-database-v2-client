@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
   name: "NewNuzlocke",
@@ -77,6 +77,9 @@ export default defineComponent({
     ...mapActions("nuzlockes", {
       createNewNuzlocke: "CREATE_NUZLOCKE",
     }),
+    ...mapMutations("notifications", {
+      setSnackbarText: "SET_SNACKBAR_TEXT",
+    }),
     toNuzlockes() {
       this.$router.push("nuzlockes");
     },
@@ -96,11 +99,11 @@ export default defineComponent({
       }
 
       this.createNewNuzlocke(this.nuzlocke)
-        .then((res) => {
-          console.log("RES: ", res);
+        .then(() => {
+          this.toNuzlockes();
         })
         .catch((error) => {
-          console.log("ERROR: ", error);
+          this.setSnackbarText(error.data.msg);
         });
     },
   },

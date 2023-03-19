@@ -40,6 +40,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
         axios
           .post(`${"http://localhost:5000/api"}/nuzlockes`, data)
           .then((res) => {
+            commit("SET_NUZLOCKES", res.data.nuzlockes);
             resolve(res.data);
           })
           .catch((error) => {

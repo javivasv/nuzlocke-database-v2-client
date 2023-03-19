@@ -82,7 +82,9 @@ export default defineComponent({
     }),
   },
   mounted() {
-    this.fetchNuzlockes();
+    if (this.getNuzlockes.length === 0) {
+      this.fetchNuzlockes();
+    }
   },
   data() {
     return {
