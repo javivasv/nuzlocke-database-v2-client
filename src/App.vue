@@ -14,14 +14,10 @@ export default {
   },
   mounted() {
     this.validateSession();
-    this.fetchVideos();
   },
   methods: {
     ...mapActions("auth", {
       validateSession: "VALIDATE_SESSION",
-    }),
-    ...mapActions("videos", {
-      fetchVideos: "FETCH_VIDEOS",
     }),
   },
 };

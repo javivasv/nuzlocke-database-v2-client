@@ -59,7 +59,13 @@
                             align="center"
                             justify="center"
                           >
-                            {{ pokemon.nickname }}
+                            <span>
+                              {{
+                                pokemon.nickname !== ""
+                                  ? pokemon.nickname !== ""
+                                  : "-"
+                              }}
+                            </span>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
@@ -69,7 +75,9 @@
                             align="center"
                             justify="center"
                           >
-                            {{ pokemon.species }}
+                            <span>
+                              {{ pokemon.species }}
+                            </span>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
@@ -79,7 +87,9 @@
                             align="center"
                             justify="center"
                           >
-                            {{ pokemon.location }}
+                            <span>
+                              {{ pokemon.location }}
+                            </span>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
@@ -89,7 +99,9 @@
                             align="center"
                             justify="center"
                           >
-                            {{ pokemon.obtained }}
+                            <span>
+                              {{ pokemon.obtained }}
+                            </span>
                           </v-row>
                         </v-col>
                         <v-col cols="2">
@@ -99,7 +111,13 @@
                             align="center"
                             justify="center"
                           >
-                            {{ pokemon.status }}
+                            <v-icon
+                              v-if="pokemon.obtained !== 'notCaught'"
+                              :icon="
+                                pokemon.fainted ? 'heart_broken' : 'favorite'
+                              "
+                            ></v-icon>
+                            <span v-else>-</span>
                           </v-row>
                         </v-col>
                       </v-row>
@@ -124,7 +142,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import { Pokemon, Filters } from "../store/interfaces/index";
 export default defineComponent({
@@ -136,6 +154,9 @@ export default defineComponent({
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
     }),
+  },
+  beforeUnmount() {
+    this.setNuzlocke(null);
   },
   mounted() {
     this.fetchNuzlocke(this.$route.params.id);
@@ -187,6 +208,9 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapMutations("nuzlockes", {
+      setNuzlocke: "SET_NUZLOCKE",
+    }),
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),

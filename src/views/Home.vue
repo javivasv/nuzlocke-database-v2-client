@@ -134,7 +134,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Video } from "../store/interfaces/index";
 export default defineComponent({
   name: "Home",
@@ -147,10 +147,20 @@ export default defineComponent({
       return [...this.getVideos].sort(() => Math.random() - 0.5);
     },
   },
+  mounted() {
+    if (this.getVideos.length === 0) {
+      this.fetchVideos();
+    }
+  },
   data() {
     return {
       currentVideo: 0,
     };
+  },
+  methods: {
+    ...mapActions("videos", {
+      fetchVideos: "FETCH_VIDEOS",
+    }),
   },
 });
 </script>
