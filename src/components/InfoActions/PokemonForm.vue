@@ -1,11 +1,11 @@
 <template>
-  <v-card-title>
+  <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="submitPokemon()">
       {{
         $route.name === "edit-pokemon-form" ? "Update pokemon" : "Add pokemon"
       }}
     </v-btn>
-  </v-card-title>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
     <v-row no-gutters>

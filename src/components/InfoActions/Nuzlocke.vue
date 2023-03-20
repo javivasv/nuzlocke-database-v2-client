@@ -1,7 +1,11 @@
 <template>
-  <v-card-title>
+  <v-row class="py-3" no-gutters align="center" justify="center">
+    <v-btn color="secondary" @click="toEditNuzlocke()">Update nuzlocke</v-btn>
+  </v-row>
+  <v-divider class="my-3"></v-divider>
+  <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="toAddPokemon()">Add pokemon</v-btn>
-  </v-card-title>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-row class="py-4" no-gutters align="center" justify="space-around">
     <v-btn
@@ -50,6 +54,14 @@ export default defineComponent({
     return {};
   },
   methods: {
+    toEditNuzlocke() {
+      this.$router.push({
+        name: "edit-nuzlocke-form",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
+      });
+    },
     toAddPokemon() {
       this.$router.push({
         name: "pokemon-form",

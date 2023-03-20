@@ -11,7 +11,7 @@
       <Nuzlockes v-if="type === 'nuzlockes'" />
       <NuzlockeForm
         v-if="type === 'nuzlocke-form'"
-        @createNuzlocke="createNuzlocke()"
+        @submitNuzlocke="submitNuzlocke()"
       />
       <PokemonForm
         v-if="type === 'pokemon-form'"
@@ -50,8 +50,8 @@ export default defineComponent({
     return {};
   },
   methods: {
-    createNuzlocke() {
-      this.$emit("createNuzlocke");
+    submitNuzlocke() {
+      this.$emit("submitNuzlocke");
     },
     submitPokemon() {
       this.$emit("submitPokemon");

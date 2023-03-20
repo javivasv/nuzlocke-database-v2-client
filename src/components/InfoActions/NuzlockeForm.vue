@@ -1,7 +1,13 @@
 <template>
-  <v-card-title>
-    <v-btn color="secondary" @click="createNuzlocke()">Create nuzlocke</v-btn>
-  </v-card-title>
+  <v-row class="py-3" no-gutters align="center" justify="center">
+    <v-btn color="secondary" @click="submitNuzlocke()">
+      {{
+        $route.name === "edit-nuzlocke-form"
+          ? "Update nuzlocke"
+          : "Create nuzlocke"
+      }}
+    </v-btn>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
     <v-row no-gutters>
@@ -33,15 +39,15 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsNuzlockeForm",
-  emits: ["createNuzlocke"],
+  emits: ["submitNuzlocke"],
   components: {},
   computed: {},
   data() {
     return {};
   },
   methods: {
-    createNuzlocke() {
-      this.$emit("createNuzlocke");
+    submitNuzlocke() {
+      this.$emit("submitNuzlocke");
     },
   },
 });

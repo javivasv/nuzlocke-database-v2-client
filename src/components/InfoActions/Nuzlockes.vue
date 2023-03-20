@@ -1,7 +1,7 @@
 <template>
-  <v-card-title>
+  <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="toNuzlockeForm()">New nuzlocke</v-btn>
-  </v-card-title>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-subtitle>
     <strong>Relevant websites</strong>

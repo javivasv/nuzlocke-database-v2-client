@@ -46,7 +46,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card :type="'nuzlocke-form'" @createNuzlocke="createNuzlocke()" />
+        <Card :type="'nuzlocke-form'" @submitNuzlocke="submitNuzlocke()" />
       </v-col>
     </v-row>
   </div>
@@ -54,14 +54,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
   name: "NuzlockeForm",
   components: {
     Card,
   },
-  computed: {},
+  computed: {
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
+    }),
+  },
   data() {
     return {
       nuzlocke: {
@@ -71,11 +75,26 @@ export default defineComponent({
       },
       nameRules: [(value: string) => this.required(value, "name")],
       gameRules: [(value: string) => this.required(value, "game")],
+      editMode: false,
     };
+  },
+  mounted() {
+    if (this.$route.name === "edit-nuzlocke-form") {
+      this.editMode = true;
+
+      this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+        this.nuzlocke = {
+          name: this.getNuzlocke.name,
+          game: this.getNuzlocke.game,
+          description: this.getNuzlocke.description,
+        };
+      });
+    }
   },
   methods: {
     ...mapActions("nuzlockes", {
       createNewNuzlocke: "CREATE_NUZLOCKE",
+      fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
     ...mapMutations("notifications", {
       setSnackbarText: "SET_SNACKBAR_TEXT",
@@ -89,7 +108,7 @@ export default defineComponent({
       if (value) return true;
       return `You must enter a ${type}`;
     },
-    async createNuzlocke() {
+    async submitNuzlocke() {
       const { valid } = await (
         this.$refs.nuzlockeForm as HTMLFormElement
       ).validate();
@@ -98,6 +117,13 @@ export default defineComponent({
         return;
       }
 
+      if (this.editMode) {
+        this.updateNuzlocke();
+      } else {
+        this.createNuzlocke();
+      }
+    },
+    async createNuzlocke() {
       this.createNewNuzlocke(this.nuzlocke)
         .then(() => {
           this.toNuzlockes();
@@ -105,6 +131,9 @@ export default defineComponent({
         .catch((error) => {
           this.setSnackbarText(error.data.msg);
         });
+    },
+    async updateNuzlocke() {
+      console.log("UPDATE");
     },
   },
 });
