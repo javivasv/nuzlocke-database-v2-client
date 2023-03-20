@@ -17,7 +17,7 @@
                 (item.name === 'nuzlockes' && getUser)
               "
               class="py-4 sidebar-item"
-              :class="$route.name === item.name ? 'sidebar-item-active' : ''"
+              :class="sidebarActiveItem(item.name)"
               no-gutters
               align="center"
               justify="center"
@@ -92,6 +92,21 @@ export default defineComponent({
     },
     logout() {
       this.doLogout();
+    },
+    sidebarActiveItem(itemName: string) {
+      if (this.$route.name === itemName) {
+        return "sidebar-item-active";
+      }
+
+      if (
+        itemName === "nuzlockes" &&
+        this.$route.name !== "home" &&
+        this.$route.name !== "about"
+      ) {
+        return "sidebar-item-active";
+      }
+
+      return "";
     },
   },
 });

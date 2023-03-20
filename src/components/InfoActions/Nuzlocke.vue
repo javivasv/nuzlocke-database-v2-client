@@ -3,9 +3,26 @@
     <v-btn color="secondary" @click="toAddPokemon()">Add pokemon</v-btn>
   </v-card-title>
   <v-divider class="my-3"></v-divider>
-  <v-card-subtitle>
-    <span><strong>Status:</strong> {{ getNuzlocke.status }}</span>
-  </v-card-subtitle>
+  <v-row class="py-4" no-gutters align="center" justify="space-around">
+    <v-btn
+      :class="getNuzlocke.status === 'started' ? 'current-status' : ''"
+      color="secondary"
+      :variant="getNuzlocke.status !== 'started' ? 'outlined' : 'flat'"
+      >Started</v-btn
+    >
+    <v-btn
+      :class="getNuzlocke.status === 'completed' ? 'current-status' : ''"
+      color="success"
+      :variant="getNuzlocke.status !== 'completed' ? 'outlined' : 'elevated'"
+      >Completed</v-btn
+    >
+    <v-btn
+      :class="getNuzlocke.status === 'lost' ? 'current-status' : ''"
+      color="error"
+      :variant="getNuzlocke.status !== 'lost' ? 'outlined' : 'elevated'"
+      >Lost</v-btn
+    >
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
     <v-row no-gutters>
@@ -45,4 +62,9 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.current-status {
+  pointer-events: none;
+  cursor: default;
+}
+</style>
