@@ -41,8 +41,13 @@ export interface PokemonSpeciesDataFromApi {
   url: string;
 }
 
-export interface PokemonData {
-  id: string;
+export interface CreatePokemonData {
+  nuzlockeId: string;
+  pokemon: Pokemon;
+}
+export interface UpdatePokemonData {
+  nuzlockeId: string;
+  pokemonId: string;
   pokemon: Pokemon;
 }
 

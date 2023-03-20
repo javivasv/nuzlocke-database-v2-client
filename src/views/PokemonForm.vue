@@ -101,7 +101,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card :type="'pokemon-form'" @addPokemon="addPokemon()" />
+        <Card :type="'pokemon-form'" @submitPokemon="submitPokemon()" />
       </v-col>
     </v-row>
   </div>
@@ -169,15 +169,10 @@ export default defineComponent({
 
     if (this.getPokemon.length === 0) {
       this.fetchPokemonList().then(() => {
-        if (!this.editMode) {
-          this.pokemon.species = {
-            codedSpecies: "bulbasaur",
-            formattedSpecies: "Bulbasaur",
-          };
-
-          this.pokemonSprite();
-        }
+        this.defaultPokemon();
       });
+    } else {
+      this.defaultPokemon();
     }
   },
   methods: {
@@ -190,6 +185,7 @@ export default defineComponent({
     }),
     ...mapActions("pokemon", {
       addNewPokemon: "ADD_POKEMON",
+      updateExistingPokemon: "UPDATE_POKEMON",
     }),
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
@@ -201,6 +197,16 @@ export default defineComponent({
           nuzlockeId: this.$route.params.nuzlockeId,
         },
       });
+    },
+    defaultPokemon() {
+      if (!this.editMode) {
+        this.pokemon.species = {
+          codedSpecies: "bulbasaur",
+          formattedSpecies: "Bulbasaur",
+        };
+
+        this.pokemonSprite();
+      }
     },
     pokemonSprite() {
       this.fetchPokemon(this.pokemon.species.codedSpecies)
@@ -239,7 +245,7 @@ export default defineComponent({
         ? this.shinySpriteUrl
         : this.normalSpriteUrl;
     },
-    async addPokemon() {
+    async submitPokemon() {
       const { valid } = await (
         this.$refs.pokemonForm as HTMLFormElement
       ).validate();
@@ -255,8 +261,15 @@ export default defineComponent({
 
       this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
 
+      if (this.editMode) {
+        this.updatePokemon();
+      } else {
+        this.addPokemon();
+      }
+    },
+    async addPokemon() {
       const data = {
-        id: this.$route.params.nuzlockeId,
+        nuzlockeId: this.$route.params.nuzlockeId,
         pokemon: {
           ...this.pokemon,
         },
@@ -287,6 +300,23 @@ export default defineComponent({
           formattedSpecies: unformattedSpecies.join(" "),
         };
       });
+    },
+    async updatePokemon() {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        pokemonId: this.$route.params.pokemonId,
+        pokemon: {
+          ...this.pokemon,
+        },
+      };
+
+      this.updateExistingPokemon(data)
+        .then(() => {
+          this.toNuzlocke();
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
   },
 });

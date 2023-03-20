@@ -1,6 +1,10 @@
 <template>
   <v-card-title>
-    <v-btn color="secondary" @click="addPokemon()">Add pokemon</v-btn>
+    <v-btn color="secondary" @click="submitPokemon()">
+      {{
+        $route.name === "edit-pokemon-form" ? "Update pokemon" : "Add pokemon"
+      }}
+    </v-btn>
   </v-card-title>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
@@ -73,15 +77,15 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsPokemonForm",
-  emits: ["addPokemon"],
+  emits: ["submitPokemon"],
   components: {},
   computed: {},
   data() {
     return {};
   },
   methods: {
-    addPokemon() {
-      this.$emit("addPokemon");
+    submitPokemon() {
+      this.$emit("submitPokemon");
     },
   },
 });
