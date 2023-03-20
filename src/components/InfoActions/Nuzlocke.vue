@@ -54,7 +54,7 @@ export default defineComponent({
       this.$router.push({
         name: "pokemon-form",
         params: {
-          id: this.$route.params.id,
+          nuzlockeId: this.$route.params.nuzlockeId,
         },
       });
     },

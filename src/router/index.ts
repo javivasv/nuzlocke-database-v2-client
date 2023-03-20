@@ -35,13 +35,18 @@ const routes: Array<RouteRecordRaw> = [
         component: NuzlockeForm,
       },
       {
-        path: "nuzlocke/:id",
+        path: "nuzlocke/:nuzlockeId",
         name: "nuzlocke",
         component: Nuzlocke,
       },
       {
-        path: "nuzlocke/:id/pokemon-form",
+        path: "nuzlocke/:nuzlockeId/pokemon-form",
         name: "pokemon-form",
+        component: PokemonForm,
+      },
+      {
+        path: "nuzlocke/:nuzlockeId/pokemon/:pokemonId",
+        name: "edit-pokemon-form",
         component: PokemonForm,
       },
     ],

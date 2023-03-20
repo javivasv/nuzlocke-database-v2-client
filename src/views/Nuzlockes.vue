@@ -127,7 +127,7 @@ export default defineComponent({
       this.$router.push({
         name: "nuzlocke",
         params: {
-          id: nuzlocke._id,
+          nuzlockeId: nuzlocke._id,
         },
       });
     },

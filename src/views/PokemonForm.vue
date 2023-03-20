@@ -111,7 +111,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
-import { PokemonSpeciesDataFromApi } from "../store/interfaces/index";
+import { Pokemon, PokemonSpeciesDataFromApi } from "../store/interfaces/index";
 export default defineComponent({
   name: "PokemonForm",
   components: {
@@ -120,6 +120,9 @@ export default defineComponent({
   computed: {
     ...mapGetters("pokeapi", {
       getPokemon: "GET_POKEMON",
+    }),
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
     }),
   },
   data() {
@@ -143,17 +146,37 @@ export default defineComponent({
       speciesRules: [(value: string) => this.required(value, "species")],
       locationRules: [(value: string) => this.required(value, "location")],
       obtainedRules: [(value: string) => this.required(value, "obtained")],
+      editMode: false,
     };
   },
   mounted() {
-    if (this.getPokemon.length === 0) {
-      this.fetchPokemonList().then(() => {
-        this.pokemon.species = {
-          codedSpecies: "bulbasaur",
-          formattedSpecies: "Bulbasaur",
+    if (this.$route.name === "edit-pokemon-form") {
+      this.editMode = true;
+
+      this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+        let toEditPokemon = {
+          ...this.getNuzlocke.pokemon.find(
+            (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
+          ),
         };
 
+        delete toEditPokemon._id;
+
+        this.pokemon = toEditPokemon;
         this.pokemonSprite();
+      });
+    }
+
+    if (this.getPokemon.length === 0) {
+      this.fetchPokemonList().then(() => {
+        if (!this.editMode) {
+          this.pokemon.species = {
+            codedSpecies: "bulbasaur",
+            formattedSpecies: "Bulbasaur",
+          };
+
+          this.pokemonSprite();
+        }
       });
     }
   },
@@ -168,11 +191,14 @@ export default defineComponent({
     ...mapActions("pokemon", {
       addNewPokemon: "ADD_POKEMON",
     }),
+    ...mapActions("nuzlockes", {
+      fetchNuzlocke: "FETCH_NUZLOCKE",
+    }),
     toNuzlocke() {
       this.$router.push({
         name: "nuzlocke",
         params: {
-          id: this.$route.params.id,
+          nuzlockeId: this.$route.params.nuzlockeId,
         },
       });
     },
@@ -185,6 +211,10 @@ export default defineComponent({
           this.shinySpriteUrl = res.sprites.front_shiny
             ? res.sprites.front_shiny
             : "";
+
+          if (this.editMode) {
+            this.shiny = this.shinySpriteUrl === this.pokemon.sprite;
+          }
 
           if (this.shinySpriteUrl === "") {
             this.shiny = false;
@@ -226,7 +256,7 @@ export default defineComponent({
       this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
 
       const data = {
-        id: this.$route.params.id,
+        id: this.$route.params.nuzlockeId,
         pokemon: {
           ...this.pokemon,
         },

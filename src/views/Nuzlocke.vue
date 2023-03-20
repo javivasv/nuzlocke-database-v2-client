@@ -40,6 +40,7 @@
                         :key="pokemon._id"
                         class="pokemon-row py-3"
                         no-gutters
+                        @click="toEditPokemon(pokemon._id)"
                       >
                         <v-col cols="2">
                           <v-row
@@ -157,7 +158,7 @@ export default defineComponent({
     this.setNuzlocke(null);
   },
   mounted() {
-    this.fetchNuzlocke(this.$route.params.id);
+    this.fetchNuzlocke(this.$route.params.nuzlockeId);
   },
   data() {
     return {
@@ -267,6 +268,15 @@ export default defineComponent({
       } else {
         return "close";
       }
+    },
+    toEditPokemon(id: string) {
+      this.$router.push({
+        name: "edit-pokemon-form",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+          pokemonId: id,
+        },
+      });
     },
   },
 });
