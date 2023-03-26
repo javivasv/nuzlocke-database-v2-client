@@ -12,20 +12,26 @@
       :class="getNuzlocke.status === 'started' ? 'current-status' : ''"
       color="secondary"
       :variant="getNuzlocke.status !== 'started' ? 'outlined' : 'flat'"
-      >Started</v-btn
+      @click="updateNuzlockeStatus('started')"
     >
+      Started
+    </v-btn>
     <v-btn
       :class="getNuzlocke.status === 'completed' ? 'current-status' : ''"
       color="success"
       :variant="getNuzlocke.status !== 'completed' ? 'outlined' : 'elevated'"
-      >Completed</v-btn
+      @click="updateNuzlockeStatus('completed')"
     >
+      Completed
+    </v-btn>
     <v-btn
       :class="getNuzlocke.status === 'lost' ? 'current-status' : ''"
       color="error"
       :variant="getNuzlocke.status !== 'lost' ? 'outlined' : 'elevated'"
-      >Lost</v-btn
+      @click="updateNuzlockeStatus('lost')"
     >
+      Lost
+    </v-btn>
   </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
@@ -41,7 +47,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default defineComponent({
   name: "InfoActionsNuzlocke",
   components: {},
@@ -54,6 +60,12 @@ export default defineComponent({
     return {};
   },
   methods: {
+    ...mapMutations("notifications", {
+      setSnackbarText: "SET_SNACKBAR_TEXT",
+    }),
+    ...mapActions("nuzlockes", {
+      updateExistingNuzlocke: "UPDATE_NUZLOCKE",
+    }),
     toEditNuzlocke() {
       this.$router.push({
         name: "edit-nuzlocke-form",
@@ -69,6 +81,22 @@ export default defineComponent({
           nuzlockeId: this.$route.params.nuzlockeId,
         },
       });
+    },
+    updateNuzlockeStatus(status: string) {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        nuzlocke: {
+          status,
+        },
+      };
+
+      this.updateExistingNuzlocke(data)
+        .then(() => {
+          console.log("UPDATED");
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
   },
 });
