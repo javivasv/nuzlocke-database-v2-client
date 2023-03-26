@@ -28,6 +28,10 @@
               <span>{{ item.title }}</span>
             </v-row>
           </template>
+          <v-row
+            :class="getUser ? 'empty-space-1' : 'empty-space-2'"
+            no-gutters
+          ></v-row>
           <v-row class="py-4" no-gutters align="center" justify="center">
             <v-btn v-if="getUser" color="primary" block @click="logout()">
               <v-icon class="mr-2" icon="logout"></v-icon>
@@ -126,5 +130,11 @@ export default defineComponent({
 .sidebar-item-active {
   background-color: #ee1515;
   color: #ffffff;
+}
+.empty-space-1 {
+  height: calc(100% - 333px);
+}
+.empty-space-2 {
+  height: calc(100% - 277px);
 }
 </style>

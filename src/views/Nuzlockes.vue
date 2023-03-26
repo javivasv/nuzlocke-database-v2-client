@@ -32,7 +32,7 @@
                     <v-row
                       v-for="nuzlocke in filteredNuzlockes()"
                       :key="nuzlocke._id"
-                      class="nuzlocke-row py-3"
+                      class="nuzlocke-row py-5"
                       no-gutters
                       @click="checkNuzlocke(nuzlocke)"
                     >
