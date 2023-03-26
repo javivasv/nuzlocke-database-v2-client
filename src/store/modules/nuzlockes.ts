@@ -83,5 +83,17 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           });
       });
     },
+    DELETE_NUZLOCKE: ({ commit }, id: string) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
   },
 };

@@ -2,6 +2,11 @@
   <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="toEditNuzlocke()">Update nuzlocke</v-btn>
   </v-row>
+  <v-row class="py-3" no-gutters align="center" justify="center">
+    <v-btn color="error" variant="outlined" @click="deleteNuzlocke()">
+      Delete nuzlocke
+    </v-btn>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="toAddPokemon()">Add pokemon</v-btn>
@@ -65,6 +70,8 @@ export default defineComponent({
     }),
     ...mapActions("nuzlockes", {
       updateExistingNuzlocke: "UPDATE_NUZLOCKE",
+      deleteExistingNuzlocke: "DELETE_NUZLOCKE",
+      fetchNuzlockes: "FETCH_NUZLOCKES",
     }),
     toEditNuzlocke() {
       this.$router.push({
@@ -93,6 +100,19 @@ export default defineComponent({
       this.updateExistingNuzlocke(data)
         .then(() => {
           console.log("UPDATED");
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
+    },
+    deleteNuzlocke() {
+      this.deleteExistingNuzlocke(this.$route.params.nuzlockeId)
+        .then(() => {
+          this.fetchNuzlockes().then(() => {
+            this.$router.push({
+              name: "nuzlockes",
+            });
+          });
         })
         .catch((error) => {
           this.setSnackbarText(error.data.msg);
