@@ -95,6 +95,7 @@ export default defineComponent({
     ...mapActions("nuzlockes", {
       createNewNuzlocke: "CREATE_NUZLOCKE",
       fetchNuzlocke: "FETCH_NUZLOCKE",
+      updateExistingNuzlocke: "UPDATE_NUZLOCKE",
     }),
     ...mapMutations("notifications", {
       setSnackbarText: "SET_SNACKBAR_TEXT",
@@ -148,7 +149,20 @@ export default defineComponent({
         });
     },
     async updateNuzlocke() {
-      console.log("UPDATE");
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        nuzlocke: {
+          ...this.nuzlocke,
+        },
+      };
+
+      this.updateExistingNuzlocke(data)
+        .then(() => {
+          this.toNuzlocke();
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
   },
 });

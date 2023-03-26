@@ -158,7 +158,9 @@ export default defineComponent({
     this.setNuzlocke(null);
   },
   mounted() {
-    this.fetchNuzlocke(this.$route.params.nuzlockeId);
+    if (!this.getNuzlocke) {
+      this.fetchNuzlocke(this.$route.params.nuzlockeId);
+    }
   },
   data() {
     return {

@@ -20,6 +20,11 @@ export interface Nuzlocke {
   pokemon: Array<Pokemon>;
 }
 
+export interface UpdateNuzlockeData {
+  nuzlockeId: string;
+  nuzlocke: Nuzlocke;
+}
+
 export interface Pokemon {
   _id: string;
   species: PokemonSpecies;
