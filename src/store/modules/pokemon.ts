@@ -1,7 +1,11 @@
 import { Module } from "vuex";
 import { State } from "../index";
 import axios from "axios";
-import { CreatePokemonData, UpdatePokemonData } from "../interfaces/index";
+import {
+  CreatePokemonData,
+  UpdatePokemonData,
+  DeletePokemonData,
+} from "../interfaces/index";
 
 export interface PokemonState {}
 
@@ -48,7 +52,7 @@ export const pokemon: Module<PokemonState, State> = {
           });
       });
     },
-    DELETE_POKEMON: ({ commit }, data: UpdatePokemonData) => {
+    DELETE_POKEMON: ({ commit }, data: DeletePokemonData) => {
       return new Promise((resolve, reject) => {
         axios
           .delete(

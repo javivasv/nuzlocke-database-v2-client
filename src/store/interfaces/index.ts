@@ -11,13 +11,13 @@ export interface UserData {
 }
 
 export interface Nuzlocke {
-  _id: string;
+  _id?: string;
   name: string;
   game: string;
   description: string;
-  status: string;
-  user: string;
-  pokemon: Array<Pokemon>;
+  status?: string;
+  user?: string;
+  pokemon?: Array<Pokemon>;
 }
 
 export interface UpdateNuzlockeData {
@@ -26,7 +26,7 @@ export interface UpdateNuzlockeData {
 }
 
 export interface Pokemon {
-  _id: string;
+  _id?: string;
   species: PokemonSpecies;
   nickname: string;
   location: string;
@@ -41,11 +41,6 @@ export interface PokemonSpecies {
   formattedSpecies: string;
 }
 
-export interface PokemonSpeciesDataFromApi {
-  name: string;
-  url: string;
-}
-
 export interface CreatePokemonData {
   nuzlockeId: string;
   pokemon: Pokemon;
@@ -54,6 +49,16 @@ export interface UpdatePokemonData {
   nuzlockeId: string;
   pokemonId: string;
   pokemon: Pokemon;
+}
+
+export interface DeletePokemonData {
+  nuzlockeId: string;
+  pokemonId: string;
+}
+
+export interface PokemonSpeciesDataFromApi {
+  name: string;
+  url: string;
 }
 
 export interface Video {
