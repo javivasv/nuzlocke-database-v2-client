@@ -3,7 +3,7 @@
     <v-row class="h-100 w-100" no-gutters>
       <v-col class="pa-3" cols="8">
         <v-row class="py-3" no-gutters>
-          <v-btn icon @click="toNuzlockes()">
+          <v-btn icon @click="to()">
             <v-icon icon="arrow_back"></v-icon>
           </v-btn>
         </v-row>
@@ -99,6 +99,21 @@ export default defineComponent({
     ...mapMutations("notifications", {
       setSnackbarText: "SET_SNACKBAR_TEXT",
     }),
+    to() {
+      if (this.editMode) {
+        this.toNuzlocke();
+      } else {
+        this.toNuzlockes();
+      }
+    },
+    toNuzlocke() {
+      this.$router.push({
+        name: "nuzlocke",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
+      });
+    },
     toNuzlockes() {
       this.$router.push({
         name: "nuzlockes",
