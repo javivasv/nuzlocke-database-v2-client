@@ -48,5 +48,21 @@ export const pokemon: Module<PokemonState, State> = {
           });
       });
     },
+    DELETE_POKEMON: ({ commit }, data: UpdatePokemonData) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(
+            `${"http://localhost:5000/api"}/nuzlocke/${
+              data.nuzlockeId
+            }/pokemon/${data.pokemonId}`
+          )
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
   },
 };

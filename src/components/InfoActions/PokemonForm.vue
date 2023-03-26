@@ -6,6 +6,17 @@
       }}
     </v-btn>
   </v-row>
+  <v-row
+    v-if="$route.name === 'edit-pokemon-form'"
+    class="py-3"
+    no-gutters
+    align="center"
+    justify="center"
+  >
+    <v-btn color="error" variant="outlined" @click="deletePokemon()">
+      Delete pokemon
+    </v-btn>
+  </v-row>
   <v-divider class="my-3"></v-divider>
   <v-card-text>
     <v-row no-gutters>
@@ -75,6 +86,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapMutations, mapActions } from "vuex";
 export default defineComponent({
   name: "InfoActionsPokemonForm",
   emits: ["submitPokemon"],
@@ -84,8 +96,41 @@ export default defineComponent({
     return {};
   },
   methods: {
+    ...mapMutations("notifications", {
+      setSnackbarText: "SET_SNACKBAR_TEXT",
+    }),
+    ...mapActions("pokemon", {
+      deleteExistingPokemon: "DELETE_POKEMON",
+    }),
+    ...mapActions("nuzlockes", {
+      fetchNuzlocke: "FETCH_NUZLOCKE",
+    }),
     submitPokemon() {
       this.$emit("submitPokemon");
+    },
+    toNuzlocke() {
+      this.$router.push({
+        name: "nuzlocke",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
+      });
+    },
+    deletePokemon() {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        pokemonId: this.$route.params.pokemonId,
+      };
+
+      this.deleteExistingPokemon(data)
+        .then(() => {
+          this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+            this.toNuzlocke();
+          });
+        })
+        .catch((error) => {
+          this.setSnackbarText(error.data.msg);
+        });
     },
   },
 });
