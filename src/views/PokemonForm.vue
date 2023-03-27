@@ -163,6 +163,10 @@ export default defineComponent({
         delete toEditPokemon._id;
 
         this.pokemon = toEditPokemon;
+        this.pokemon.obtained =
+          this.obtained.find(
+            (option) => option.toLowerCase() === toEditPokemon.obtained
+          ) || toEditPokemon.obtained;
         this.pokemonSprite();
       });
     }
