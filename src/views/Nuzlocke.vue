@@ -70,7 +70,7 @@
                                 align="center"
                                 justify="center"
                               >
-                                <span>
+                                <span class="table-text">
                                   {{
                                     pokemon.nickname !== ""
                                       ? pokemon.nickname
@@ -86,7 +86,7 @@
                                 align="center"
                                 justify="center"
                               >
-                                <span>
+                                <span class="table-text">
                                   {{ pokemon.species.formattedSpecies }}
                                 </span>
                               </v-row>
@@ -98,7 +98,7 @@
                                 align="center"
                                 justify="center"
                               >
-                                <span>
+                                <span class="table-text">
                                   {{ pokemon.location }}
                                 </span>
                               </v-row>
@@ -174,7 +174,6 @@ export default defineComponent({
     this.setNuzlocke(null);
   },
   mounted() {
-    console.log("VUETIFY: ", this.$vuetify.display.height);
     if (!this.getNuzlocke) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId);
     }

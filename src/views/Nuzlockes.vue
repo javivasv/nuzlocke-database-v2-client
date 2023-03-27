@@ -45,17 +45,23 @@
                         >
                           <v-col cols="6">
                             <v-row no-gutters align="center" justify="center">
-                              {{ nuzlocke.name }}
+                              <span class="table-text">
+                                {{ nuzlocke.name }}
+                              </span>
                             </v-row>
                           </v-col>
                           <v-col cols="3">
                             <v-row no-gutters align="center" justify="center">
-                              {{ nuzlocke.game }}
+                              <span class="table-text">
+                                {{ nuzlocke.game }}
+                              </span>
                             </v-row>
                           </v-col>
                           <v-col cols="3">
                             <v-row no-gutters align="center" justify="center">
-                              {{ nuzlocke.status }}
+                              <span>
+                                {{ nuzlocke.status }}
+                              </span>
                             </v-row>
                           </v-col>
                         </v-row>

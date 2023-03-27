@@ -55,4 +55,7 @@ export default defineComponent({
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
+.table-text {
+  word-break: break-all;
+}
 </style>
