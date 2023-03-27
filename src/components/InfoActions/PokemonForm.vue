@@ -13,7 +13,7 @@
     align="center"
     justify="center"
   >
-    <v-btn color="error" variant="outlined" @click="deletePokemon()">
+    <v-btn color="error" variant="outlined" @click="showDeleteDialog = true">
       Delete pokemon
     </v-btn>
   </v-row>
@@ -82,18 +82,49 @@
       </v-col>
     </v-row>
   </v-card-text>
+  <DeleteDialog
+    :name="pokemon"
+    :show-dialog="showDeleteDialog"
+    @delete="deletePokemon()"
+    @close="showDeleteDialog = false"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
+import DeleteDialog from "../DeleteDialog.vue";
+import { Pokemon } from "../../store/interfaces/index";
 export default defineComponent({
   name: "InfoActionsPokemonForm",
   emits: ["submitPokemon"],
-  components: {},
-  computed: {},
+  components: {
+    DeleteDialog,
+  },
+  computed: {
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
+    }),
+    pokemon() {
+      if (this.getNuzlocke) {
+        const toDeletePokemon = this.getNuzlocke.pokemon.find(
+          (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
+        );
+
+        if (toDeletePokemon) {
+          return toDeletePokemon.nickname !== ""
+            ? toDeletePokemon.nickname
+            : toDeletePokemon.species.formattedSpecies;
+        }
+      }
+
+      return "";
+    },
+  },
   data() {
-    return {};
+    return {
+      showDeleteDialog: false,
+    };
   },
   methods: {
     ...mapMutations("notifications", {

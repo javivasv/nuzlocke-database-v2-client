@@ -3,7 +3,7 @@
     <v-btn color="secondary" @click="toEditNuzlocke()">Update nuzlocke</v-btn>
   </v-row>
   <v-row class="py-3" no-gutters align="center" justify="center">
-    <v-btn color="error" variant="outlined" @click="deleteNuzlocke()">
+    <v-btn color="error" variant="outlined" @click="showDeleteDialog = true">
       Delete nuzlocke
     </v-btn>
   </v-row>
@@ -48,21 +48,32 @@
       </v-col>
     </v-row>
   </v-card-text>
+  <DeleteDialog
+    :name="getNuzlocke.name"
+    :show-dialog="showDeleteDialog"
+    @delete="deleteNuzlocke()"
+    @close="showDeleteDialog = false"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import DeleteDialog from "../DeleteDialog.vue";
 export default defineComponent({
   name: "InfoActionsNuzlocke",
-  components: {},
+  components: {
+    DeleteDialog,
+  },
   computed: {
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
     }),
   },
   data() {
-    return {};
+    return {
+      showDeleteDialog: false,
+    };
   },
   methods: {
     ...mapMutations("notifications", {
