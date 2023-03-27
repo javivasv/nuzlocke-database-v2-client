@@ -1,14 +1,14 @@
 <template>
   <div id="nuzlocke" class="content">
-    <v-row class="h-100 w-100" no-gutters>
-      <v-col class="pa-3" cols="8">
+    <v-row class="w-100" no-gutters>
+      <v-col class="content-col pa-3" cols="8">
         <v-row class="py-3" no-gutters>
           <v-btn icon @click="toNuzlockes()">
             <v-icon icon="arrow_back"></v-icon>
           </v-btn>
         </v-row>
         <v-row no-gutters>
-          <v-card class="pa-4 w-100">
+          <v-card class="pa-4 w-100" style="height: fit-content">
             <v-row no-gutters>
               <v-col>
                 <v-row class="mb-3" no-gutters>
@@ -35,88 +35,104 @@
                       </v-col>
                     </v-row>
                     <template v-if="getNuzlocke">
-                      <v-row
-                        v-for="pokemon in filteredPokemon()"
-                        :key="pokemon._id"
-                        class="pokemon-row py-3"
-                        no-gutters
-                        @click="toEditPokemon(pokemon._id)"
-                      >
-                        <v-col cols="2">
+                      <v-row no-gutters>
+                        <v-col
+                          style="overflow: auto"
+                          :style="{
+                            'max-height': $vuetify.display.height - 260 + 'px',
+                          }"
+                        >
                           <v-row
-                            v-if="pokemon.sprite !== ''"
-                            class="h-100"
+                            v-for="pokemon in filteredPokemon()"
+                            :key="pokemon._id"
+                            class="pokemon-row py-3"
                             no-gutters
-                            align="center"
-                            justify="center"
+                            @click="toEditPokemon(pokemon._id)"
                           >
-                            <v-img :src="pokemon.sprite" height="100px"></v-img>
-                          </v-row>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-row
-                            class="h-100"
-                            no-gutters
-                            align="center"
-                            justify="center"
-                          >
-                            <span>
-                              {{
-                                pokemon.nickname !== "" ? pokemon.nickname : "-"
-                              }}
-                            </span>
-                          </v-row>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-row
-                            class="h-100"
-                            no-gutters
-                            align="center"
-                            justify="center"
-                          >
-                            <span>
-                              {{ pokemon.species.formattedSpecies }}
-                            </span>
-                          </v-row>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-row
-                            class="h-100"
-                            no-gutters
-                            align="center"
-                            justify="center"
-                          >
-                            <span>
-                              {{ pokemon.location }}
-                            </span>
-                          </v-row>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-row
-                            class="h-100"
-                            no-gutters
-                            align="center"
-                            justify="center"
-                          >
-                            <v-icon
-                              :icon="obtainedIcon(pokemon.obtained)"
-                            ></v-icon>
-                          </v-row>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-row
-                            class="h-100"
-                            no-gutters
-                            align="center"
-                            justify="center"
-                          >
-                            <v-icon
-                              v-if="pokemon.obtained !== 'not'"
-                              :icon="
-                                pokemon.fainted ? 'heart_broken' : 'favorite'
-                              "
-                            ></v-icon>
-                            <span v-else>-</span>
+                            <v-col cols="2">
+                              <v-row
+                                v-if="pokemon.sprite !== ''"
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-img
+                                  :src="pokemon.sprite"
+                                  height="100px"
+                                ></v-img>
+                              </v-row>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <span>
+                                  {{
+                                    pokemon.nickname !== ""
+                                      ? pokemon.nickname
+                                      : "-"
+                                  }}
+                                </span>
+                              </v-row>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <span>
+                                  {{ pokemon.species.formattedSpecies }}
+                                </span>
+                              </v-row>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <span>
+                                  {{ pokemon.location }}
+                                </span>
+                              </v-row>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-icon
+                                  :icon="obtainedIcon(pokemon.obtained)"
+                                ></v-icon>
+                              </v-row>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-icon
+                                  v-if="pokemon.obtained !== 'not'"
+                                  :icon="
+                                    pokemon.fainted
+                                      ? 'heart_broken'
+                                      : 'favorite'
+                                  "
+                                ></v-icon>
+                                <span v-else>-</span>
+                              </v-row>
+                            </v-col>
                           </v-row>
                         </v-col>
                       </v-row>
@@ -128,7 +144,7 @@
           </v-card>
         </v-row>
       </v-col>
-      <v-col class="pa-3" cols="4">
+      <v-col class="content-col pa-3" cols="4">
         <Card
           v-if="getNuzlocke"
           :type="'nuzlocke'"
@@ -158,6 +174,7 @@ export default defineComponent({
     this.setNuzlocke(null);
   },
   mounted() {
+    console.log("VUETIFY: ", this.$vuetify.display.height);
     if (!this.getNuzlocke) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId);
     }

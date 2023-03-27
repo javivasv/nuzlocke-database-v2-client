@@ -29,26 +29,35 @@
                         </v-row>
                       </v-col>
                     </v-row>
-                    <v-row
-                      v-for="nuzlocke in filteredNuzlockes()"
-                      :key="nuzlocke._id"
-                      class="nuzlocke-row py-5"
-                      no-gutters
-                      @click="checkNuzlocke(nuzlocke)"
-                    >
-                      <v-col cols="6">
-                        <v-row no-gutters align="center" justify="center">
-                          {{ nuzlocke.name }}
-                        </v-row>
-                      </v-col>
-                      <v-col cols="3">
-                        <v-row no-gutters align="center" justify="center">
-                          {{ nuzlocke.game }}
-                        </v-row>
-                      </v-col>
-                      <v-col cols="3">
-                        <v-row no-gutters align="center" justify="center">
-                          {{ nuzlocke.status }}
+                    <v-row no-gutters>
+                      <v-col
+                        style="overflow: auto"
+                        :style="{
+                          'max-height': $vuetify.display.height - 188 + 'px',
+                        }"
+                      >
+                        <v-row
+                          v-for="nuzlocke in filteredNuzlockes()"
+                          :key="nuzlocke._id"
+                          class="nuzlocke-row py-5"
+                          no-gutters
+                          @click="checkNuzlocke(nuzlocke)"
+                        >
+                          <v-col cols="6">
+                            <v-row no-gutters align="center" justify="center">
+                              {{ nuzlocke.name }}
+                            </v-row>
+                          </v-col>
+                          <v-col cols="3">
+                            <v-row no-gutters align="center" justify="center">
+                              {{ nuzlocke.game }}
+                            </v-row>
+                          </v-col>
+                          <v-col cols="3">
+                            <v-row no-gutters align="center" justify="center">
+                              {{ nuzlocke.status }}
+                            </v-row>
+                          </v-col>
                         </v-row>
                       </v-col>
                     </v-row>
