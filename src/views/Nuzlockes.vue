@@ -59,9 +59,15 @@
                           </v-col>
                           <v-col cols="3">
                             <v-row no-gutters align="center" justify="center">
-                              <span>
-                                {{ nuzlocke.status }}
-                              </span>
+                              <v-icon
+                                :icon="
+                                  nuzlocke.status === 'started'
+                                    ? 'flag'
+                                    : nuzlocke.status === 'completed'
+                                    ? 'done'
+                                    : 'close'
+                                "
+                              ></v-icon>
                             </v-row>
                           </v-col>
                         </v-row>

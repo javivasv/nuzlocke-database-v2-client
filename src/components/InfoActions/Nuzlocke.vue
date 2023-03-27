@@ -99,7 +99,7 @@ export default defineComponent({
 
       this.updateExistingNuzlocke(data)
         .then(() => {
-          console.log("UPDATED");
+          this.fetchNuzlockes();
         })
         .catch((error) => {
           this.setSnackbarText(error.data.msg);

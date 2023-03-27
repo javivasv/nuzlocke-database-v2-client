@@ -284,7 +284,7 @@ export default defineComponent({
       } else if (obtained === "traded") {
         return "sync_alt";
       } else {
-        return "close";
+        return "block";
       }
     },
     toEditPokemon(id: string) {
