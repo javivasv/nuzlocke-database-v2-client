@@ -11,7 +11,12 @@
           <v-card class="pa-4 w-100" style="height: fit-content">
             <v-row no-gutters>
               <v-col>
-                <v-row class="mb-3" no-gutters>
+                <v-row
+                  class="mb-3"
+                  no-gutters
+                  aria-kbdshortcuts="center"
+                  justify="center"
+                >
                   <v-text-field
                     v-model="search"
                     prepend-inner-icon="search"
@@ -20,6 +25,14 @@
                     variant="outlined"
                     color="secondary"
                   ></v-text-field>
+                  <v-menu :close-on-content-click="false" location="left">
+                    <template #activator="{ props }">
+                      <v-btn class="ml-3" icon v-bind="props">
+                        <v-icon icon="filter_list"></v-icon>
+                      </v-btn>
+                    </template>
+                    <FiltersMenu @updateFilter="updateFilter" />
+                  </v-menu>
                 </v-row>
                 <v-row no-gutters>
                   <v-col>
@@ -70,7 +83,7 @@
                                 justify="center"
                               >
                                 <v-img :src="pokemon.sprite" height="100px">
-                                  <template v-slot:placeholder>
+                                  <template #placeholder>
                                     <v-row
                                       class="h-100"
                                       no-gutters
@@ -167,11 +180,7 @@
         </v-row>
       </v-col>
       <v-col class="content-col pa-3" cols="4">
-        <Card
-          v-if="getNuzlocke"
-          :type="'nuzlocke'"
-          @updateFilter="updateFilter"
-        />
+        <Card v-if="getNuzlocke" :type="'nuzlocke'" />
       </v-col>
     </v-row>
   </div>
@@ -181,11 +190,13 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
+import FiltersMenu from "../components/FiltersMenu.vue";
 import { Pokemon, Filters } from "../store/interfaces/index";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
     Card,
+    FiltersMenu,
   },
   computed: {
     ...mapGetters("nuzlockes", {

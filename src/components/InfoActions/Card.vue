@@ -19,7 +19,6 @@
       />
       <Nuzlocke v-if="type === 'nuzlocke'" />
     </v-card>
-    <Filters v-if="type === 'nuzlocke'" @updateFilter="updateFilter" />
   </div>
 </template>
 
@@ -29,7 +28,6 @@ import Nuzlockes from "./Nuzlockes.vue";
 import NuzlockeForm from "./NuzlockeForm.vue";
 import PokemonForm from "./PokemonForm.vue";
 import Nuzlocke from "./Nuzlocke.vue";
-import Filters from "./Filters.vue";
 export default defineComponent({
   name: "InfoActionsCard",
   components: {
@@ -37,7 +35,6 @@ export default defineComponent({
     NuzlockeForm,
     PokemonForm,
     Nuzlocke,
-    Filters,
   },
   props: {
     type: {
@@ -55,9 +52,6 @@ export default defineComponent({
     },
     submitPokemon() {
       this.$emit("submitPokemon");
-    },
-    updateFilter(filter: string) {
-      this.$emit("updateFilter", filter);
     },
   },
 });

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="filters-card pa-4 mt-3 w-100">
+  <v-card class="filters-card pa-4 mt-3 w-100" max-width="350px">
     <v-card-subtitle>
       <strong>Status filters</strong>
     </v-card-subtitle>
