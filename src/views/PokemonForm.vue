@@ -12,9 +12,23 @@
             <v-form ref="pokemonForm">
               <v-row no-gutters>
                 <v-col>
-                  <v-row v-if="pokemon.sprite !== ''" class="py-1" no-gutters>
-                    <v-img :src="pokemon.sprite" height="150px"></v-img>
+                  <v-row
+                    v-if="isLoading"
+                    class="py-5"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      color="primary"
+                      indeterminate
+                    ></v-progress-circular>
                   </v-row>
+                  <template v-else>
+                    <v-row v-if="pokemon.sprite !== ''" class="py-1" no-gutters>
+                      <v-img :src="pokemon.sprite" height="150px"></v-img>
+                    </v-row>
+                  </template>
                   <v-row
                     v-if="shinySpriteUrl"
                     class="py-1"
@@ -127,6 +141,7 @@ export default defineComponent({
   },
   data() {
     return {
+      isLoading: false,
       pokemon: {
         species: {
           codedSpecies: "",
@@ -218,6 +233,7 @@ export default defineComponent({
       }
     },
     pokemonSprite() {
+      this.isLoading = true;
       this.fetchPokemon(this.pokemon.species.codedSpecies)
         .then((res) => {
           this.normalSpriteUrl = res.sprites.front_default
@@ -239,6 +255,9 @@ export default defineComponent({
         })
         .catch(() => {
           this.setSnackbarText("An error occured during the process");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     pokemonOriginal() {

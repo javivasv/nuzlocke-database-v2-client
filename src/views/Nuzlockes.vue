@@ -29,7 +29,19 @@
                         </v-row>
                       </v-col>
                     </v-row>
-                    <v-row no-gutters>
+                    <v-row
+                      v-if="isLoading"
+                      class="py-5"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        color="primary"
+                        indeterminate
+                      ></v-progress-circular>
+                    </v-row>
+                    <v-row v-else no-gutters>
                       <v-col
                         style="overflow: auto"
                         :style="{
@@ -104,11 +116,15 @@ export default defineComponent({
   },
   mounted() {
     if (this.getNuzlockes.length === 0) {
-      this.fetchNuzlockes();
+      this.isLoading = true;
+      this.fetchNuzlockes().finally(() => {
+        this.isLoading = false;
+      });
     }
   },
   data() {
     return {
+      isLoading: false,
       search: "",
       headers: [
         {

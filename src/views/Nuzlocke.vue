@@ -34,8 +34,20 @@
                         </v-row>
                       </v-col>
                     </v-row>
-                    <template v-if="getNuzlocke">
-                      <v-row no-gutters>
+                    <v-row
+                      v-if="isLoading"
+                      class="py-5"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        color="primary"
+                        indeterminate
+                      ></v-progress-circular>
+                    </v-row>
+                    <template v-else>
+                      <v-row v-if="getNuzlocke" no-gutters>
                         <v-col
                           style="overflow: auto"
                           :style="{
@@ -57,9 +69,19 @@
                                 align="center"
                                 justify="center"
                               >
-                                <v-img
-                                  :src="pokemon.sprite"
-                                  height="100px"
+                                <v-img :src="pokemon.sprite" height="100px">
+                                  <template v-slot:placeholder>
+                                    <v-row
+                                      class="h-100"
+                                      no-gutters
+                                      align="center"
+                                      justify="center"
+                                    >
+                                      <v-progress-circular
+                                        color="primary"
+                                        indeterminate
+                                      ></v-progress-circular>
+                                    </v-row> </template
                                 ></v-img>
                               </v-row>
                             </v-col>
@@ -175,11 +197,15 @@ export default defineComponent({
   },
   mounted() {
     if (!this.getNuzlocke) {
-      this.fetchNuzlocke(this.$route.params.nuzlockeId);
+      this.isLoading = true;
+      this.fetchNuzlocke(this.$route.params.nuzlockeId).finally(() => {
+        this.isLoading = false;
+      });
     }
   },
   data() {
     return {
+      isLoading: false,
       search: "",
       headers: [
         {
