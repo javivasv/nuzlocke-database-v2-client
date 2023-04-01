@@ -47,6 +47,9 @@ export const auth: Module<AuthState, State> = {
     LOGOUT: ({ commit, state }) => {
       window.localStorage.removeItem("pndb_token");
       commit("SET_USER", null);
+      commit("nuzlockes/SET_NUZLOCKES", [], { root: true });
+      commit("nuzlockes/SET_NUZLOCKE", null, { root: true });
+      commit("pokeapi/SET_POKEMON", [], { root: true });
       router.push({
         name: "home",
       });
@@ -89,7 +92,11 @@ export const auth: Module<AuthState, State> = {
       });
     },
     VALIDATE_SESSION_ERROR: ({ commit, state, dispatch }, error) => {
-      if (error.response.status === 401 || error.response.status === 404) {
+      if (
+        error.response.status === 401 ||
+        error.response.status === 403 ||
+        error.response.status === 404
+      ) {
         dispatch("LOGOUT");
         commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
           root: true,
