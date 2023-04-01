@@ -150,25 +150,12 @@ export default defineComponent({
     };
   },
   mounted() {
-    if (this.$route.name === "edit-pokemon-form") {
-      this.editMode = true;
-
+    if (!this.getNuzlocke) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
-        let toEditPokemon = {
-          ...this.getNuzlocke.pokemon.find(
-            (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
-          ),
-        };
-
-        delete toEditPokemon._id;
-
-        this.pokemon = toEditPokemon;
-        this.pokemon.obtained =
-          this.obtained.find(
-            (option) => option.toLowerCase() === toEditPokemon.obtained
-          ) || toEditPokemon.obtained;
-        this.pokemonSprite();
+        this.toEditPokemonData();
       });
+    } else {
+      this.toEditPokemonData();
     }
 
     if (this.getPokemon.length === 0) {
@@ -194,6 +181,24 @@ export default defineComponent({
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
+    toEditPokemonData() {
+      if (this.$route.name === "edit-pokemon-form") {
+        let toEditPokemon = {
+          ...this.getNuzlocke.pokemon.find(
+            (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
+          ),
+        };
+
+        delete toEditPokemon._id;
+
+        this.pokemon = toEditPokemon;
+        this.pokemon.obtained =
+          this.obtained.find(
+            (option) => option.toLowerCase() === toEditPokemon.obtained
+          ) || toEditPokemon.obtained;
+        this.pokemonSprite();
+      }
+    },
     toNuzlocke() {
       this.$router.push({
         name: "nuzlocke",
