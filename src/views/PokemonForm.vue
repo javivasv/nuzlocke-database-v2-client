@@ -198,6 +198,8 @@ export default defineComponent({
     }),
     toEditPokemonData() {
       if (this.$route.name === "edit-pokemon-form") {
+        this.editMode = true;
+
         let toEditPokemon = {
           ...this.getNuzlocke.pokemon.find(
             (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId

@@ -27,6 +27,9 @@ export const pokemon: Module<PokemonState, State> = {
           )
           .then((res) => {
             commit("nuzlockes/SET_NUZLOCKE", res.data.nuzlocke, { root: true });
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
@@ -46,6 +49,9 @@ export const pokemon: Module<PokemonState, State> = {
           )
           .then((res) => {
             commit("nuzlockes/SET_NUZLOCKE", res.data.nuzlocke, { root: true });
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
@@ -63,6 +69,9 @@ export const pokemon: Module<PokemonState, State> = {
             }/pokemon/${data.pokemonId}`
           )
           .then((res) => {
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {

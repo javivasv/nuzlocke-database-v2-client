@@ -16,9 +16,6 @@ export default {
     this.validateSession();
   },
   methods: {
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     ...mapActions("auth", {
       validateSession: "VALIDATE_SESSION",
     }),

@@ -48,6 +48,9 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           .post(`${"http://localhost:5000/api"}/nuzlockes`, data)
           .then((res) => {
             commit("SET_NUZLOCKES", res.data.nuzlockes);
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
@@ -79,6 +82,9 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           )
           .then((res) => {
             commit("nuzlockes/SET_NUZLOCKE", res.data.nuzlocke, { root: true });
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
@@ -92,6 +98,9 @@ export const nuzlockes: Module<NuzlockesState, State> = {
         axios
           .delete(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
           .then((res) => {
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
