@@ -97,9 +97,6 @@ export default defineComponent({
       fetchNuzlocke: "FETCH_NUZLOCKE",
       updateExistingNuzlocke: "UPDATE_NUZLOCKE",
     }),
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     to() {
       if (this.editMode) {
         this.toNuzlocke();
@@ -140,13 +137,9 @@ export default defineComponent({
       }
     },
     async createNuzlocke() {
-      this.createNewNuzlocke(this.nuzlocke)
-        .then(() => {
-          this.toNuzlockes();
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.createNewNuzlocke(this.nuzlocke).then(() => {
+        this.toNuzlockes();
+      });
     },
     async updateNuzlocke() {
       const data = {
@@ -156,13 +149,9 @@ export default defineComponent({
         },
       };
 
-      this.updateExistingNuzlocke(data)
-        .then(() => {
-          this.toNuzlocke();
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.updateExistingNuzlocke(data).then(() => {
+        this.toNuzlocke();
+      });
     },
   },
 });

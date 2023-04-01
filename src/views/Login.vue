@@ -161,9 +161,6 @@ export default defineComponent({
       doLogin: "LOGIN",
       registerUser: "REGISTER_USER",
     }),
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     async login() {
       const { valid } = await (
         this.$refs.loginForm as HTMLFormElement
@@ -173,15 +170,11 @@ export default defineComponent({
         return;
       }
 
-      this.doLogin(this.userData)
-        .then(() => {
-          this.$router.push({
-            name: "home",
-          });
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
+      this.doLogin(this.userData).then(() => {
+        this.$router.push({
+          name: "home",
         });
+      });
     },
     async register() {
       const { valid } = await (
@@ -197,14 +190,9 @@ export default defineComponent({
         password: this.newUserData.password,
       };
 
-      this.registerUser(userData)
-        .then((res) => {
-          this.setSnackbarText(res.msg);
-          this.changeForm(false);
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.registerUser(userData).then(() => {
+        this.changeForm(false);
+      });
     },
     changeForm(val: boolean) {
       this.newUser = val;

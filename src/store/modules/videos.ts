@@ -21,7 +21,7 @@ export const videos: Module<VideosState, State> = {
     },
   },
   actions: {
-    FETCH_VIDEOS: ({ commit, state }) => {
+    FETCH_VIDEOS: ({ commit, state, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/videos`)
@@ -30,6 +30,7 @@ export const videos: Module<VideosState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });

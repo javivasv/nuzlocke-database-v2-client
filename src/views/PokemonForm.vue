@@ -123,7 +123,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import { Pokemon, PokemonSpeciesDataFromApi } from "../store/interfaces/index";
 export default defineComponent({
@@ -182,9 +182,6 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     ...mapActions("pokeapi", {
       fetchPokemonList: "FETCH_POKEMON_LIST",
       fetchPokemon: "FETCH_POKEMON",
@@ -255,9 +252,6 @@ export default defineComponent({
 
           this.pokemonShiny();
         })
-        .catch(() => {
-          this.setSnackbarText("An error occured during the process");
-        })
         .finally(() => {
           this.isLoading = false;
         });
@@ -305,13 +299,9 @@ export default defineComponent({
         },
       };
 
-      this.addNewPokemon(data)
-        .then(() => {
-          this.toNuzlocke();
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.addNewPokemon(data).then(() => {
+        this.toNuzlocke();
+      });
     },
     required(value: string, type: string) {
       if (value) return true;
@@ -340,13 +330,9 @@ export default defineComponent({
         },
       };
 
-      this.updateExistingPokemon(data)
-        .then(() => {
-          this.toNuzlocke();
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.updateExistingPokemon(data).then(() => {
+        this.toNuzlocke();
+      });
     },
   },
 });

@@ -29,7 +29,7 @@ export const auth: Module<AuthState, State> = {
     },
   },
   actions: {
-    LOGIN: ({ commit, state }, data: UserData) => {
+    LOGIN: ({ commit, state, dispatch }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/login`, data)
@@ -40,6 +40,9 @@ export const auth: Module<AuthState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+              root: true,
+            });
             reject(error.response);
           });
       });
@@ -54,14 +57,20 @@ export const auth: Module<AuthState, State> = {
         name: "home",
       });
     },
-    REGISTER_USER: ({ commit, state }, data: UserData) => {
+    REGISTER_USER: ({ commit, state, dispatch }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/users`, data)
           .then((res) => {
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
             resolve(res.data);
           })
           .catch((error) => {
+            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+              root: true,
+            });
             reject(error.response);
           });
       });
@@ -86,22 +95,23 @@ export const auth: Module<AuthState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("VALIDATE_SESSION_ERROR", error);
+            dispatch("VALIDATE_ERROR", error);
             reject(error.response);
           });
       });
     },
-    VALIDATE_SESSION_ERROR: ({ commit, state, dispatch }, error) => {
+    VALIDATE_ERROR: ({ commit, state, dispatch }, error) => {
       if (
         error.response.status === 401 ||
         error.response.status === 403 ||
         error.response.status === 404
       ) {
         dispatch("LOGOUT");
-        commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
-          root: true,
-        });
       }
+
+      commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+        root: true,
+      });
     },
   },
 };

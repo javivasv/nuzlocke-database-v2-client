@@ -58,7 +58,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import DeleteDialog from "../DeleteDialog.vue";
 export default defineComponent({
   name: "InfoActionsNuzlocke",
@@ -76,9 +76,6 @@ export default defineComponent({
     };
   },
   methods: {
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     ...mapActions("nuzlockes", {
       updateExistingNuzlocke: "UPDATE_NUZLOCKE",
       deleteExistingNuzlocke: "DELETE_NUZLOCKE",
@@ -108,26 +105,18 @@ export default defineComponent({
         },
       };
 
-      this.updateExistingNuzlocke(data)
-        .then(() => {
-          this.fetchNuzlockes();
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
-        });
+      this.updateExistingNuzlocke(data).then(() => {
+        this.fetchNuzlockes();
+      });
     },
     deleteNuzlocke() {
-      this.deleteExistingNuzlocke(this.$route.params.nuzlockeId)
-        .then(() => {
-          this.fetchNuzlockes().then(() => {
-            this.$router.push({
-              name: "nuzlockes",
-            });
+      this.deleteExistingNuzlocke(this.$route.params.nuzlockeId).then(() => {
+        this.fetchNuzlockes().then(() => {
+          this.$router.push({
+            name: "nuzlockes",
           });
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
         });
+      });
     },
   },
 });

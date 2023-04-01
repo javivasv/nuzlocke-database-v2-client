@@ -92,7 +92,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import DeleteDialog from "../DeleteDialog.vue";
 import { Pokemon } from "../../store/interfaces/index";
 export default defineComponent({
@@ -127,9 +127,6 @@ export default defineComponent({
     };
   },
   methods: {
-    ...mapMutations("notifications", {
-      setSnackbarText: "SET_SNACKBAR_TEXT",
-    }),
     ...mapActions("pokemon", {
       deleteExistingPokemon: "DELETE_POKEMON",
     }),
@@ -153,15 +150,11 @@ export default defineComponent({
         pokemonId: this.$route.params.pokemonId,
       };
 
-      this.deleteExistingPokemon(data)
-        .then(() => {
-          this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
-            this.toNuzlocke();
-          });
-        })
-        .catch((error) => {
-          this.setSnackbarText(error.data.msg);
+      this.deleteExistingPokemon(data).then(() => {
+        this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+          this.toNuzlocke();
         });
+      });
     },
   },
 });

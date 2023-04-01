@@ -33,7 +33,7 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -55,7 +55,7 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -75,7 +75,7 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });

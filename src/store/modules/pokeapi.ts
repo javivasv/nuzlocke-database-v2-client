@@ -30,6 +30,13 @@ export const pokeapi: Module<PokeapiState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
             reject(error.response);
           });
       });
@@ -42,6 +49,13 @@ export const pokeapi: Module<PokeapiState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
             reject(error.response);
           });
       });

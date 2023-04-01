@@ -37,7 +37,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -54,7 +54,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -68,7 +68,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -88,7 +88,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
@@ -104,7 +104,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
+            dispatch("auth/VALIDATE_ERROR", error, { root: true });
             reject(error.response);
           });
       });
