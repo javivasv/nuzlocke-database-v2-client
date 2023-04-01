@@ -56,6 +56,6 @@ export default defineComponent({
   border-top-right-radius: 4px;
 }
 .table-text {
-  word-break: break-all;
+  word-break: break-word;
 }
 </style>

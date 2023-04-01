@@ -70,7 +70,8 @@
                           <v-row
                             v-for="pokemon in filteredPokemon()"
                             :key="pokemon._id"
-                            class="pokemon-row py-3"
+                            class="pokemon-row"
+                            :class="pokemon.sprite === '' ? 'py-5' : 'py-3'"
                             no-gutters
                             @click="toEditPokemon(pokemon._id)"
                           >
