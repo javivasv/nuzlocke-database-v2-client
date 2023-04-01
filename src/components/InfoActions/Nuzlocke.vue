@@ -12,8 +12,9 @@
     <v-btn color="secondary" @click="toAddPokemon()">Add pokemon</v-btn>
   </v-row>
   <v-divider class="my-3"></v-divider>
-  <v-row class="py-4" no-gutters align="center" justify="space-around">
+  <v-row class="py-2" no-gutters align="center" justify="space-around">
     <v-btn
+      class="ma-2"
       :class="getNuzlocke.status === 'started' ? 'current-status' : ''"
       color="secondary"
       :variant="getNuzlocke.status !== 'started' ? 'outlined' : 'flat'"
@@ -22,6 +23,7 @@
       Started
     </v-btn>
     <v-btn
+      class="ma-2"
       :class="getNuzlocke.status === 'completed' ? 'current-status' : ''"
       color="success"
       :variant="getNuzlocke.status !== 'completed' ? 'outlined' : 'elevated'"
@@ -30,6 +32,7 @@
       Completed
     </v-btn>
     <v-btn
+      class="ma-2"
       :class="getNuzlocke.status === 'lost' ? 'current-status' : ''"
       color="error"
       :variant="getNuzlocke.status !== 'lost' ? 'outlined' : 'elevated'"
