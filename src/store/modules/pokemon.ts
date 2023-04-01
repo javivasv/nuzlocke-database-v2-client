@@ -16,7 +16,7 @@ export const pokemon: Module<PokemonState, State> = {
   getters: {},
   mutations: {},
   actions: {
-    ADD_POKEMON: ({ commit }, data: CreatePokemonData) => {
+    ADD_POKEMON: ({ commit, dispatch }, data: CreatePokemonData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(
@@ -30,11 +30,12 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    UPDATE_POKEMON: ({ commit }, data: UpdatePokemonData) => {
+    UPDATE_POKEMON: ({ commit, dispatch }, data: UpdatePokemonData) => {
       return new Promise((resolve, reject) => {
         axios
           .put(
@@ -48,11 +49,12 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    DELETE_POKEMON: ({ commit }, data: DeletePokemonData) => {
+    DELETE_POKEMON: ({ commit, dispatch }, data: DeletePokemonData) => {
       return new Promise((resolve, reject) => {
         axios
           .delete(
@@ -64,6 +66,7 @@ export const pokemon: Module<PokemonState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });

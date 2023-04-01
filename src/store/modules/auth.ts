@@ -83,13 +83,18 @@ export const auth: Module<AuthState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
-            dispatch("LOGOUT");
-            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
-              root: true,
-            });
+            dispatch("VALIDATE_SESSION_ERROR", error);
             reject(error.response);
           });
       });
+    },
+    VALIDATE_SESSION_ERROR: ({ commit, state, dispatch }, error) => {
+      if (error.response.status === 401 || error.response.status === 404) {
+        dispatch("LOGOUT");
+        commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+          root: true,
+        });
+      }
     },
   },
 };

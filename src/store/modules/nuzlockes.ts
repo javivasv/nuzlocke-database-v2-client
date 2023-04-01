@@ -28,7 +28,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     },
   },
   actions: {
-    FETCH_NUZLOCKES: ({ commit, state }) => {
+    FETCH_NUZLOCKES: ({ commit, state, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/nuzlockes`)
@@ -37,11 +37,12 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    CREATE_NUZLOCKE: ({ commit, state }, data: Nuzlocke) => {
+    CREATE_NUZLOCKE: ({ commit, state, dispatch }, data: Nuzlocke) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/nuzlockes`, data)
@@ -50,11 +51,12 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    FETCH_NUZLOCKE: ({ commit, state }, id: string) => {
+    FETCH_NUZLOCKE: ({ commit, state, dispatch }, id: string) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
@@ -63,11 +65,12 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    UPDATE_NUZLOCKE: ({ commit }, data: UpdateNuzlockeData) => {
+    UPDATE_NUZLOCKE: ({ commit, dispatch }, data: UpdateNuzlockeData) => {
       return new Promise((resolve, reject) => {
         axios
           .put(
@@ -79,11 +82,12 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
     },
-    DELETE_NUZLOCKE: ({ commit }, id: string) => {
+    DELETE_NUZLOCKE: ({ commit, dispatch }, id: string) => {
       return new Promise((resolve, reject) => {
         axios
           .delete(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
@@ -91,6 +95,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
             resolve(res.data);
           })
           .catch((error) => {
+            dispatch("auth/VALIDATE_SESSION_ERROR", error, { root: true });
             reject(error.response);
           });
       });
