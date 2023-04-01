@@ -3,6 +3,7 @@ import { State } from "../index";
 import axios from "axios";
 import { UserData, Token } from "../interfaces/index";
 import jwtDecode from "jwt-decode";
+import router from "../../router";
 
 axios.interceptors.request.use((config) => {
   config.headers["Authorization"] = window.localStorage.getItem("pndb_token");
@@ -46,6 +47,9 @@ export const auth: Module<AuthState, State> = {
     LOGOUT: ({ commit, state }) => {
       window.localStorage.removeItem("pndb_token");
       commit("SET_USER", null);
+      router.push({
+        name: "home",
+      });
     },
     REGISTER_USER: ({ commit, state }, data: UserData) => {
       return new Promise((resolve, reject) => {
@@ -80,6 +84,9 @@ export const auth: Module<AuthState, State> = {
           })
           .catch((error) => {
             dispatch("LOGOUT");
+            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+              root: true,
+            });
             reject(error.response);
           });
       });

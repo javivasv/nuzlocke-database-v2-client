@@ -6,20 +6,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 import Snackbar from "@/components/Snackbar";
 export default {
   components: {
     Snackbar,
   },
   mounted() {
-    this.validateSession().catch((error) => {
-      this.$router.push({
-        name: "home",
-      });
-    });
+    this.validateSession();
   },
   methods: {
+    ...mapMutations("notifications", {
+      setSnackbarText: "SET_SNACKBAR_TEXT",
+    }),
     ...mapActions("auth", {
       validateSession: "VALIDATE_SESSION",
     }),

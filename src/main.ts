@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { aliases, md } from "vuetify/iconsets/md";
+import mixin from "./mixin";
 
 // Vuetify
 import "vuetify/styles";
@@ -47,4 +48,5 @@ const vuetify = createVuetify({
   },
 });
 
+App.mixins = [mixin];
 createApp(App).use(store).use(router).use(vuetify).mount("#app");
