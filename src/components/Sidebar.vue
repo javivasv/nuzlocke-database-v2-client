@@ -96,6 +96,9 @@ export default defineComponent({
     },
     logout() {
       this.doLogout();
+      this.$router.push({
+        name: "home",
+      });
     },
     sidebarActiveItem(itemName: string) {
       if (this.$route.name === itemName) {

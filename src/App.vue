@@ -13,7 +13,11 @@ export default {
     Snackbar,
   },
   mounted() {
-    this.validateSession();
+    this.validateSession().catch((error) => {
+      this.$router.push({
+        name: "home",
+      });
+    });
   },
   methods: {
     ...mapActions("auth", {
