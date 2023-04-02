@@ -137,7 +137,7 @@ export default defineComponent({
   components: {},
   data() {
     return {
-      background: require("../assets/login-background.png"),
+      background: require("../assets/login_background.png"),
       userData: {
         username: "",
         password: "",

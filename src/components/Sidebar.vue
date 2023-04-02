@@ -62,7 +62,7 @@ export default defineComponent({
   },
   data() {
     return {
-      background: require("../assets/sidebar-background.png"),
+      background: require("../assets/sidebar_background.png"),
       sidebarItems: [
         {
           title: "Home",
