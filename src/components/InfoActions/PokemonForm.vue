@@ -36,6 +36,19 @@
         </v-row>
         <v-row class="py-1" no-gutters>
           <span class="pokemon-form-info">
+            <strong>Ability:</strong>
+            The ability of the pokemon, if it has one
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="pokemon-form-info">
+            <strong>Original ability:</strong>
+            In case of being an original pokemon ability or being an ability not
+            existing in any previous game or region
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="pokemon-form-info">
             <strong>Nickname:</strong>
             The nickname given to the pokemon, if given one
           </span>
