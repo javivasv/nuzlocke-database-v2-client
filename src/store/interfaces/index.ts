@@ -34,11 +34,17 @@ export interface Pokemon {
   original: boolean;
   sprite: string;
   fainted: boolean;
+  types: PokemonTypes;
 }
 
 export interface PokemonSpecies {
   codedSpecies: string;
   formattedSpecies: string;
+}
+
+export interface PokemonTypes {
+  first: string;
+  second: string;
 }
 
 export interface CreatePokemonData {

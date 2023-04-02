@@ -37,6 +37,7 @@
                       variant="outlined"
                       color="secondary"
                       no-resize
+                      hide-details
                     ></v-textarea>
                   </v-row>
                 </v-col>

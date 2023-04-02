@@ -25,7 +25,7 @@
                     variant="outlined"
                     color="secondary"
                   ></v-text-field>
-                  <v-menu :close-on-content-click="false" location="left">
+                  <v-menu :close-on-content-click="false" location="left" eager>
                     <template #activator="{ props }">
                       <v-btn class="ml-3" icon v-bind="props">
                         <v-icon icon="filter_list"></v-icon>

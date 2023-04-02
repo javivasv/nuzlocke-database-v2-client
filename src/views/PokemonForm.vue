@@ -43,6 +43,33 @@
                       @update:modelValue="pokemonShiny()"
                     ></v-checkbox>
                   </v-row>
+                  <v-row
+                    class="py-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <v-col>
+                      <v-row class="pr-3" no-gutters>
+                        <v-select
+                          v-model="pokemon.types.first"
+                          :items="filteredTypesSelection('first')"
+                          hide-details
+                          variant="outlined"
+                        ></v-select>
+                      </v-row>
+                    </v-col>
+                    <v-col>
+                      <v-row class="pl-3" no-gutters>
+                        <v-select
+                          v-model="pokemon.types.second"
+                          :items="filteredTypesSelection('second')"
+                          hide-details
+                          variant="outlined"
+                        ></v-select>
+                      </v-row>
+                    </v-col>
+                  </v-row>
                   <v-row class="py-1" no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters>
@@ -65,7 +92,7 @@
                           item-value="codedSpecies"
                           return-object
                           :rules="speciesRules"
-                          @update:modelValue="pokemonSprite()"
+                          @update:modelValue="fetchPokemonData()"
                         ></v-autocomplete>
                       </v-row>
                     </v-col>
@@ -81,12 +108,13 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <v-row class="py-3" no-gutters>
                     <v-text-field
                       v-model="pokemon.nickname"
                       placeholder="Nickname"
                       variant="outlined"
                       color="secondary"
+                      hide-details
                     ></v-text-field>
                   </v-row>
                   <v-row class="py-1" no-gutters>
@@ -153,6 +181,10 @@ export default defineComponent({
         original: false,
         sprite: "",
         fainted: false,
+        types: {
+          first: "",
+          second: "",
+        },
       },
       obtained: ["Caught", "Gifted", "Hatched", "Traded", "Not"],
       normalSpriteUrl: "",
@@ -162,6 +194,26 @@ export default defineComponent({
       locationRules: [(value: string) => this.required(value, "location")],
       obtainedRules: [(value: string) => this.required(value, "obtained")],
       editMode: false,
+      types: [
+        "Normal",
+        "Fighting",
+        "Flying",
+        "Poison",
+        "Ground",
+        "Rock",
+        "Bug",
+        "Ghost",
+        "Steel",
+        "Fire",
+        "Water",
+        "Grass",
+        "Electric",
+        "Psychic",
+        "Ice",
+        "Dragon",
+        "Dark",
+        "Fairy",
+      ],
     };
   },
   mounted() {
@@ -210,7 +262,22 @@ export default defineComponent({
           this.obtained.find(
             (option) => option.toLowerCase() === toEditPokemon.obtained
           ) || toEditPokemon.obtained;
-        this.pokemonSprite();
+
+        this.pokemon.types.first =
+          this.types.find(
+            (type) => type.toLowerCase() === toEditPokemon.types.first
+          ) || "";
+
+        if (this.pokemon.types.second !== "") {
+          this.pokemon.types.second =
+            this.types.find(
+              (type) => type.toLowerCase() === toEditPokemon.types.second
+            ) || "";
+        } else {
+          this.pokemon.types.second = "";
+        }
+
+        this.fetchPokemonData();
       }
     },
     toNuzlocke() {
@@ -228,10 +295,10 @@ export default defineComponent({
           formattedSpecies: "Bulbasaur",
         };
 
-        this.pokemonSprite();
+        this.fetchPokemonData();
       }
     },
-    pokemonSprite() {
+    fetchPokemonData() {
       this.isLoading = true;
       this.fetchPokemon(this.pokemon.species.codedSpecies)
         .then((res) => {
@@ -251,6 +318,20 @@ export default defineComponent({
           }
 
           this.pokemonShiny();
+
+          if (!this.editMode) {
+            this.pokemon.types.first =
+              this.types.find(
+                (type) => type.toLowerCase() === res.types[0].type.name
+              ) || "";
+
+            if (res.types[1]) {
+              this.pokemon.types.second =
+                this.types.find(
+                  (type) => type.toLowerCase() === res.types[1].type.name
+                ) || "";
+            }
+          }
         })
         .finally(() => {
           this.isLoading = false;
@@ -284,6 +365,8 @@ export default defineComponent({
       }
 
       this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
+      this.pokemon.types.first = this.pokemon.types.first.toLowerCase();
+      this.pokemon.types.second = this.pokemon.types.second.toLowerCase();
 
       if (this.editMode) {
         this.updatePokemon();
@@ -333,6 +416,25 @@ export default defineComponent({
       this.updateExistingPokemon(data).then(() => {
         this.toNuzlocke();
       });
+    },
+    filteredTypesSelection(type: string) {
+      if (type === "first") {
+        if (this.pokemon.types.second !== "") {
+          return this.types.filter(
+            (type) => type !== this.pokemon.types.second
+          );
+        }
+
+        return this.types;
+      }
+
+      let secondTypeList = this.types.filter(
+        (type) => type !== this.pokemon.types.first
+      );
+
+      secondTypeList.unshift("");
+
+      return secondTypeList;
     },
   },
 });
