@@ -164,9 +164,6 @@ export default defineComponent({
       getNuzlocke: "GET_NUZLOCKE",
     }),
   },
-  beforeUnmount() {
-    this.setNuzlocke(null);
-  },
   data() {
     return {
       tab: 0,
@@ -211,9 +208,6 @@ export default defineComponent({
     };
   },
   methods: {
-    ...mapMutations("nuzlockes", {
-      setNuzlocke: "SET_NUZLOCKE",
-    }),
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),

@@ -291,7 +291,23 @@ export default defineComponent({
 
       delete toEditPokemon._id;
 
-      this.pokemon = toEditPokemon;
+      this.pokemon = {
+        ...toEditPokemon,
+      };
+
+      this.pokemon = {
+        ...toEditPokemon,
+        species: {
+          ...toEditPokemon.species,
+        },
+        types: {
+          ...toEditPokemon.types,
+        },
+        ability: {
+          ...toEditPokemon.ability,
+        },
+      };
+
       this.pokemon.obtained =
         this.obtained.find(
           (option) => option.toLowerCase() === toEditPokemon.obtained

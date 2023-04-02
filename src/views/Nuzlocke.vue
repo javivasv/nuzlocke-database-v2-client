@@ -50,9 +50,6 @@ export default defineComponent({
       getNuzlocke: "GET_NUZLOCKE",
     }),
   },
-  beforeUnmount() {
-    this.setNuzlocke(null);
-  },
   mounted() {
     if (!this.getNuzlocke) {
       this.isLoading = true;
@@ -68,9 +65,6 @@ export default defineComponent({
     };
   },
   methods: {
-    ...mapMutations("nuzlockes", {
-      setNuzlocke: "SET_NUZLOCKE",
-    }),
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
