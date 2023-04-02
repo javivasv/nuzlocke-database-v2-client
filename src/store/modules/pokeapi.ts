@@ -71,6 +71,11 @@ export const pokeapi: Module<PokeapiState, State> = {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=1281`)
           .then((res) => {
+            res.data.results.unshift({
+              name: "",
+              url: "",
+            });
+
             commit("SET_ABILITIES", res.data.results);
             resolve(res.data);
           })

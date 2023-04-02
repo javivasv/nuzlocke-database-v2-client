@@ -243,8 +243,6 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.fetchAbilities();
-
     if (this.$route.name === "edit-pokemon-form") {
       this.editMode = true;
     }
@@ -267,6 +265,14 @@ export default defineComponent({
       });
     } else {
       this.defaultPokemon();
+    }
+
+    if (this.getAbilities.length === 0) {
+      this.fetchAbilities().then(() => {
+        this.defaultAbility();
+      });
+    } else {
+      this.defaultAbility();
     }
   },
   methods: {
@@ -349,6 +355,14 @@ export default defineComponent({
         };
 
         this.fetchPokemonData();
+      }
+    },
+    defaultAbility() {
+      if (!this.editMode) {
+        this.pokemon.ability = {
+          codedAbility: "",
+          formattedAbility: "",
+        };
       }
     },
     fetchPokemonData() {
@@ -473,7 +487,7 @@ export default defineComponent({
         let unformattedAbility = ability.name.split("-");
 
         unformattedAbility = unformattedAbility.map((word: string) => {
-          return word.replace(word[0], word[0].toUpperCase());
+          return word[0] ? word.replace(word[0], word[0].toUpperCase()) : word;
         });
 
         return {
