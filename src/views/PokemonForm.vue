@@ -54,6 +54,8 @@
                         <v-select
                           v-model="pokemon.types.first"
                           :items="filteredTypesSelection('first')"
+                          item-value="name"
+                          item-title="name"
                           hide-details
                           variant="outlined"
                         ></v-select>
@@ -64,6 +66,8 @@
                         <v-select
                           v-model="pokemon.types.second"
                           :items="filteredTypesSelection('second')"
+                          item-value="name"
+                          item-title="name"
                           hide-details
                           variant="outlined"
                         ></v-select>
@@ -79,7 +83,7 @@
                           placeholder="Species"
                           variant="outlined"
                           color="secondary"
-                          :rules="speciesRules"
+                          :rules="speciesRules()"
                         ></v-text-field>
                         <v-autocomplete
                           v-else
@@ -91,7 +95,7 @@
                           item-title="formattedSpecies"
                           item-value="codedSpecies"
                           return-object
-                          :rules="speciesRules"
+                          :rules="speciesRules()"
                           @update:modelValue="fetchPokemonData()"
                         ></v-autocomplete>
                       </v-row>
@@ -123,7 +127,7 @@
                       placeholder="Location"
                       variant="outlined"
                       color="secondary"
-                      :rules="locationRules"
+                      :rules="locationRules()"
                     ></v-text-field>
                   </v-row>
                   <v-row class="py-1" no-gutters>
@@ -133,7 +137,7 @@
                       variant="outlined"
                       color="secondary"
                       :items="obtained"
-                      :rules="obtainedRules"
+                      :rules="obtainedRules()"
                     ></v-select>
                   </v-row>
                 </v-col>
@@ -154,8 +158,10 @@ import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import { Pokemon, PokemonSpeciesDataFromApi } from "../store/interfaces/index";
+import mixin from "../mixin";
 export default defineComponent({
   name: "PokemonForm",
+  mixins: [mixin],
   components: {
     Card,
   },
@@ -190,30 +196,7 @@ export default defineComponent({
       normalSpriteUrl: "",
       shinySpriteUrl: "",
       shiny: false,
-      speciesRules: [(value: string) => this.required(value, "species")],
-      locationRules: [(value: string) => this.required(value, "location")],
-      obtainedRules: [(value: string) => this.required(value, "obtained")],
       editMode: false,
-      types: [
-        "Normal",
-        "Fighting",
-        "Flying",
-        "Poison",
-        "Ground",
-        "Rock",
-        "Bug",
-        "Ghost",
-        "Steel",
-        "Fire",
-        "Water",
-        "Grass",
-        "Electric",
-        "Psychic",
-        "Ice",
-        "Dragon",
-        "Dark",
-        "Fairy",
-      ],
     };
   },
   mounted() {
@@ -263,16 +246,20 @@ export default defineComponent({
             (option) => option.toLowerCase() === toEditPokemon.obtained
           ) || toEditPokemon.obtained;
 
-        this.pokemon.types.first =
-          this.types.find(
-            (type) => type.toLowerCase() === toEditPokemon.types.first
-          ) || "";
+        const firstType =
+          this.pokemonTypes.find(
+            (type) => type.name.toLowerCase() === toEditPokemon.types.first
+          ) || this.pokemonTypes[0];
+
+        this.pokemon.types.first = firstType.name;
 
         if (this.pokemon.types.second !== "") {
-          this.pokemon.types.second =
-            this.types.find(
-              (type) => type.toLowerCase() === toEditPokemon.types.second
-            ) || "";
+          const secondType =
+            this.pokemonTypes.find(
+              (type) => type.name.toLowerCase() === toEditPokemon.types.second
+            ) || this.pokemonTypes[0];
+
+          this.pokemon.types.second = secondType.name;
         } else {
           this.pokemon.types.second = "";
         }
@@ -320,16 +307,20 @@ export default defineComponent({
           this.pokemonShiny();
 
           if (!this.editMode) {
-            this.pokemon.types.first =
-              this.types.find(
-                (type) => type.toLowerCase() === res.types[0].type.name
-              ) || "";
+            const firstType =
+              this.pokemonTypes.find(
+                (type) => type.name.toLowerCase() === res.types[0].type.name
+              ) || this.pokemonTypes[0];
+
+            this.pokemon.types.first = firstType.name;
 
             if (res.types[1]) {
-              this.pokemon.types.second =
-                this.types.find(
-                  (type) => type.toLowerCase() === res.types[1].type.name
-                ) || "";
+              const secondType =
+                this.pokemonTypes.find(
+                  (type) => type.name.toLowerCase() === res.types[1].type.name
+                ) || this.pokemonTypes[0];
+
+              this.pokemon.types.second = secondType.name;
             }
           }
         })
@@ -386,10 +377,6 @@ export default defineComponent({
         this.toNuzlocke();
       });
     },
-    required(value: string, type: string) {
-      if (value) return true;
-      return `You must enter a ${type}`;
-    },
     formattedSpecies() {
       return this.getPokemon.map((pokemon: PokemonSpeciesDataFromApi) => {
         let unformattedSpecies = pokemon.name.split("-");
@@ -420,21 +407,37 @@ export default defineComponent({
     filteredTypesSelection(type: string) {
       if (type === "first") {
         if (this.pokemon.types.second !== "") {
-          return this.types.filter(
-            (type) => type !== this.pokemon.types.second
+          return this.pokemonTypes.filter(
+            (type) => type.name !== this.pokemon.types.second
           );
         }
 
-        return this.types;
+        return this.pokemonTypes;
       }
 
-      let secondTypeList = this.types.filter(
-        (type) => type !== this.pokemon.types.first
+      let secondTypeList = this.pokemonTypes.filter(
+        (type) => type.name !== this.pokemon.types.first
       );
 
-      secondTypeList.unshift("");
+      secondTypeList.unshift({
+        name: "",
+        color: "",
+      });
 
       return secondTypeList;
+    },
+    required(value: string, type: string) {
+      if (value) return true;
+      return `You must enter a ${type}`;
+    },
+    speciesRules() {
+      return [(value: string) => this.required(value, "species")];
+    },
+    locationRules() {
+      return [(value: string) => this.required(value, "location")];
+    },
+    obtainedRules() {
+      return [(value: string) => this.required(value, "obtained")];
     },
   },
 });
