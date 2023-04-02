@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import Snackbar from "@/components/Snackbar";
 export default {
   components: {

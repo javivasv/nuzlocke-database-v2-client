@@ -78,7 +78,6 @@
                             <v-col cols="2">
                               <v-row
                                 v-if="pokemon.sprite !== ''"
-                                class="h-100"
                                 no-gutters
                                 align="center"
                                 justify="center"
@@ -97,6 +96,17 @@
                                       ></v-progress-circular>
                                     </v-row> </template
                                 ></v-img>
+                              </v-row>
+                              <v-row no-gutters align="center" justify="center">
+                                <template
+                                  v-for="type in pokemon.types"
+                                  :key="type"
+                                >
+                                  <PokemonType
+                                    v-if="type !== ''"
+                                    :type="type"
+                                  />
+                                </template>
                               </v-row>
                             </v-col>
                             <v-col cols="2">
@@ -192,12 +202,14 @@ import { defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import FiltersMenu from "../components/FiltersMenu.vue";
+import PokemonType from "../components/PokemonType.vue";
 import { Pokemon, Filters } from "../store/interfaces/index";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
     Card,
     FiltersMenu,
+    PokemonType,
   },
   computed: {
     ...mapGetters("nuzlockes", {

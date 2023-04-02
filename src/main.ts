@@ -48,5 +48,8 @@ const vuetify = createVuetify({
   },
 });
 
-App.mixins = [mixin];
-createApp(App).use(store).use(router).use(vuetify).mount("#app");
+createApp({ extends: App, mixins: [mixin] })
+  .use(store)
+  .use(router)
+  .use(vuetify)
+  .mount("#app");
