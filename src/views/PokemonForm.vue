@@ -70,6 +70,8 @@
                           item-title="name"
                           hide-details
                           variant="outlined"
+                          clearable
+                          @click:clear.stop="clearSecondType()"
                         ></v-select>
                       </v-row>
                     </v-col>
@@ -134,6 +136,8 @@
                           item-value="codedAbility"
                           return-object
                           hide-details
+                          clearable
+                          @click:clear="clearAbility()"
                         ></v-autocomplete>
                       </v-row>
                     </v-col>
@@ -496,6 +500,12 @@ export default defineComponent({
         };
       });
     },
+    clearAbility() {
+      this.pokemon.ability = {
+        codedAbility: "",
+        formattedAbility: "",
+      };
+    },
     async updatePokemon() {
       const data = {
         nuzlockeId: this.$route.params.nuzlockeId,
@@ -520,16 +530,12 @@ export default defineComponent({
         return this.pokemonTypes;
       }
 
-      let secondTypeList = this.pokemonTypes.filter(
+      return this.pokemonTypes.filter(
         (type) => type.name !== this.pokemon.types.first
       );
-
-      secondTypeList.unshift({
-        name: "",
-        color: "",
-      });
-
-      return secondTypeList;
+    },
+    clearSecondType() {
+      this.pokemon.types.second = "";
     },
     required(value: string, type: string) {
       if (value) return true;

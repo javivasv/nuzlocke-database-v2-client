@@ -71,6 +71,8 @@
                     hide-details
                     return-object
                     variant="outlined"
+                    clearable
+                    @click:clear="clearPokemon(index)"
                   ></v-select>
                 </v-row>
               </v-col>
@@ -199,6 +201,18 @@ export default defineComponent({
       });
 
       return pokemonList;
+    },
+    clearPokemon(index: number) {
+      this.team.pokemon[index] = {
+        pokemon: null,
+        item: "",
+        moves: {
+          first: "",
+          second: "",
+          third: "",
+          fourth: "",
+        },
+      };
     },
     submitTeam() {
       console.log("SUBMIT TEAM");
