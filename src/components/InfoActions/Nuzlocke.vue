@@ -8,8 +8,13 @@
     </v-btn>
   </v-row>
   <v-divider class="my-3"></v-divider>
-  <v-row class="py-3" no-gutters align="center" justify="center">
-    <v-btn color="secondary" @click="toAddPokemon()">Add pokemon</v-btn>
+  <v-row class="py-2" no-gutters align="center" justify="center">
+    <v-btn class="ma-2" color="secondary" @click="toAddPokemon()">
+      Add pokemon
+    </v-btn>
+    <v-btn class="ma-2" color="secondary" @click="toAddTeam()">
+      Add team
+    </v-btn>
   </v-row>
   <v-divider class="my-3"></v-divider>
   <v-row class="py-2" no-gutters align="center" justify="space-around">
@@ -120,6 +125,9 @@ export default defineComponent({
           });
         });
       });
+    },
+    toAddTeam() {
+      console.log("ADD TEAM");
     },
   },
 });
