@@ -207,7 +207,7 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import FiltersMenu from "../components/FiltersMenu.vue";
 import PokemonType from "../components/PokemonType.vue";
-import { Pokemon, Filters } from "../store/interfaces/index";
+import { Pokemon, Filters, Filter } from "../store/interfaces/index";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
@@ -268,13 +268,9 @@ export default defineComponent({
         },
       ],
       filters: {
-        alive: false,
-        fainted: false,
-        caught: false,
-        gifted: false,
-        hatched: false,
-        traded: false,
-        not: false,
+        status: [],
+        obtained: [],
+        type: [],
       },
     };
   },
@@ -301,22 +297,37 @@ export default defineComponent({
           return false;
         }
 
+        const statusFilters: string[] = this.filters.status;
+        if (statusFilters.length > 0) {
+          if (!pokemon.fainted && !statusFilters.includes("alive")) {
+            return false;
+          }
+
+          if (pokemon.fainted && !statusFilters.includes("fainted")) {
+            return false;
+          }
+        }
+
+        const obtainedFilters: string[] = this.filters.obtained;
         if (
-          (this.filters.alive && !this.filters.fainted && pokemon.fainted) ||
-          (this.filters.fainted && !this.filters.alive && !pokemon.fainted)
+          obtainedFilters.length > 0 &&
+          !obtainedFilters.includes(pokemon.obtained)
         ) {
           return false;
         }
 
+        const typeFilters: string[] = this.filters.type;
         if (
-          ((this.filters.caught && pokemon.obtained !== "caught") ||
-            (this.filters.gifted && pokemon.obtained !== "gifted") ||
-            (this.filters.hatched && pokemon.obtained !== "hatched") ||
-            (this.filters.traded && pokemon.obtained !== "traded") ||
-            (this.filters.not && pokemon.obtained !== "not")) &&
-          !this.filters[pokemon.obtained as keyof Filters]
+          typeFilters.length > 0 &&
+          !typeFilters.includes(pokemon.types.first)
         ) {
-          return false;
+          if (pokemon.types.second === "") {
+            return false;
+          }
+
+          if (!typeFilters.includes(pokemon.types.second)) {
+            return false;
+          }
         }
 
         return true;
@@ -324,9 +335,15 @@ export default defineComponent({
 
       return list;
     },
-    updateFilter(filter: string) {
-      this.filters[filter as keyof Filters] =
-        !this.filters[filter as keyof Filters];
+    updateFilter(filter: Filter) {
+      let filterList: string[] = this.filters[filter.type as keyof Filters];
+      let index = filterList.indexOf(filter.value);
+
+      if (index === -1) {
+        filterList.push(filter.value);
+      } else {
+        filterList.splice(index, 1);
+      }
     },
     obtainedIcon(obtained: string) {
       if (obtained === "caught") {

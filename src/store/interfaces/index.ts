@@ -74,11 +74,12 @@ export interface Video {
 }
 
 export interface Filters {
-  alive: false;
-  fainted: false;
-  caught: false;
-  gifted: false;
-  hatched: false;
-  traded: false;
-  not: false;
+  status: Array<string>;
+  obtained: Array<string>;
+  type: Array<string>;
+}
+
+export interface Filter {
+  value: string;
+  type: string;
 }
