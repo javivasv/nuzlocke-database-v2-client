@@ -29,7 +29,7 @@
         </v-row>
         <v-row class="py-1" no-gutters>
           <span class="pokemon-form-info">
-            <strong>Original:</strong>
+            <strong>Original species:</strong>
             In case of being an original pokemon species or being a species not
             existing in any previous game or region
           </span>

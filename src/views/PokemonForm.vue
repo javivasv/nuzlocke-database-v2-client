@@ -78,7 +78,7 @@
                     <v-col cols="9">
                       <v-row no-gutters>
                         <v-text-field
-                          v-if="pokemon.original"
+                          v-if="pokemon.originalSpecies"
                           v-model="pokemon.species.codedSpecies"
                           placeholder="Species"
                           variant="outlined"
@@ -103,11 +103,48 @@
                     <v-col cols="3">
                       <v-row class="pl-3" no-gutters>
                         <v-checkbox
-                          v-model="pokemon.original"
-                          label="Original"
+                          v-model="pokemon.originalSpecies"
+                          label="Original species"
                           hide-details
                           color="secondary"
                           @update:modelValue="pokemonOriginal()"
+                        ></v-checkbox>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <v-row class="py-1" no-gutters>
+                    <v-col cols="9">
+                      <v-row no-gutters>
+                        <v-text-field
+                          v-if="pokemon.originalAbility"
+                          v-model="pokemon.ability.codedSpecies"
+                          placeholder="Ability"
+                          variant="outlined"
+                          color="secondary"
+                          hide-details
+                        ></v-text-field>
+                        <v-autocomplete
+                          v-else
+                          v-model="pokemon.ability"
+                          placeholder="Ability"
+                          variant="outlined"
+                          color="secondary"
+                          :items="formattedAbilities()"
+                          item-title="formattedAbility"
+                          item-value="codedAbility"
+                          return-object
+                          hide-details
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-row class="pl-3" no-gutters>
+                        <v-checkbox
+                          v-model="pokemon.originalAbility"
+                          label="Original ability"
+                          hide-details
+                          color="secondary"
+                          @update:modelValue="pokemonAbility()"
                         ></v-checkbox>
                       </v-row>
                     </v-col>
@@ -157,7 +194,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
-import { Pokemon, PokemonSpeciesDataFromApi } from "../store/interfaces/index";
+import { Pokemon, BasicDataFromApi } from "../store/interfaces/index";
 import mixin from "../mixin";
 export default defineComponent({
   name: "PokemonForm",
@@ -168,6 +205,7 @@ export default defineComponent({
   computed: {
     ...mapGetters("pokeapi", {
       getPokemon: "GET_POKEMON",
+      getAbilities: "GET_ABILITIES",
     }),
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
@@ -177,6 +215,7 @@ export default defineComponent({
     return {
       isLoading: false,
       pokemon: {
+        originalSpecies: false,
         species: {
           codedSpecies: "",
           formattedSpecies: "",
@@ -184,12 +223,16 @@ export default defineComponent({
         nickname: "",
         location: "",
         obtained: "Caught",
-        original: false,
         sprite: "",
         fainted: false,
         types: {
           first: "",
           second: "",
+        },
+        originalAbility: false,
+        ability: {
+          codedAbility: "",
+          formattedAbility: "",
         },
       },
       obtained: ["Caught", "Gifted", "Hatched", "Traded", "Not"],
@@ -200,6 +243,8 @@ export default defineComponent({
     };
   },
   mounted() {
+    this.fetchAbilities();
+
     if (this.$route.name === "edit-pokemon-form") {
       this.editMode = true;
     }
@@ -228,6 +273,7 @@ export default defineComponent({
     ...mapActions("pokeapi", {
       fetchPokemonList: "FETCH_POKEMON_LIST",
       fetchPokemon: "FETCH_POKEMON",
+      fetchAbilities: "FETCH_ABILITIES",
     }),
     ...mapActions("pokemon", {
       addNewPokemon: "ADD_POKEMON",
@@ -342,6 +388,10 @@ export default defineComponent({
       this.shinySpriteUrl = "";
       this.shiny = false;
     },
+    pokemonAbility() {
+      this.pokemon.ability.codedAbility = "";
+      this.pokemon.ability.formattedAbility = "";
+    },
     pokemonShiny() {
       this.pokemon.sprite = this.shiny
         ? this.shinySpriteUrl
@@ -356,9 +406,14 @@ export default defineComponent({
         return;
       }
 
-      if (this.pokemon.original) {
+      if (this.pokemon.originalSpecies) {
         this.pokemon.species.formattedSpecies =
           this.pokemon.species.codedSpecies;
+      }
+
+      if (this.pokemon.originalAbility) {
+        this.pokemon.ability.formattedAbility =
+          this.pokemon.ability.codedAbility;
       }
 
       this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
@@ -384,7 +439,7 @@ export default defineComponent({
       });
     },
     formattedSpecies() {
-      return this.getPokemon.map((pokemon: PokemonSpeciesDataFromApi) => {
+      return this.getPokemon.map((pokemon: BasicDataFromApi) => {
         let unformattedSpecies = pokemon.name.split("-");
 
         unformattedSpecies = unformattedSpecies.map((word: string) => {
@@ -394,6 +449,20 @@ export default defineComponent({
         return {
           codedSpecies: pokemon.name,
           formattedSpecies: unformattedSpecies.join(" "),
+        };
+      });
+    },
+    formattedAbilities() {
+      return this.getAbilities.map((ability: BasicDataFromApi) => {
+        let unformattedAbility = ability.name.split("-");
+
+        unformattedAbility = unformattedAbility.map((word: string) => {
+          return word.replace(word[0], word[0].toUpperCase());
+        });
+
+        return {
+          codedAbility: ability.name,
+          formattedAbility: unformattedAbility.join(" "),
         };
       });
     },

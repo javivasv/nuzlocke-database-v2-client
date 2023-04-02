@@ -1,3 +1,4 @@
+// User and authentication-related
 export interface Token {
   _id: string;
   exp: number;
@@ -10,6 +11,7 @@ export interface UserData {
   password: string;
 }
 
+// Nuzlocke-related
 export interface Nuzlocke {
   _id?: string;
   name: string;
@@ -25,16 +27,19 @@ export interface UpdateNuzlockeData {
   nuzlocke: Nuzlocke;
 }
 
+// Pokemon-related
 export interface Pokemon {
   _id?: string;
+  originalSpecies: boolean;
   species: PokemonSpecies;
   nickname: string;
   location: string;
   obtained: string;
-  original: boolean;
   sprite: string;
   fainted: boolean;
   types: PokemonTypes;
+  originalAbility: boolean;
+  ability: PokemonAbility;
 }
 
 export interface PokemonSpecies {
@@ -45,6 +50,11 @@ export interface PokemonSpecies {
 export interface PokemonTypes {
   first: string;
   second: string;
+}
+
+export interface PokemonAbility {
+  codedAbility: string;
+  formattedAbility: string;
 }
 
 export interface CreatePokemonData {
@@ -62,14 +72,8 @@ export interface DeletePokemonData {
   pokemonId: string;
 }
 
-export interface PokemonSpeciesDataFromApi {
+export interface BasicDataFromApi {
   name: string;
-  url: string;
-}
-
-export interface Video {
-  name: string;
-  channel: string;
   url: string;
 }
 
@@ -82,4 +86,11 @@ export interface Filters {
 export interface Filter {
   value: string;
   type: string;
+}
+
+// Video-related
+export interface Video {
+  name: string;
+  channel: string;
+  url: string;
 }
