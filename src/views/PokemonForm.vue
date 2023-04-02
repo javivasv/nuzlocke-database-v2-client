@@ -321,6 +321,8 @@ export default defineComponent({
                 ) || this.pokemonTypes[0];
 
               this.pokemon.types.second = secondType.name;
+            } else {
+              this.pokemon.types.second = "";
             }
           }
         })
