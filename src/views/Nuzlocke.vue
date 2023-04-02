@@ -172,14 +172,33 @@
                                 align="center"
                                 justify="center"
                               >
-                                <v-icon
-                                  v-if="pokemon.obtained !== 'not'"
-                                  :icon="
-                                    pokemon.fainted
-                                      ? 'heart_broken'
-                                      : 'favorite'
-                                  "
-                                ></v-icon>
+                                <v-hover v-if="pokemon.obtained !== 'not'">
+                                  <template #default="{ isHovering, props }">
+                                    <v-btn
+                                      icon
+                                      @click.stop="updatePokemonStatus(pokemon)"
+                                    >
+                                      <v-icon
+                                        v-if="isHovering"
+                                        :icon="
+                                          !pokemon.fainted
+                                            ? 'heart_broken'
+                                            : 'favorite'
+                                        "
+                                        v-bind="props"
+                                      ></v-icon>
+                                      <v-icon
+                                        v-else
+                                        :icon="
+                                          pokemon.fainted
+                                            ? 'heart_broken'
+                                            : 'favorite'
+                                        "
+                                        v-bind="props"
+                                      ></v-icon>
+                                    </v-btn>
+                                  </template>
+                                </v-hover>
                                 <span v-else>-</span>
                               </v-row>
                             </v-col>
@@ -281,6 +300,9 @@ export default defineComponent({
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
+    ...mapActions("pokemon", {
+      updateExistingPokemon: "UPDATE_POKEMON",
+    }),
     toNuzlockes() {
       this.$router.push({
         name: "nuzlockes",
@@ -366,6 +388,17 @@ export default defineComponent({
           pokemonId: id,
         },
       });
+    },
+    updatePokemonStatus(pokemon: Pokemon) {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        pokemonId: pokemon._id,
+        pokemon: {
+          fainted: !pokemon.fainted,
+        },
+      };
+
+      this.updateExistingPokemon(data);
     },
   },
 });
