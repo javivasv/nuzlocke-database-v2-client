@@ -82,7 +82,7 @@ router.beforeEach((to, _from, next) => {
       next("/home");
     }
   } else {
-    if (to.name === "login") {
+    if (to.name === "login" || to.name === "dashboard") {
       next("/home");
     } else {
       next();
