@@ -200,12 +200,20 @@ export default defineComponent({
     };
   },
   mounted() {
+    if (this.$route.name === "edit-pokemon-form") {
+      this.editMode = true;
+    }
+
     if (!this.getNuzlocke) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
-        this.toEditPokemonData();
+        if (this.editMode) {
+          this.toEditPokemonData();
+        }
       });
     } else {
-      this.toEditPokemonData();
+      if (this.editMode) {
+        this.toEditPokemonData();
+      }
     }
 
     if (this.getPokemon.length === 0) {
@@ -229,43 +237,39 @@ export default defineComponent({
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
     toEditPokemonData() {
-      if (this.$route.name === "edit-pokemon-form") {
-        this.editMode = true;
+      let toEditPokemon = {
+        ...this.getNuzlocke.pokemon.find(
+          (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
+        ),
+      };
 
-        let toEditPokemon = {
-          ...this.getNuzlocke.pokemon.find(
-            (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
-          ),
-        };
+      delete toEditPokemon._id;
 
-        delete toEditPokemon._id;
+      this.pokemon = toEditPokemon;
+      this.pokemon.obtained =
+        this.obtained.find(
+          (option) => option.toLowerCase() === toEditPokemon.obtained
+        ) || toEditPokemon.obtained;
 
-        this.pokemon = toEditPokemon;
-        this.pokemon.obtained =
-          this.obtained.find(
-            (option) => option.toLowerCase() === toEditPokemon.obtained
-          ) || toEditPokemon.obtained;
+      const firstType =
+        this.pokemonTypes.find(
+          (type) => type.name.toLowerCase() === toEditPokemon.types.first
+        ) || this.pokemonTypes[0];
 
-        const firstType =
+      this.pokemon.types.first = firstType.name;
+
+      if (this.pokemon.types.second !== "") {
+        const secondType =
           this.pokemonTypes.find(
-            (type) => type.name.toLowerCase() === toEditPokemon.types.first
+            (type) => type.name.toLowerCase() === toEditPokemon.types.second
           ) || this.pokemonTypes[0];
 
-        this.pokemon.types.first = firstType.name;
-
-        if (this.pokemon.types.second !== "") {
-          const secondType =
-            this.pokemonTypes.find(
-              (type) => type.name.toLowerCase() === toEditPokemon.types.second
-            ) || this.pokemonTypes[0];
-
-          this.pokemon.types.second = secondType.name;
-        } else {
-          this.pokemon.types.second = "";
-        }
-
-        this.fetchPokemonData();
+        this.pokemon.types.second = secondType.name;
+      } else {
+        this.pokemon.types.second = "";
       }
+
+      this.fetchPokemonData();
     },
     toNuzlocke() {
       this.$router.push({
