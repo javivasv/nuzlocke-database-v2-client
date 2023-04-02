@@ -70,8 +70,12 @@
                           <v-row
                             v-for="pokemon in filteredPokemon()"
                             :key="pokemon._id"
-                            class="pokemon-row"
-                            :class="pokemon.sprite === '' ? 'py-5' : 'py-3'"
+                            :class="{
+                              'py-3': pokemon.sprite !== 0,
+                              'py-5': pokemon.sprite === 0,
+                              'pokemon-row': !pokemon.fainted,
+                              'fainted-pokemon-row': pokemon.fainted,
+                            }"
                             no-gutters
                             @click="toEditPokemon(pokemon._id)"
                           >
@@ -351,10 +355,17 @@ export default defineComponent({
 </script>
 
 <style>
-.pokemon-row {
+.pokemon-row,
+.fainted-pokemon-row {
   cursor: pointer;
 }
 .pokemon-row:hover {
   background-color: #9e9e9e4d;
+}
+.fainted-pokemon-row {
+  background-color: #b000201a;
+}
+.fainted-pokemon-row:hover {
+  background-color: #b0002033;
 }
 </style>
