@@ -1,5 +1,5 @@
 <template>
-  <div id="pokemon-form" class="content">
+  <div v-if="getNuzlocke" id="pokemon-form" class="content">
     <v-row class="h-100 w-100" no-gutters>
       <v-col class="pa-3" cols="8">
         <v-row class="py-3" no-gutters>

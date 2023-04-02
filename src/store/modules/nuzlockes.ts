@@ -45,7 +45,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     CREATE_NUZLOCKE: ({ commit, state, dispatch }, data: Nuzlocke) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/nuzlockes`, data)
+          .post(`${"http://localhost:5000/api"}/nuzlocke`, data)
           .then((res) => {
             commit("SET_NUZLOCKES", res.data.nuzlockes);
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {

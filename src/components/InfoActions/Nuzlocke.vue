@@ -127,7 +127,12 @@ export default defineComponent({
       });
     },
     toAddTeam() {
-      console.log("ADD TEAM");
+      this.$router.push({
+        name: "team-form",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
+      });
     },
   },
 });

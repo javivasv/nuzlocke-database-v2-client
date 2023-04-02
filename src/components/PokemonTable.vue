@@ -39,7 +39,7 @@
         ></v-progress-circular>
       </v-row>
       <template v-else>
-        <v-row v-if="getNuzlocke" no-gutters>
+        <v-row no-gutters>
           <v-col
             style="overflow: auto"
             :style="{

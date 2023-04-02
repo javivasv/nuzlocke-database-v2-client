@@ -88,6 +88,19 @@ export interface Filter {
   type: string;
 }
 
+// Team-related
+export interface Team {
+  _id?: string;
+  name: string;
+  description: string;
+  pokemon: Array<string>;
+}
+
+export interface CreateTeamData {
+  nuzlockeId: string;
+  team: Team;
+}
+
 // Video-related
 export interface Video {
   name: string;

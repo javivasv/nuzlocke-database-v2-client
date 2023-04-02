@@ -6,6 +6,7 @@ import About from "../views/About.vue";
 import NuzlockeForm from "../views/NuzlockeForm.vue";
 import Nuzlocke from "../views/Nuzlocke.vue";
 import PokemonForm from "../views/PokemonForm.vue";
+import TeamForm from "../views/TeamForm.vue";
 import Login from "../views/Login.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,11 +24,6 @@ const routes: Array<RouteRecordRaw> = [
         path: "nuzlockes",
         name: "nuzlockes",
         component: Nuzlockes,
-      },
-      {
-        path: "about",
-        name: "about",
-        component: About,
       },
       {
         path: "nuzlocke-form",
@@ -53,6 +49,16 @@ const routes: Array<RouteRecordRaw> = [
         path: "nuzlocke/:nuzlockeId/pokemon/:pokemonId",
         name: "edit-pokemon-form",
         component: PokemonForm,
+      },
+      {
+        path: "nuzlocke/:nuzlockeId/team-form",
+        name: "team-form",
+        component: TeamForm,
+      },
+      {
+        path: "about",
+        name: "about",
+        component: About,
       },
     ],
   },

@@ -1,5 +1,5 @@
 <template>
-  <div id="nuzlocke" class="content">
+  <div v-if="getNuzlocke" id="nuzlocke" class="content">
     <v-row class="w-100" no-gutters>
       <v-col class="content-col pa-3" cols="8">
         <v-row class="py-3" no-gutters>
@@ -28,7 +28,7 @@
         </v-row>
       </v-col>
       <v-col class="content-col pa-3" cols="4">
-        <Card v-if="getNuzlocke" :type="'nuzlocke'" />
+        <Card :type="'nuzlocke'" />
       </v-col>
     </v-row>
   </div>
