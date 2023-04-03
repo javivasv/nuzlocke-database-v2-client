@@ -1,5 +1,5 @@
 <template>
-  <v-row class="py-3" no-gutters align="center" justify="center">
+  <v-row class="py-3" no-gutters aria-kbdshortcuts="center" justify="center">
     <v-text-field
       v-model="search"
       prepend-inner-icon="search"
@@ -7,7 +7,6 @@
       hide-details
       variant="outlined"
       color="secondary"
-      density="compact"
     ></v-text-field>
     <v-menu :close-on-content-click="false" location="left" eager>
       <template #activator="{ props }">
@@ -44,7 +43,7 @@
           <v-col
             style="overflow: auto"
             :style="{
-              'max-height': $vuetify.display.height - 304 + 'px',
+              'max-height': $vuetify.display.height - 320 + 'px',
             }"
           >
             <v-row

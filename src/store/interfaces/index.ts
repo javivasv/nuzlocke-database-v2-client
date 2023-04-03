@@ -104,15 +104,21 @@ export interface TeamPokemon {
 }
 
 export interface Item {
-  name: string;
   sprite: string;
+  codedItem: string;
+  formattedItem: string;
 }
 
 export interface Moves {
-  first: string;
-  second: string;
-  third: string;
-  fourth: string;
+  first: Move;
+  second: Move;
+  third: Move;
+  fourth: Move;
+}
+
+export interface Move {
+  codedMove: string;
+  formattedMove: string;
 }
 
 export interface CreateTeamData {

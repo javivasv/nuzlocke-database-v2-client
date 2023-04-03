@@ -133,46 +133,87 @@
                       </v-row>
                     </v-col>
                     <v-col class="pl-3" cols="6">
-                      <v-row class="py-2" no-gutters>
-                        <v-col class="pr-3" cols="6">
-                          <v-row no-gutters>
-                            <v-autocomplete
-                              density="compact"
-                              hide-details
-                              variant="outlined"
-                            ></v-autocomplete>
-                          </v-row>
-                        </v-col>
-                        <v-col class="pl-3" cols="6">
-                          <v-row no-gutters>
-                            <v-autocomplete
-                              density="compact"
-                              hide-details
-                              variant="outlined"
-                            ></v-autocomplete>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                      <v-row class="py-2" no-gutters>
-                        <v-col class="pr-3" cols="6">
-                          <v-row no-gutters>
-                            <v-autocomplete
-                              density="compact"
-                              hide-details
-                              variant="outlined"
-                            ></v-autocomplete>
-                          </v-row>
-                        </v-col>
-                        <v-col class="pl-3" cols="6">
-                          <v-row no-gutters>
-                            <v-autocomplete
-                              density="compact"
-                              hide-details
-                              variant="outlined"
-                            ></v-autocomplete>
-                          </v-row>
-                        </v-col>
-                      </v-row>
+                      <v-row
+                        v-if="loadingMoves"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          color="primary"
+                          indeterminate
+                        ></v-progress-circular
+                      ></v-row>
+                      <template v-else>
+                        <v-row class="py-2" no-gutters>
+                          <v-col class="pr-3" cols="6">
+                            <v-row no-gutters>
+                              <v-autocomplete
+                                v-model="pokemon.moves.first"
+                                :items="getMoves"
+                                item-value="formattedMove"
+                                item-title="formattedMove"
+                                return-object
+                                density="compact"
+                                hide-details
+                                variant="outlined"
+                                clearable
+                                @click:clear="clearMove(index, 'first')"
+                              ></v-autocomplete>
+                            </v-row>
+                          </v-col>
+                          <v-col class="pl-3" cols="6">
+                            <v-row no-gutters>
+                              <v-autocomplete
+                                v-model="pokemon.moves.second"
+                                :items="getMoves"
+                                item-value="formattedMove"
+                                item-title="formattedMove"
+                                return-object
+                                density="compact"
+                                hide-details
+                                variant="outlined"
+                                clearable
+                                @click:clear="clearMove(index, 'second')"
+                              ></v-autocomplete>
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                        <v-row class="py-2" no-gutters>
+                          <v-col class="pr-3" cols="6">
+                            <v-row no-gutters>
+                              <v-autocomplete
+                                v-model="pokemon.moves.third"
+                                :items="getMoves"
+                                item-value="formattedMove"
+                                item-title="formattedMove"
+                                return-object
+                                density="compact"
+                                hide-details
+                                variant="outlined"
+                                clearable
+                                @click:clear="clearMove(index, 'third')"
+                              ></v-autocomplete>
+                            </v-row>
+                          </v-col>
+                          <v-col class="pl-3" cols="6">
+                            <v-row no-gutters>
+                              <v-autocomplete
+                                v-model="pokemon.moves.fourth"
+                                :items="getMoves"
+                                item-value="formattedMove"
+                                item-title="formattedMove"
+                                return-object
+                                density="compact"
+                                hide-details
+                                variant="outlined"
+                                clearable
+                                @click:clear="clearMove(index, 'fourth')"
+                              ></v-autocomplete>
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                      </template>
                     </v-col>
                   </v-row>
                   <v-divider v-if="index !== 5" class="my-3 px-3"></v-divider>
@@ -193,6 +234,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
+import { Moves } from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
@@ -204,6 +246,7 @@ export default defineComponent({
     }),
     ...mapGetters("pokeapi", {
       getItems: "GET_ITEMS",
+      getMoves: "GET_MOVES",
     }),
   },
   data() {
@@ -220,10 +263,22 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
           {
@@ -234,10 +289,22 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
           {
@@ -248,10 +315,22 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
           {
@@ -262,10 +341,22 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
           {
@@ -276,10 +367,22 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
           {
@@ -290,15 +393,28 @@ export default defineComponent({
               formattedItem: "",
             },
             moves: {
-              first: "",
-              second: "",
-              third: "",
-              fourth: "",
+              first: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              second: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              third: {
+                codedMove: "",
+                formattedMove: "",
+              },
+              fourth: {
+                codedMove: "",
+                formattedMove: "",
+              },
             },
           },
         ],
       },
       loadingItems: false,
+      loadingMoves: false,
       nameRules: [(value: string) => this.required(value, "name")],
     };
   },
@@ -313,6 +429,13 @@ export default defineComponent({
         this.loadingItems = false;
       });
     }
+
+    if (this.getMoves.length === 0) {
+      this.loadingMoves = true;
+      this.fetchMoves().then(() => {
+        this.loadingMoves = false;
+      });
+    }
   },
   methods: {
     ...mapActions("nuzlockes", {
@@ -321,6 +444,7 @@ export default defineComponent({
     ...mapActions("pokeapi", {
       fetchItems: "FETCH_ITEMS",
       fetchItem: "FETCH_ITEM",
+      fetchMoves: "FETCH_MOVES",
     }),
     toNuzlocke() {
       this.$router.push({
@@ -358,10 +482,22 @@ export default defineComponent({
           formattedItem: "",
         },
         moves: {
-          first: "",
-          second: "",
-          third: "",
-          fourth: "",
+          first: {
+            codedMove: "",
+            formattedMove: "",
+          },
+          second: {
+            codedMove: "",
+            formattedMove: "",
+          },
+          third: {
+            codedMove: "",
+            formattedMove: "",
+          },
+          fourth: {
+            codedMove: "",
+            formattedMove: "",
+          },
         },
       };
     },
@@ -370,6 +506,12 @@ export default defineComponent({
         sprite: "",
         codedItem: "",
         formattedItem: "",
+      };
+    },
+    clearMove(index: number, move: string) {
+      this.team.pokemon[index].moves[move as keyof Moves] = {
+        codedMove: "",
+        formattedMove: "",
       };
     },
     submitTeam() {

@@ -7,6 +7,7 @@ export interface PokeapiState {
   pokemon: [];
   abilities: [];
   items: [];
+  moves: [];
 }
 
 export const pokeapi: Module<PokeapiState, State> = {
@@ -16,11 +17,13 @@ export const pokeapi: Module<PokeapiState, State> = {
     pokemon: [],
     abilities: [],
     items: [],
+    moves: [],
   },
   getters: {
     GET_POKEMON: (state: PokeapiState) => state.pokemon,
     GET_ABILITIES: (state: PokeapiState) => state.abilities,
     GET_ITEMS: (state: PokeapiState) => state.items,
+    GET_MOVES: (state: PokeapiState) => state.moves,
   },
   mutations: {
     SET_POKEMON: (state: PokeapiState, pokemon: []) => {
@@ -31,6 +34,9 @@ export const pokeapi: Module<PokeapiState, State> = {
     },
     SET_ITEMS: (state: PokeapiState, items: []) => {
       state.items = items;
+    },
+    SET_MOVES: (state: PokeapiState, moves: []) => {
+      state.moves = moves;
     },
   },
   actions: {
@@ -167,6 +173,43 @@ export const pokeapi: Module<PokeapiState, State> = {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/item/${name}`)
           .then((res) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
+            reject(error.response);
+          });
+      });
+    },
+    FETCH_MOVES: ({ commit, state }) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"https://pokeapi.co/api/v2"}/move/?limit=920`)
+          .then((res) => {
+            const list = res.data.results.map((move: BasicDataFromApi) => {
+              let unformattedMove = move.name.split("-");
+
+              unformattedMove = unformattedMove.map((word: string) => {
+                return word[0]
+                  ? word.replace(word[0], word[0].toUpperCase())
+                  : word;
+              });
+
+              return {
+                name: move.name,
+                url: move.url,
+                codedMove: move.name,
+                formattedMove: unformattedMove.join(" "),
+              };
+            });
+
+            commit("SET_MOVES", list);
             resolve(res.data);
           })
           .catch((error) => {
