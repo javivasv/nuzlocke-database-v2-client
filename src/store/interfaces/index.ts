@@ -93,7 +93,26 @@ export interface Team {
   _id?: string;
   name: string;
   description: string;
-  pokemon: Array<string>;
+  pokemon: Array<TeamPokemon>;
+}
+
+export interface TeamPokemon {
+  _id?: string;
+  pokemon: string;
+  item: Item;
+  moves: Moves;
+}
+
+export interface Item {
+  name: string;
+  sprite: string;
+}
+
+export interface Moves {
+  first: string;
+  second: string;
+  third: string;
+  fourth: string;
 }
 
 export interface CreateTeamData {

@@ -43,6 +43,7 @@
               >
                 <v-row
                   v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
+                  class="py-2"
                   no-gutters
                   align="center"
                   justify="center"
@@ -62,8 +63,8 @@
                       </v-row> </template
                   ></v-img>
                 </v-row>
-                <v-row no-gutters>
-                  <v-select
+                <v-row class="py-2" no-gutters>
+                  <v-autocomplete
                     v-model="pokemon.pokemon"
                     :items="filteredPokemon(index)"
                     item-value="species.formattedSpecies"
@@ -73,8 +74,52 @@
                     variant="outlined"
                     clearable
                     @click:clear="clearPokemon(index)"
-                  ></v-select>
+                  ></v-autocomplete>
                 </v-row>
+                <!---->
+                <v-row
+                  v-if="pokemon.item && pokemon.item.sprite !== ''"
+                  class="py-2"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <v-img :src="pokemon.item.sprite" height="50px">
+                    <template #placeholder>
+                      <v-row
+                        class="h-100"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          color="primary"
+                          indeterminate
+                        ></v-progress-circular>
+                      </v-row> </template
+                  ></v-img>
+                </v-row>
+                <v-row class="py-2" no-gutters align="center" justify="center">
+                  <v-progress-circular
+                    v-if="loadingItems"
+                    color="primary"
+                    indeterminate
+                  ></v-progress-circular>
+                  <v-autocomplete
+                    v-else
+                    v-model="pokemon.item"
+                    :items="getItems"
+                    item-value="formattedItem"
+                    item-title="formattedItem"
+                    hide-details
+                    return-object
+                    variant="outlined"
+                    clearable
+                    @click:clear="clearItem(index)"
+                    @update:modelValue="fetchItemData(index)"
+                  ></v-autocomplete>
+                </v-row>
+                <!---->
               </v-col>
             </v-row>
           </v-card>
@@ -91,7 +136,6 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
-import { Pokemon } from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
@@ -100,6 +144,9 @@ export default defineComponent({
   computed: {
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
+    }),
+    ...mapGetters("pokeapi", {
+      getItems: "GET_ITEMS",
     }),
   },
   data() {
@@ -110,7 +157,11 @@ export default defineComponent({
         pokemon: [
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -120,7 +171,11 @@ export default defineComponent({
           },
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -130,7 +185,11 @@ export default defineComponent({
           },
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -140,7 +199,11 @@ export default defineComponent({
           },
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -150,7 +213,11 @@ export default defineComponent({
           },
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -160,7 +227,11 @@ export default defineComponent({
           },
           {
             pokemon: null,
-            item: "",
+            item: {
+              sprite: "",
+              codedItem: "",
+              formattedItem: "",
+            },
             moves: {
               first: "",
               second: "",
@@ -170,6 +241,7 @@ export default defineComponent({
           },
         ],
       },
+      loadingItems: false,
       nameRules: [(value: string) => this.required(value, "name")],
     };
   },
@@ -177,10 +249,21 @@ export default defineComponent({
     if (!this.getNuzlocke) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId);
     }
+
+    if (this.getItems.length === 0) {
+      this.loadingItems = true;
+      this.fetchItems().then(() => {
+        this.loadingItems = false;
+      });
+    }
   },
   methods: {
     ...mapActions("nuzlockes", {
       fetchNuzlocke: "FETCH_NUZLOCKE",
+    }),
+    ...mapActions("pokeapi", {
+      fetchItems: "FETCH_ITEMS",
+      fetchItem: "FETCH_ITEM",
     }),
     toNuzlocke() {
       this.$router.push({
@@ -202,16 +285,34 @@ export default defineComponent({
 
       return pokemonList;
     },
+    fetchItemData(index: number) {
+      this.fetchItem(this.team.pokemon[index].item.codedItem).then((res) => {
+        this.team.pokemon[index].item.sprite = res.sprites.default
+          ? res.sprites.default
+          : "";
+      });
+    },
     clearPokemon(index: number) {
       this.team.pokemon[index] = {
         pokemon: null,
-        item: "",
+        item: {
+          sprite: "",
+          codedItem: "",
+          formattedItem: "",
+        },
         moves: {
           first: "",
           second: "",
           third: "",
           fourth: "",
         },
+      };
+    },
+    clearItem(index: number) {
+      this.team.pokemon[index].item = {
+        sprite: "",
+        codedItem: "",
+        formattedItem: "",
       };
     },
     submitTeam() {

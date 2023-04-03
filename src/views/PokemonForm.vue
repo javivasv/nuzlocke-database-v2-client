@@ -295,10 +295,7 @@ export default defineComponent({
       this.loadingPokemonAbilities = true;
       this.fetchAbilities().then(() => {
         this.loadingPokemonAbilities = false;
-        this.defaultAbility();
       });
-    } else {
-      this.defaultAbility();
     }
   },
   methods: {
@@ -381,14 +378,6 @@ export default defineComponent({
         };
 
         this.fetchPokemonData();
-      }
-    },
-    defaultAbility() {
-      if (!this.editMode) {
-        this.pokemon.ability = {
-          codedAbility: "",
-          formattedAbility: "",
-        };
       }
     },
     fetchPokemonData() {

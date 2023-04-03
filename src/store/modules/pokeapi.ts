@@ -6,6 +6,7 @@ import { BasicDataFromApi } from "../interfaces/index";
 export interface PokeapiState {
   pokemon: [];
   abilities: [];
+  items: [];
 }
 
 export const pokeapi: Module<PokeapiState, State> = {
@@ -14,10 +15,12 @@ export const pokeapi: Module<PokeapiState, State> = {
   state: {
     pokemon: [],
     abilities: [],
+    items: [],
   },
   getters: {
     GET_POKEMON: (state: PokeapiState) => state.pokemon,
     GET_ABILITIES: (state: PokeapiState) => state.abilities,
+    GET_ITEMS: (state: PokeapiState) => state.items,
   },
   mutations: {
     SET_POKEMON: (state: PokeapiState, pokemon: []) => {
@@ -25,6 +28,9 @@ export const pokeapi: Module<PokeapiState, State> = {
     },
     SET_ABILITIES: (state: PokeapiState, abilities: []) => {
       state.abilities = abilities;
+    },
+    SET_ITEMS: (state: PokeapiState, items: []) => {
+      state.items = items;
     },
   },
   actions: {
@@ -105,6 +111,62 @@ export const pokeapi: Module<PokeapiState, State> = {
             });
 
             commit("SET_ABILITIES", list);
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
+            reject(error.response);
+          });
+      });
+    },
+    FETCH_ITEMS: ({ commit, state }) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"https://pokeapi.co/api/v2"}/item/?limit=2050`)
+          .then((res) => {
+            const list = res.data.results.map((item: BasicDataFromApi) => {
+              let unformattedItem = item.name.split("-");
+
+              unformattedItem = unformattedItem.map((word: string) => {
+                return word[0]
+                  ? word.replace(word[0], word[0].toUpperCase())
+                  : word;
+              });
+
+              return {
+                name: item.name,
+                url: item.url,
+                codedItem: item.name,
+                formattedItem: unformattedItem.join(" "),
+              };
+            });
+
+            commit("SET_ITEMS", list);
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
+            reject(error.response);
+          });
+      });
+    },
+    FETCH_ITEM: ({ commit, state }, name) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"https://pokeapi.co/api/v2"}/item/${name}`)
+          .then((res) => {
             resolve(res.data);
           })
           .catch((error) => {
