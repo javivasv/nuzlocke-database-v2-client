@@ -46,15 +46,15 @@ export const pokeapi: Module<PokeapiState, State> = {
           .get(`${"https://pokeapi.co/api/v2"}/pokemon/?limit=1281`)
           .then((res) => {
             const list = res.data.results.map((pokemon: BasicDataFromApi) => {
-              let unformattedSpecies = pokemon.name.split("-");
+              let unformattedName = pokemon.name.split("-");
 
-              unformattedSpecies = unformattedSpecies.map((word: string) => {
+              unformattedName = unformattedName.map((word: string) => {
                 return word.replace(word[0], word[0].toUpperCase());
               });
 
               return {
-                codedSpecies: pokemon.name,
-                formattedSpecies: unformattedSpecies.join(" "),
+                codedName: pokemon.name,
+                formattedName: unformattedName.join(" "),
               };
             });
 
@@ -98,17 +98,17 @@ export const pokeapi: Module<PokeapiState, State> = {
           .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=358`)
           .then((res) => {
             const list = res.data.results.map((ability: BasicDataFromApi) => {
-              let unformattedAbility = ability.name.split("-");
+              let unformattedName = ability.name.split("-");
 
-              unformattedAbility = unformattedAbility.map((word: string) => {
+              unformattedName = unformattedName.map((word: string) => {
                 return word[0]
                   ? word.replace(word[0], word[0].toUpperCase())
                   : word;
               });
 
               return {
-                codedAbility: ability.name,
-                formattedAbility: unformattedAbility.join(" "),
+                codedName: ability.name,
+                formattedName: unformattedName.join(" "),
               };
             });
 
@@ -133,17 +133,17 @@ export const pokeapi: Module<PokeapiState, State> = {
           .get(`${"https://pokeapi.co/api/v2"}/item/?limit=2050`)
           .then((res) => {
             const list = res.data.results.map((item: BasicDataFromApi) => {
-              let unformattedItem = item.name.split("-");
+              let unformattedName = item.name.split("-");
 
-              unformattedItem = unformattedItem.map((word: string) => {
+              unformattedName = unformattedName.map((word: string) => {
                 return word[0]
                   ? word.replace(word[0], word[0].toUpperCase())
                   : word;
               });
 
               return {
-                codedItem: item.name,
-                formattedItem: unformattedItem.join(" "),
+                codedName: item.name,
+                formattedName: unformattedName.join(" "),
               };
             });
 
@@ -187,17 +187,17 @@ export const pokeapi: Module<PokeapiState, State> = {
           .get(`${"https://pokeapi.co/api/v2"}/move/?limit=920`)
           .then((res) => {
             const list = res.data.results.map((move: BasicDataFromApi) => {
-              let unformattedMove = move.name.split("-");
+              let unformattedName = move.name.split("-");
 
-              unformattedMove = unformattedMove.map((word: string) => {
+              unformattedName = unformattedName.map((word: string) => {
                 return word[0]
                   ? word.replace(word[0], word[0].toUpperCase())
                   : word;
               });
 
               return {
-                codedMove: move.name,
-                formattedMove: unformattedMove.join(" "),
+                codedName: move.name,
+                formattedName: unformattedName.join(" "),
               };
             });
 

@@ -31,7 +31,7 @@ export interface UpdateNuzlockeData {
 export interface Pokemon {
   _id?: string;
   originalSpecies: boolean;
-  species: PokemonSpecies;
+  species: Name;
   nickname: string;
   location: string;
   obtained: string;
@@ -39,22 +39,12 @@ export interface Pokemon {
   fainted: boolean;
   types: PokemonTypes;
   originalAbility: boolean;
-  ability: PokemonAbility;
-}
-
-export interface PokemonSpecies {
-  codedSpecies: string;
-  formattedSpecies: string;
+  ability: Name;
 }
 
 export interface PokemonTypes {
   first: string;
   second: string;
-}
-
-export interface PokemonAbility {
-  codedAbility: string;
-  formattedAbility: string;
 }
 
 export interface CreatePokemonData {
@@ -110,20 +100,21 @@ export interface Item {
 }
 
 export interface Moves {
-  first: Move;
-  second: Move;
-  third: Move;
-  fourth: Move;
-}
-
-export interface Move {
-  codedMove: string;
-  formattedMove: string;
+  first: Name;
+  second: Name;
+  third: Name;
+  fourth: Name;
 }
 
 export interface CreateTeamData {
   nuzlockeId: string;
   team: Team;
+}
+
+// Pokeapi response-related
+export interface Name {
+  codedName: string;
+  formattedName: string;
 }
 
 // Video-related

@@ -91,7 +91,7 @@
                         <template v-else>
                           <v-text-field
                             v-if="pokemon.originalSpecies"
-                            v-model="pokemon.species.codedSpecies"
+                            v-model="pokemon.species.codedName"
                             placeholder="Species"
                             variant="outlined"
                             color="secondary"
@@ -105,8 +105,8 @@
                             variant="outlined"
                             color="secondary"
                             :items="getPokemon"
-                            item-title="formattedSpecies"
-                            item-value="codedSpecies"
+                            item-title="formattedName"
+                            item-value="codedName"
                             return-object
                             density="compact"
                             :rules="speciesRules()"
@@ -140,7 +140,7 @@
                         <template v-else>
                           <v-text-field
                             v-if="pokemon.originalAbility"
-                            v-model="pokemon.ability.codedSpecies"
+                            v-model="pokemon.ability.codedName"
                             placeholder="Ability"
                             variant="outlined"
                             color="secondary"
@@ -154,8 +154,8 @@
                             variant="outlined"
                             color="secondary"
                             :items="getAbilities"
-                            item-title="formattedAbility"
-                            item-value="codedAbility"
+                            item-title="formattedName"
+                            item-value="codedName"
                             return-object
                             hide-details
                             clearable
@@ -251,8 +251,8 @@ export default defineComponent({
       pokemon: {
         originalSpecies: false,
         species: {
-          codedSpecies: "",
-          formattedSpecies: "",
+          codedName: "",
+          formattedName: "",
         },
         nickname: "",
         location: "",
@@ -265,8 +265,8 @@ export default defineComponent({
         },
         originalAbility: false,
         ability: {
-          codedAbility: "",
-          formattedAbility: "",
+          codedName: "",
+          formattedName: "",
         },
       },
       obtained: ["Caught", "Gifted", "Hatched", "Traded", "Not"],
@@ -385,8 +385,8 @@ export default defineComponent({
     defaultPokemon() {
       if (!this.editMode) {
         this.pokemon.species = {
-          codedSpecies: "bulbasaur",
-          formattedSpecies: "Bulbasaur",
+          codedName: "bulbasaur",
+          formattedName: "Bulbasaur",
         };
 
         this.fetchPokemonData();
@@ -394,7 +394,7 @@ export default defineComponent({
     },
     fetchPokemonData() {
       this.loadingPokemonData = true;
-      this.fetchPokemon(this.pokemon.species.codedSpecies)
+      this.fetchPokemon(this.pokemon.species.codedName)
         .then((res) => {
           this.normalSpriteUrl = res.sprites.front_default
             ? res.sprites.front_default
@@ -438,16 +438,16 @@ export default defineComponent({
         });
     },
     pokemonOriginal() {
-      this.pokemon.species.codedSpecies = "";
-      this.pokemon.species.formattedSpecies = "";
+      this.pokemon.species.codedName = "";
+      this.pokemon.species.formattedName = "";
       this.pokemon.sprite = "";
       this.normalSpriteUrl = "";
       this.shinySpriteUrl = "";
       this.shiny = false;
     },
     pokemonAbility() {
-      this.pokemon.ability.codedAbility = "";
-      this.pokemon.ability.formattedAbility = "";
+      this.pokemon.ability.codedName = "";
+      this.pokemon.ability.formattedName = "";
     },
     pokemonShiny() {
       this.pokemon.sprite = this.shiny
@@ -464,13 +464,11 @@ export default defineComponent({
       }
 
       if (this.pokemon.originalSpecies) {
-        this.pokemon.species.formattedSpecies =
-          this.pokemon.species.codedSpecies;
+        this.pokemon.species.formattedName = this.pokemon.species.codedName;
       }
 
       if (this.pokemon.originalAbility) {
-        this.pokemon.ability.formattedAbility =
-          this.pokemon.ability.codedAbility;
+        this.pokemon.ability.formattedName = this.pokemon.ability.codedName;
       }
 
       this.pokemon.obtained = this.pokemon.obtained.toLowerCase();
@@ -497,8 +495,8 @@ export default defineComponent({
     },
     clearAbility() {
       this.pokemon.ability = {
-        codedAbility: "",
-        formattedAbility: "",
+        codedName: "",
+        formattedName: "",
       };
     },
     async updatePokemon() {

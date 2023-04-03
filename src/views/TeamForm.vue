@@ -77,8 +77,8 @@
                         <v-autocomplete
                           v-model="pokemon.pokemon"
                           :items="filteredPokemon(index)"
-                          item-value="species.formattedSpecies"
-                          item-title="species.formattedSpecies"
+                          item-value="species.formattedName"
+                          item-title="species.formattedName"
                           density="compact"
                           hide-details
                           return-object
@@ -126,8 +126,8 @@
                           v-else
                           v-model="pokemon.item"
                           :items="getItems"
-                          item-value="formattedItem"
-                          item-title="formattedItem"
+                          item-value="formattedName"
+                          item-title="formattedName"
                           density="compact"
                           hide-details
                           return-object
@@ -157,8 +157,8 @@
                               <v-autocomplete
                                 v-model="pokemon.moves.first"
                                 :items="getMoves"
-                                item-value="formattedMove"
-                                item-title="formattedMove"
+                                item-value="formattedName"
+                                item-title="formattedName"
                                 return-object
                                 density="compact"
                                 hide-details
@@ -173,8 +173,8 @@
                               <v-autocomplete
                                 v-model="pokemon.moves.second"
                                 :items="getMoves"
-                                item-value="formattedMove"
-                                item-title="formattedMove"
+                                item-value="formattedName"
+                                item-title="formattedName"
                                 return-object
                                 density="compact"
                                 hide-details
@@ -191,8 +191,8 @@
                               <v-autocomplete
                                 v-model="pokemon.moves.third"
                                 :items="getMoves"
-                                item-value="formattedMove"
-                                item-title="formattedMove"
+                                item-value="formattedName"
+                                item-title="formattedName"
                                 return-object
                                 density="compact"
                                 hide-details
@@ -207,8 +207,8 @@
                               <v-autocomplete
                                 v-model="pokemon.moves.fourth"
                                 :items="getMoves"
-                                item-value="formattedMove"
-                                item-title="formattedMove"
+                                item-value="formattedName"
+                                item-title="formattedName"
                                 return-object
                                 density="compact"
                                 hide-details
@@ -265,25 +265,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -291,25 +291,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -317,25 +317,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -343,25 +343,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -369,25 +369,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -395,25 +395,25 @@ export default defineComponent({
             pokemon: null,
             item: {
               sprite: "",
-              codedItem: "",
-              formattedItem: "",
+              codedName: "",
+              formattedName: "",
             },
             moves: {
               first: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               second: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               third: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
               fourth: {
-                codedMove: "",
-                formattedMove: "",
+                codedName: "",
+                formattedName: "",
               },
             },
           },
@@ -473,7 +473,7 @@ export default defineComponent({
       return pokemonList;
     },
     fetchItemData(index: number) {
-      this.fetchItem(this.team.pokemon[index].item.codedItem).then((res) => {
+      this.fetchItem(this.team.pokemon[index].item.codedName).then((res) => {
         this.team.pokemon[index].item.sprite = res.sprites.default
           ? res.sprites.default
           : "";
@@ -484,25 +484,25 @@ export default defineComponent({
         pokemon: null,
         item: {
           sprite: "",
-          codedItem: "",
-          formattedItem: "",
+          codedName: "",
+          formattedName: "",
         },
         moves: {
           first: {
-            codedMove: "",
-            formattedMove: "",
+            codedName: "",
+            formattedName: "",
           },
           second: {
-            codedMove: "",
-            formattedMove: "",
+            codedName: "",
+            formattedName: "",
           },
           third: {
-            codedMove: "",
-            formattedMove: "",
+            codedName: "",
+            formattedName: "",
           },
           fourth: {
-            codedMove: "",
-            formattedMove: "",
+            codedName: "",
+            formattedName: "",
           },
         },
       };
@@ -510,14 +510,14 @@ export default defineComponent({
     clearItem(index: number) {
       this.team.pokemon[index].item = {
         sprite: "",
-        codedItem: "",
-        formattedItem: "",
+        codedName: "",
+        formattedName: "",
       };
     },
     clearMove(index: number, move: string) {
       this.team.pokemon[index].moves[move as keyof Moves] = {
-        codedMove: "",
-        formattedMove: "",
+        codedName: "",
+        formattedName: "",
       };
     },
     submitTeam() {

@@ -127,7 +127,7 @@ export default defineComponent({
         if (toDeletePokemon) {
           return toDeletePokemon.nickname !== ""
             ? toDeletePokemon.nickname
-            : toDeletePokemon.species.formattedSpecies;
+            : toDeletePokemon.species.formattedName;
         }
       }
 

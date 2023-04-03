@@ -97,7 +97,7 @@
               <v-col cols="2">
                 <v-row class="h-100" no-gutters align="center" justify="center">
                   <span class="table-text">
-                    {{ pokemon.species.formattedSpecies }}
+                    {{ pokemon.species.formattedName }}
                   </span>
                 </v-row>
               </v-col>
@@ -220,7 +220,7 @@ export default defineComponent({
         if (
           this.search !== "" &&
           !pokemon.nickname.includes(this.search) &&
-          !pokemon.species.formattedSpecies.includes(this.search) &&
+          !pokemon.species.formattedName.includes(this.search) &&
           !pokemon.location.includes(this.search)
         ) {
           return false;
