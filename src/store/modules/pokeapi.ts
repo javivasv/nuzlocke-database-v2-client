@@ -53,8 +53,6 @@ export const pokeapi: Module<PokeapiState, State> = {
               });
 
               return {
-                name: pokemon.name,
-                url: pokemon.url,
                 codedSpecies: pokemon.name,
                 formattedSpecies: unformattedSpecies.join(" "),
               };
@@ -109,8 +107,6 @@ export const pokeapi: Module<PokeapiState, State> = {
               });
 
               return {
-                name: ability.name,
-                url: ability.url,
                 codedAbility: ability.name,
                 formattedAbility: unformattedAbility.join(" "),
               };
@@ -146,8 +142,6 @@ export const pokeapi: Module<PokeapiState, State> = {
               });
 
               return {
-                name: item.name,
-                url: item.url,
                 codedItem: item.name,
                 formattedItem: unformattedItem.join(" "),
               };
@@ -202,8 +196,6 @@ export const pokeapi: Module<PokeapiState, State> = {
               });
 
               return {
-                name: move.name,
-                url: move.url,
                 codedMove: move.name,
                 formattedMove: unformattedMove.join(" "),
               };
