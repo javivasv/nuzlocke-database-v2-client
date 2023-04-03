@@ -88,7 +88,11 @@
                         ></v-autocomplete>
                       </v-row>
                     </v-col>
-                    <v-col class="px-3" cols="3">
+                    <v-col
+                      class="px-3"
+                      cols="3"
+                      :align-self="pokemon.pokemon ? 'end' : 'center'"
+                    >
                       <v-row
                         v-if="pokemon.item && pokemon.item.sprite !== ''"
                         class="py-2"
@@ -96,7 +100,7 @@
                         align="center"
                         justify="center"
                       >
-                        <v-img :src="pokemon.item.sprite" height="100px">
+                        <v-img :src="pokemon.item.sprite" height="50px">
                           <template #placeholder>
                             <v-row
                               class="h-100"
@@ -113,6 +117,7 @@
                       </v-row>
                       <v-row
                         class="py-2"
+                        :class="pokemon.pokemon ? 'mt-5' : ''"
                         no-gutters
                         align="center"
                         justify="center"
