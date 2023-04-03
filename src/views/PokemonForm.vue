@@ -413,24 +413,22 @@ export default defineComponent({
 
           this.pokemonShiny();
 
-          if (!this.editMode) {
-            const firstType =
+          const firstType =
+            this.pokemonTypes.find(
+              (type) => type.name.toLowerCase() === res.types[0].type.name
+            ) || this.pokemonTypes[0];
+
+          this.pokemon.types.first = firstType.name;
+
+          if (res.types[1]) {
+            const secondType =
               this.pokemonTypes.find(
-                (type) => type.name.toLowerCase() === res.types[0].type.name
+                (type) => type.name.toLowerCase() === res.types[1].type.name
               ) || this.pokemonTypes[0];
 
-            this.pokemon.types.first = firstType.name;
-
-            if (res.types[1]) {
-              const secondType =
-                this.pokemonTypes.find(
-                  (type) => type.name.toLowerCase() === res.types[1].type.name
-                ) || this.pokemonTypes[0];
-
-              this.pokemon.types.second = secondType.name;
-            } else {
-              this.pokemon.types.second = "";
-            }
+            this.pokemon.types.second = secondType.name;
+          } else {
+            this.pokemon.types.second = "";
           }
         })
         .finally(() => {
