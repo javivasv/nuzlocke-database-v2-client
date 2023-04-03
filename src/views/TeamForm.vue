@@ -478,6 +478,10 @@ export default defineComponent({
       return pokemonList;
     },
     fetchItemData(index: number) {
+      if (this.team.pokemon[index].item.codedName === "") {
+        return;
+      }
+
       this.fetchItem(this.team.pokemon[index].item.codedName).then((res) => {
         this.team.pokemon[index].item.sprite = res.sprites.default
           ? res.sprites.default
