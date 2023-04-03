@@ -158,6 +158,12 @@
                       <template v-else>
                         <v-row class="py-2" no-gutters>
                           <v-col class="pr-3" cols="6">
+                            <v-row no-gutters align="center" justify="center">
+                              <PokemonType
+                                v-if="pokemon.moves.first.type !== ''"
+                                :type="pokemon.moves.first.type"
+                              />
+                            </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.first"
@@ -177,6 +183,12 @@
                             </v-row>
                           </v-col>
                           <v-col class="pl-3" cols="6">
+                            <v-row no-gutters align="center" justify="center">
+                              <PokemonType
+                                v-if="pokemon.moves.second.type !== ''"
+                                :type="pokemon.moves.second.type"
+                              />
+                            </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.second"
@@ -189,12 +201,21 @@
                                 variant="outlined"
                                 clearable
                                 @click:clear="clearMove(index, 'second')"
+                                @update:modelValue="
+                                  fetchMoveData(index, 'second')
+                                "
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
                         </v-row>
                         <v-row class="py-2" no-gutters>
                           <v-col class="pr-3" cols="6">
+                            <v-row no-gutters align="center" justify="center">
+                              <PokemonType
+                                v-if="pokemon.moves.third.type !== ''"
+                                :type="pokemon.moves.third.type"
+                              />
+                            </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.third"
@@ -207,10 +228,19 @@
                                 variant="outlined"
                                 clearable
                                 @click:clear="clearMove(index, 'third')"
+                                @update:modelValue="
+                                  fetchMoveData(index, 'third')
+                                "
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
                           <v-col class="pl-3" cols="6">
+                            <v-row no-gutters align="center" justify="center">
+                              <PokemonType
+                                v-if="pokemon.moves.fourth.type !== ''"
+                                :type="pokemon.moves.fourth.type"
+                              />
+                            </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.fourth"
@@ -223,6 +253,9 @@
                                 variant="outlined"
                                 clearable
                                 @click:clear="clearMove(index, 'fourth')"
+                                @update:modelValue="
+                                  fetchMoveData(index, 'fourth')
+                                "
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
@@ -248,11 +281,13 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
+import PokemonType from "../components/PokemonType.vue";
 import { Moves } from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
     Card,
+    PokemonType,
   },
   computed: {
     ...mapGetters("nuzlockes", {
@@ -280,18 +315,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -306,18 +349,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -332,18 +383,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -358,18 +417,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -384,18 +451,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -410,18 +485,26 @@ export default defineComponent({
               first: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               second: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               third: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
               fourth: {
                 codedName: "",
                 formattedName: "",
+                class: "",
+                type: "",
               },
             },
           },
@@ -500,7 +583,8 @@ export default defineComponent({
       this.fetchMove(
         this.team.pokemon[index].moves[move as keyof Moves].codedName
       ).then((res) => {
-        console.log("RES: ", res);
+        this.team.pokemon[index].moves[move as keyof Moves].type =
+          res.type.name;
       });
     },
     clearPokemon(index: number) {
@@ -515,18 +599,26 @@ export default defineComponent({
           first: {
             codedName: "",
             formattedName: "",
+            class: "",
+            type: "",
           },
           second: {
             codedName: "",
             formattedName: "",
+            class: "",
+            type: "",
           },
           third: {
             codedName: "",
             formattedName: "",
+            class: "",
+            type: "",
           },
           fourth: {
             codedName: "",
             formattedName: "",
+            class: "",
+            type: "",
           },
         },
       };
@@ -542,6 +634,8 @@ export default defineComponent({
       this.team.pokemon[index].moves[move as keyof Moves] = {
         codedName: "",
         formattedName: "",
+        class: "",
+        type: "",
       };
     },
     submitTeam() {
