@@ -18,6 +18,7 @@
                       placeholder="Name"
                       variant="outlined"
                       color="secondary"
+                      density="compact"
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
@@ -27,6 +28,7 @@
                       placeholder="Game"
                       variant="outlined"
                       color="secondary"
+                      density="compact"
                       :rules="gameRules"
                     ></v-text-field>
                   </v-row>
@@ -37,7 +39,9 @@
                       variant="outlined"
                       color="secondary"
                       no-resize
+                      density="compact"
                       hide-details
+                      rows="2"
                     ></v-textarea>
                   </v-row>
                 </v-col>

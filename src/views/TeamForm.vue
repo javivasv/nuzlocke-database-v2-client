@@ -18,6 +18,7 @@
                       placeholder="Name"
                       variant="outlined"
                       color="secondary"
+                      density="compact"
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
@@ -28,98 +29,154 @@
                       variant="outlined"
                       color="secondary"
                       no-resize
+                      density="compact"
                       hide-details
+                      rows="2"
                     ></v-textarea>
                   </v-row>
                 </v-col>
               </v-row>
             </v-form>
             <v-row no-gutters align="center" justify="center">
-              <v-col
-                v-for="(pokemon, index) in team.pokemon"
-                :key="pokemon.pokemonId"
-                class="pa-2"
-                cols="4"
-              >
-                <v-row
-                  v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
-                  class="py-2"
-                  no-gutters
-                  align="center"
-                  justify="center"
+              <v-col>
+                <template
+                  v-for="(pokemon, index) in team.pokemon"
+                  :key="pokemon.pokemonId"
                 >
-                  <v-img :src="pokemon.pokemon.sprite" height="100px">
-                    <template #placeholder>
+                  <v-row no-gutters align="center" justify="center">
+                    <v-col class="pr-3" cols="3">
                       <v-row
-                        class="h-100"
+                        v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
+                        class="py-2"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <v-img :src="pokemon.pokemon.sprite" height="100px">
+                          <template #placeholder>
+                            <v-row
+                              class="h-100"
+                              no-gutters
+                              align="center"
+                              justify="center"
+                            >
+                              <v-progress-circular
+                                color="primary"
+                                indeterminate
+                              ></v-progress-circular>
+                            </v-row> </template
+                        ></v-img>
+                      </v-row>
+                      <v-row class="py-2" no-gutters>
+                        <v-autocomplete
+                          v-model="pokemon.pokemon"
+                          :items="filteredPokemon(index)"
+                          item-value="species.formattedSpecies"
+                          item-title="species.formattedSpecies"
+                          density="compact"
+                          hide-details
+                          return-object
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearPokemon(index)"
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                    <v-col class="px-3" cols="3">
+                      <v-row
+                        v-if="pokemon.item && pokemon.item.sprite !== ''"
+                        class="py-2"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <v-img :src="pokemon.item.sprite" height="100px">
+                          <template #placeholder>
+                            <v-row
+                              class="h-100"
+                              no-gutters
+                              align="center"
+                              justify="center"
+                            >
+                              <v-progress-circular
+                                color="primary"
+                                indeterminate
+                              ></v-progress-circular>
+                            </v-row> </template
+                        ></v-img>
+                      </v-row>
+                      <v-row
+                        class="py-2"
                         no-gutters
                         align="center"
                         justify="center"
                       >
                         <v-progress-circular
+                          v-if="loadingItems"
                           color="primary"
                           indeterminate
                         ></v-progress-circular>
-                      </v-row> </template
-                  ></v-img>
-                </v-row>
-                <v-row class="py-2" no-gutters>
-                  <v-autocomplete
-                    v-model="pokemon.pokemon"
-                    :items="filteredPokemon(index)"
-                    item-value="species.formattedSpecies"
-                    item-title="species.formattedSpecies"
-                    hide-details
-                    return-object
-                    variant="outlined"
-                    clearable
-                    @click:clear="clearPokemon(index)"
-                  ></v-autocomplete>
-                </v-row>
-                <!---->
-                <v-row
-                  v-if="pokemon.item && pokemon.item.sprite !== ''"
-                  class="py-2"
-                  no-gutters
-                  align="center"
-                  justify="center"
-                >
-                  <v-img :src="pokemon.item.sprite" height="50px">
-                    <template #placeholder>
-                      <v-row
-                        class="h-100"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          color="primary"
-                          indeterminate
-                        ></v-progress-circular>
-                      </v-row> </template
-                  ></v-img>
-                </v-row>
-                <v-row class="py-2" no-gutters align="center" justify="center">
-                  <v-progress-circular
-                    v-if="loadingItems"
-                    color="primary"
-                    indeterminate
-                  ></v-progress-circular>
-                  <v-autocomplete
-                    v-else
-                    v-model="pokemon.item"
-                    :items="getItems"
-                    item-value="formattedItem"
-                    item-title="formattedItem"
-                    hide-details
-                    return-object
-                    variant="outlined"
-                    clearable
-                    @click:clear="clearItem(index)"
-                    @update:modelValue="fetchItemData(index)"
-                  ></v-autocomplete>
-                </v-row>
-                <!---->
+                        <v-autocomplete
+                          v-else
+                          v-model="pokemon.item"
+                          :items="getItems"
+                          item-value="formattedItem"
+                          item-title="formattedItem"
+                          density="compact"
+                          hide-details
+                          return-object
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearItem(index)"
+                          @update:modelValue="fetchItemData(index)"
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                    <v-col class="pl-3" cols="6">
+                      <v-row class="py-2" no-gutters>
+                        <v-col class="pr-3" cols="6">
+                          <v-row no-gutters>
+                            <v-autocomplete
+                              density="compact"
+                              hide-details
+                              variant="outlined"
+                            ></v-autocomplete>
+                          </v-row>
+                        </v-col>
+                        <v-col class="pl-3" cols="6">
+                          <v-row no-gutters>
+                            <v-autocomplete
+                              density="compact"
+                              hide-details
+                              variant="outlined"
+                            ></v-autocomplete>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                      <v-row class="py-2" no-gutters>
+                        <v-col class="pr-3" cols="6">
+                          <v-row no-gutters>
+                            <v-autocomplete
+                              density="compact"
+                              hide-details
+                              variant="outlined"
+                            ></v-autocomplete>
+                          </v-row>
+                        </v-col>
+                        <v-col class="pl-3" cols="6">
+                          <v-row no-gutters>
+                            <v-autocomplete
+                              density="compact"
+                              hide-details
+                              variant="outlined"
+                            ></v-autocomplete>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <v-divider v-if="index !== 5" class="my-3 px-3"></v-divider>
+                </template>
               </v-col>
             </v-row>
           </v-card>

@@ -14,6 +14,7 @@
                     hide-details
                     variant="outlined"
                     color="secondary"
+                    density="compact"
                   ></v-text-field>
                 </v-row>
                 <v-row no-gutters>
@@ -45,7 +46,7 @@
                       <v-col
                         style="overflow: auto"
                         :style="{
-                          'max-height': $vuetify.display.height - 188 + 'px',
+                          'max-height': $vuetify.display.height - 172 + 'px',
                         }"
                       >
                         <v-row

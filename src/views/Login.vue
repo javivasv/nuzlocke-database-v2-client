@@ -22,6 +22,7 @@
                         label="Username"
                         variant="outlined"
                         color="secondary"
+                        density="compact"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
@@ -32,6 +33,7 @@
                         variant="outlined"
                         type="password"
                         color="secondary"
+                        density="compact"
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>
@@ -42,6 +44,7 @@
                         variant="outlined"
                         type="password"
                         color="secondary"
+                        density="compact"
                         :rules="passwordConfirmationRules"
                       ></v-text-field>
                     </v-row>
@@ -82,6 +85,7 @@
                         label="Username"
                         variant="outlined"
                         color="secondary"
+                        density="compact"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
@@ -92,6 +96,7 @@
                         variant="outlined"
                         type="password"
                         color="secondary"
+                        density="compact"
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>

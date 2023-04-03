@@ -40,6 +40,7 @@
                       label="Shiny"
                       hide-details
                       color="secondary"
+                      density="compact"
                       @update:modelValue="pokemonShiny()"
                     ></v-checkbox>
                   </v-row>
@@ -58,6 +59,7 @@
                           item-title="name"
                           hide-details
                           variant="outlined"
+                          density="compact"
                         ></v-select>
                       </v-row>
                     </v-col>
@@ -71,6 +73,7 @@
                           hide-details
                           variant="outlined"
                           clearable
+                          density="compact"
                           @click:clear.stop="clearSecondType()"
                         ></v-select>
                       </v-row>
@@ -92,6 +95,7 @@
                             placeholder="Species"
                             variant="outlined"
                             color="secondary"
+                            density="compact"
                             :rules="speciesRules()"
                           ></v-text-field>
                           <v-autocomplete
@@ -104,6 +108,7 @@
                             item-title="formattedSpecies"
                             item-value="codedSpecies"
                             return-object
+                            density="compact"
                             :rules="speciesRules()"
                             @update:modelValue="fetchPokemonData()"
                           ></v-autocomplete>
@@ -117,6 +122,7 @@
                           label="Original species"
                           hide-details
                           color="secondary"
+                          density="compact"
                           @update:modelValue="pokemonOriginal()"
                         ></v-checkbox>
                       </v-row>
@@ -139,6 +145,7 @@
                             variant="outlined"
                             color="secondary"
                             hide-details
+                            density="compact"
                           ></v-text-field>
                           <v-autocomplete
                             v-else
@@ -152,6 +159,7 @@
                             return-object
                             hide-details
                             clearable
+                            density="compact"
                             @click:clear="clearAbility()"
                           ></v-autocomplete>
                         </template>
@@ -164,6 +172,7 @@
                           label="Original ability"
                           hide-details
                           color="secondary"
+                          density="compact"
                           @update:modelValue="pokemonAbility()"
                         ></v-checkbox>
                       </v-row>
@@ -176,6 +185,7 @@
                       variant="outlined"
                       color="secondary"
                       hide-details
+                      density="compact"
                     ></v-text-field>
                   </v-row>
                   <v-row class="py-1" no-gutters>
@@ -184,6 +194,7 @@
                       placeholder="Location"
                       variant="outlined"
                       color="secondary"
+                      density="compact"
                       :rules="locationRules()"
                     ></v-text-field>
                   </v-row>
@@ -194,6 +205,7 @@
                       variant="outlined"
                       color="secondary"
                       :items="obtained"
+                      density="compact"
                       :rules="obtainedRules()"
                     ></v-select>
                   </v-row>
