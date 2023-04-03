@@ -8,7 +8,13 @@
           </v-btn>
         </v-row>
         <v-row no-gutters>
-          <v-card class="pa-4 w-100">
+          <v-card
+            class="pa-4 w-100"
+            style="overflow: auto"
+            :style="{
+              'max-height': $vuetify.display.height - 96 + 'px',
+            }"
+          >
             <v-form ref="teamForm">
               <v-row no-gutters>
                 <v-col>
