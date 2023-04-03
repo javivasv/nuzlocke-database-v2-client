@@ -124,29 +124,37 @@
                   </v-row>
                   <v-row class="py-1" no-gutters>
                     <v-col cols="9">
-                      <v-row no-gutters>
-                        <v-text-field
-                          v-if="pokemon.originalAbility"
-                          v-model="pokemon.ability.codedSpecies"
-                          placeholder="Ability"
-                          variant="outlined"
-                          color="secondary"
-                          hide-details
-                        ></v-text-field>
-                        <v-autocomplete
-                          v-else
-                          v-model="pokemon.ability"
-                          placeholder="Ability"
-                          variant="outlined"
-                          color="secondary"
-                          :items="formattedAbilities()"
-                          item-title="formattedAbility"
-                          item-value="codedAbility"
-                          return-object
-                          hide-details
-                          clearable
-                          @click:clear="clearAbility()"
-                        ></v-autocomplete>
+                      <v-row no-gutters align="center" justify="center">
+                        <template v-if="loadingPokemonAbilities">
+                          <v-progress-circular
+                            color="primary"
+                            indeterminate
+                          ></v-progress-circular>
+                        </template>
+                        <template v-else>
+                          <v-text-field
+                            v-if="pokemon.originalAbility"
+                            v-model="pokemon.ability.codedSpecies"
+                            placeholder="Ability"
+                            variant="outlined"
+                            color="secondary"
+                            hide-details
+                          ></v-text-field>
+                          <v-autocomplete
+                            v-else
+                            v-model="pokemon.ability"
+                            placeholder="Ability"
+                            variant="outlined"
+                            color="secondary"
+                            :items="getAbilities"
+                            item-title="formattedAbility"
+                            item-value="codedAbility"
+                            return-object
+                            hide-details
+                            clearable
+                            @click:clear="clearAbility()"
+                          ></v-autocomplete>
+                        </template>
                       </v-row>
                     </v-col>
                     <v-col cols="3">
@@ -227,6 +235,7 @@ export default defineComponent({
     return {
       loadingPokemonList: false,
       loadingPokemonData: false,
+      loadingPokemonAbilities: false,
       pokemon: {
         originalSpecies: false,
         species: {
@@ -283,7 +292,9 @@ export default defineComponent({
     }
 
     if (this.getAbilities.length === 0) {
+      this.loadingPokemonAbilities = true;
       this.fetchAbilities().then(() => {
+        this.loadingPokemonAbilities = false;
         this.defaultAbility();
       });
     } else {
@@ -481,20 +492,6 @@ export default defineComponent({
 
       this.addNewPokemon(data).then(() => {
         this.toNuzlocke();
-      });
-    },
-    formattedAbilities() {
-      return this.getAbilities.map((ability: BasicDataFromApi) => {
-        let unformattedAbility = ability.name.split("-");
-
-        unformattedAbility = unformattedAbility.map((word: string) => {
-          return word[0] ? word.replace(word[0], word[0].toUpperCase()) : word;
-        });
-
-        return {
-          codedAbility: ability.name,
-          formattedAbility: unformattedAbility.join(" "),
-        };
       });
     },
     clearAbility() {

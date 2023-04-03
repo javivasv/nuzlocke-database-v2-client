@@ -87,7 +87,24 @@ export const pokeapi: Module<PokeapiState, State> = {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=358`)
           .then((res) => {
-            commit("SET_ABILITIES", res.data.results);
+            const list = res.data.results.map((ability: BasicDataFromApi) => {
+              let unformattedAbility = ability.name.split("-");
+
+              unformattedAbility = unformattedAbility.map((word: string) => {
+                return word[0]
+                  ? word.replace(word[0], word[0].toUpperCase())
+                  : word;
+              });
+
+              return {
+                name: ability.name,
+                url: ability.url,
+                codedAbility: ability.name,
+                formattedAbility: unformattedAbility.join(" "),
+              };
+            });
+
+            commit("SET_ABILITIES", list);
             resolve(res.data);
           })
           .catch((error) => {
