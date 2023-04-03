@@ -216,5 +216,24 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
+    FETCH_MOVE: ({ commit, state }, name) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${"https://pokeapi.co/api/v2"}/move/${name}`)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit(
+              "notifications/SET_SNACKBAR_TEXT",
+              "An error occured during the process",
+              {
+                root: true,
+              }
+            );
+            reject(error.response);
+          });
+      });
+    },
   },
 };

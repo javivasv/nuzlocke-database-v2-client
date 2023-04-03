@@ -170,6 +170,9 @@
                                 variant="outlined"
                                 clearable
                                 @click:clear="clearMove(index, 'first')"
+                                @update:modelValue="
+                                  fetchMoveData(index, 'first')
+                                "
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
@@ -456,6 +459,7 @@ export default defineComponent({
       fetchItems: "FETCH_ITEMS",
       fetchItem: "FETCH_ITEM",
       fetchMoves: "FETCH_MOVES",
+      fetchMove: "FETCH_MOVE",
     }),
     toNuzlocke() {
       this.$router.push({
@@ -486,6 +490,17 @@ export default defineComponent({
         this.team.pokemon[index].item.sprite = res.sprites.default
           ? res.sprites.default
           : "";
+      });
+    },
+    fetchMoveData(index: number, move: string) {
+      if (!this.team.pokemon[index].moves[move as keyof Moves]) {
+        return;
+      }
+
+      this.fetchMove(
+        this.team.pokemon[index].moves[move as keyof Moves].codedName
+      ).then((res) => {
+        console.log("RES: ", res);
       });
     },
     clearPokemon(index: number) {
