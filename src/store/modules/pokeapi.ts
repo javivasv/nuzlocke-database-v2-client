@@ -1,6 +1,7 @@
 import { Module } from "vuex";
 import { State } from "../index";
 import axios from "axios";
+import { BasicDataFromApi } from "../interfaces/index";
 
 export interface PokeapiState {
   pokemon: [];
@@ -32,7 +33,22 @@ export const pokeapi: Module<PokeapiState, State> = {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/pokemon/?limit=1281`)
           .then((res) => {
-            commit("SET_POKEMON", res.data.results);
+            const list = res.data.results.map((pokemon: BasicDataFromApi) => {
+              let unformattedSpecies = pokemon.name.split("-");
+
+              unformattedSpecies = unformattedSpecies.map((word: string) => {
+                return word.replace(word[0], word[0].toUpperCase());
+              });
+
+              return {
+                name: pokemon.name,
+                url: pokemon.url,
+                codedSpecies: pokemon.name,
+                formattedSpecies: unformattedSpecies.join(" "),
+              };
+            });
+
+            commit("SET_POKEMON", list);
             resolve(res.data);
           })
           .catch((error) => {
@@ -69,7 +85,7 @@ export const pokeapi: Module<PokeapiState, State> = {
     FETCH_ABILITIES: ({ commit, state }) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=1281`)
+          .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=358`)
           .then((res) => {
             commit("SET_ABILITIES", res.data.results);
             resolve(res.data);

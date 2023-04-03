@@ -13,7 +13,7 @@
               <v-row no-gutters>
                 <v-col>
                   <v-row
-                    v-if="isLoading"
+                    v-if="loadingPokemonData"
                     class="py-5"
                     no-gutters
                     align="center"
@@ -78,28 +78,36 @@
                   </v-row>
                   <v-row class="py-1" no-gutters>
                     <v-col cols="9">
-                      <v-row no-gutters>
-                        <v-text-field
-                          v-if="pokemon.originalSpecies"
-                          v-model="pokemon.species.codedSpecies"
-                          placeholder="Species"
-                          variant="outlined"
-                          color="secondary"
-                          :rules="speciesRules()"
-                        ></v-text-field>
-                        <v-autocomplete
-                          v-else
-                          v-model="pokemon.species"
-                          placeholder="Species"
-                          variant="outlined"
-                          color="secondary"
-                          :items="formattedSpecies()"
-                          item-title="formattedSpecies"
-                          item-value="codedSpecies"
-                          return-object
-                          :rules="speciesRules()"
-                          @update:modelValue="fetchPokemonData()"
-                        ></v-autocomplete>
+                      <v-row no-gutters align="center" justify="center">
+                        <template v-if="loadingPokemonList">
+                          <v-progress-circular
+                            color="primary"
+                            indeterminate
+                          ></v-progress-circular>
+                        </template>
+                        <template v-else>
+                          <v-text-field
+                            v-if="pokemon.originalSpecies"
+                            v-model="pokemon.species.codedSpecies"
+                            placeholder="Species"
+                            variant="outlined"
+                            color="secondary"
+                            :rules="speciesRules()"
+                          ></v-text-field>
+                          <v-autocomplete
+                            v-else
+                            v-model="pokemon.species"
+                            placeholder="Species"
+                            variant="outlined"
+                            color="secondary"
+                            :items="getPokemon"
+                            item-title="formattedSpecies"
+                            item-value="codedSpecies"
+                            return-object
+                            :rules="speciesRules()"
+                            @update:modelValue="fetchPokemonData()"
+                          ></v-autocomplete>
+                        </template>
                       </v-row>
                     </v-col>
                     <v-col cols="3">
@@ -217,7 +225,8 @@ export default defineComponent({
   },
   data() {
     return {
-      isLoading: false,
+      loadingPokemonList: false,
+      loadingPokemonData: false,
       pokemon: {
         originalSpecies: false,
         species: {
@@ -264,7 +273,9 @@ export default defineComponent({
     }
 
     if (this.getPokemon.length === 0) {
+      this.loadingPokemonList = true;
       this.fetchPokemonList().then(() => {
+        this.loadingPokemonList = false;
         this.defaultPokemon();
       });
     } else {
@@ -370,7 +381,7 @@ export default defineComponent({
       }
     },
     fetchPokemonData() {
-      this.isLoading = true;
+      this.loadingPokemonData = true;
       this.fetchPokemon(this.pokemon.species.codedSpecies)
         .then((res) => {
           this.normalSpriteUrl = res.sprites.front_default
@@ -411,7 +422,7 @@ export default defineComponent({
           }
         })
         .finally(() => {
-          this.isLoading = false;
+          this.loadingPokemonData = false;
         });
     },
     pokemonOriginal() {
@@ -470,20 +481,6 @@ export default defineComponent({
 
       this.addNewPokemon(data).then(() => {
         this.toNuzlocke();
-      });
-    },
-    formattedSpecies() {
-      return this.getPokemon.map((pokemon: BasicDataFromApi) => {
-        let unformattedSpecies = pokemon.name.split("-");
-
-        unformattedSpecies = unformattedSpecies.map((word: string) => {
-          return word.replace(word[0], word[0].toUpperCase());
-        });
-
-        return {
-          codedSpecies: pokemon.name,
-          formattedSpecies: unformattedSpecies.join(" "),
-        };
       });
     },
     formattedAbilities() {
