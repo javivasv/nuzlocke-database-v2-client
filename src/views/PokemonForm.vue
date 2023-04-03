@@ -74,7 +74,7 @@
                           variant="outlined"
                           clearable
                           density="compact"
-                          @click:clear.stop="clearSecondType()"
+                          @click:clear="clearSecondType()"
                         ></v-select>
                       </v-row>
                     </v-col>

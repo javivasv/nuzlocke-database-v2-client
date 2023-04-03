@@ -478,7 +478,7 @@ export default defineComponent({
       return pokemonList;
     },
     fetchItemData(index: number) {
-      if (this.team.pokemon[index].item.codedName === "") {
+      if (!this.team.pokemon[index].item) {
         return;
       }
 
