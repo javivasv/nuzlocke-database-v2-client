@@ -157,11 +157,15 @@
                       ></v-row>
                       <template v-else>
                         <v-row class="py-2" no-gutters>
-                          <v-col class="pr-3" cols="6">
+                          <v-col class="pr-3" cols="6" align-self="end">
                             <v-row no-gutters align="center" justify="center">
                               <PokemonType
                                 v-if="pokemon.moves.first.type !== ''"
                                 :type="pokemon.moves.first.type"
+                              />
+                              <MoveClass
+                                v-if="pokemon.moves.first.class !== ''"
+                                :type="pokemon.moves.first.class"
                               />
                             </v-row>
                             <v-row no-gutters>
@@ -182,11 +186,15 @@
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
-                          <v-col class="pl-3" cols="6">
+                          <v-col class="pl-3" cols="6" align-self="end">
                             <v-row no-gutters align="center" justify="center">
                               <PokemonType
                                 v-if="pokemon.moves.second.type !== ''"
                                 :type="pokemon.moves.second.type"
+                              />
+                              <MoveClass
+                                v-if="pokemon.moves.second.class !== ''"
+                                :type="pokemon.moves.second.class"
                               />
                             </v-row>
                             <v-row no-gutters>
@@ -209,11 +217,15 @@
                           </v-col>
                         </v-row>
                         <v-row class="py-2" no-gutters>
-                          <v-col class="pr-3" cols="6">
+                          <v-col class="pr-3" cols="6" align-self="end">
                             <v-row no-gutters align="center" justify="center">
                               <PokemonType
                                 v-if="pokemon.moves.third.type !== ''"
                                 :type="pokemon.moves.third.type"
+                              />
+                              <MoveClass
+                                v-if="pokemon.moves.third.class !== ''"
+                                :type="pokemon.moves.third.class"
                               />
                             </v-row>
                             <v-row no-gutters>
@@ -234,11 +246,15 @@
                               ></v-autocomplete>
                             </v-row>
                           </v-col>
-                          <v-col class="pl-3" cols="6">
+                          <v-col class="pl-3" cols="6" align-self="end">
                             <v-row no-gutters align="center" justify="center">
                               <PokemonType
                                 v-if="pokemon.moves.fourth.type !== ''"
                                 :type="pokemon.moves.fourth.type"
+                              />
+                              <MoveClass
+                                v-if="pokemon.moves.fourth.class !== ''"
+                                :type="pokemon.moves.fourth.class"
                               />
                             </v-row>
                             <v-row no-gutters>
@@ -282,12 +298,14 @@ import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import PokemonType from "../components/PokemonType.vue";
+import MoveClass from "../components/MoveClass.vue";
 import { Moves } from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
     Card,
     PokemonType,
+    MoveClass,
   },
   computed: {
     ...mapGetters("nuzlockes", {
@@ -585,6 +603,9 @@ export default defineComponent({
       ).then((res) => {
         this.team.pokemon[index].moves[move as keyof Moves].type =
           res.type.name;
+
+        this.team.pokemon[index].moves[move as keyof Moves].class =
+          res.damage_class.name;
       });
     },
     clearPokemon(index: number) {
