@@ -1,8 +1,6 @@
 <template>
   <v-card class="filters-card pa-4 mt-3" width="420px">
-    <v-card-subtitle>
-      <strong>Status filters</strong>
-    </v-card-subtitle>
+    <TextFieldName :text="'Status filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in statusFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -15,9 +13,7 @@
       </v-col>
     </v-row>
     <v-divider class="my-3"></v-divider>
-    <v-card-subtitle>
-      <strong>Obtained filters</strong>
-    </v-card-subtitle>
+    <TextFieldName :text="'Obtained filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in obtainedFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -30,9 +26,7 @@
       </v-col>
     </v-row>
     <v-divider class="my-3"></v-divider>
-    <v-card-subtitle>
-      <strong>Type filters</strong>
-    </v-card-subtitle>
+    <TextFieldName :text="'Type filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in typeFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -49,9 +43,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import TextFieldName from "@/components/TextFieldName.vue";
 export default defineComponent({
   name: "Filters",
-  components: {},
+  components: {
+    TextFieldName,
+  },
   props: {},
   computed: {},
   data() {

@@ -37,6 +37,7 @@
                   >
                     <v-checkbox
                       v-model="shiny"
+                      class="type-1"
                       label="Shiny"
                       hide-details
                       color="secondary"
@@ -120,6 +121,7 @@
                       <v-row class="pl-3" no-gutters>
                         <v-checkbox
                           v-model="pokemon.originalSpecies"
+                          class="type-1"
                           label="Original species"
                           hide-details
                           color="secondary"
@@ -169,6 +171,7 @@
                       <v-row class="pl-3" no-gutters>
                         <v-checkbox
                           v-model="pokemon.originalAbility"
+                          class="type-1"
                           label="Original ability"
                           hide-details
                           color="secondary"
