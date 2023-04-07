@@ -53,36 +53,77 @@
       </v-col>
     </v-row>
   </v-card-text>
-  <!--
   <DeleteDialog
-    :name="pokemon"
+    :name="team"
     :show-dialog="showDeleteDialog"
-    @delete="deletePokemon()"
+    @delete="deleteTeam()"
     @close="showDeleteDialog = false"
   />
-  -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-//import DeleteDialog from "../DeleteDialog.vue";
-import { Pokemon } from "../../store/interfaces/index";
+import DeleteDialog from "../DeleteDialog.vue";
+import { Team } from "../../store/interfaces/index";
 export default defineComponent({
   name: "InfoActionsTeamForm",
   emits: ["submitTeam"],
   components: {
-    //DeleteDialog,
+    DeleteDialog,
   },
-  computed: {},
+  computed: {
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
+    }),
+    team() {
+      if (this.getNuzlocke) {
+        const toDeleteTeam = this.getNuzlocke.teams.find(
+          (team: Team) => team._id === this.$route.params.teamId
+        );
+
+        if (toDeleteTeam) {
+          return toDeleteTeam.name;
+        }
+      }
+
+      return "";
+    },
+  },
   data() {
     return {
       showDeleteDialog: false,
     };
   },
   methods: {
+    ...mapActions("teams", {
+      deleteExistingTeam: "DELETE_TEAM",
+    }),
+    ...mapActions("nuzlockes", {
+      fetchNuzlocke: "FETCH_NUZLOCKE",
+    }),
     submitTeam() {
       this.$emit("submitTeam");
+    },
+    toNuzlocke() {
+      this.$router.push({
+        name: "nuzlocke",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
+      });
+    },
+    deleteTeam() {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        teamId: this.$route.params.teamId,
+      };
+
+      this.deleteExistingTeam(data).then(() => {
+        this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+          this.toNuzlocke();
+        });
+      });
     },
   },
 });

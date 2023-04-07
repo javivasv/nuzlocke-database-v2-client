@@ -128,6 +128,11 @@ export interface UpdateTeamData {
   team: Team;
 }
 
+export interface DeleteTeamData {
+  nuzlockeId: string;
+  teamId: string;
+}
+
 // Pokeapi response-related
 export interface Name {
   codedName: string;

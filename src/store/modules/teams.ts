@@ -4,7 +4,7 @@ import axios from "axios";
 import {
   CreateTeamData,
   UpdateTeamData,
-  DeletePokemonData,
+  DeleteTeamData,
 } from "../interfaces/index";
 
 export interface TeamsState {}
@@ -58,14 +58,13 @@ export const teams: Module<TeamsState, State> = {
           });
       });
     },
-    /*
-    DELETE_POKEMON: ({ commit, dispatch }, data: DeletePokemonData) => {
+    DELETE_TEAM: ({ commit, dispatch }, data: DeleteTeamData) => {
       return new Promise((resolve, reject) => {
         axios
           .delete(
-            `${"http://localhost:5000/api"}/nuzlocke/${
-              data.nuzlockeId
-            }/pokemon/${data.pokemonId}`
+            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}/team/${
+              data.teamId
+            }`
           )
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
@@ -79,6 +78,5 @@ export const teams: Module<TeamsState, State> = {
           });
       });
     },
-    */
   },
 };
