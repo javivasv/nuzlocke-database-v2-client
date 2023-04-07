@@ -27,9 +27,14 @@
         </v-row>
         <v-row class="py-1" no-gutters>
           <span class="team-form-info">
+            <strong>Vs:</strong>
+            The trainer or pokemon the team is going to be used against
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="team-form-info">
             <strong>Description:</strong>
-            Relevant information of the team, such as who is going to be used
-            against
+            Relevant information of the team, such as strategies
           </span>
         </v-row>
       </v-col>
