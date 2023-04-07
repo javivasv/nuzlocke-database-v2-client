@@ -3,7 +3,7 @@ import { State } from "../index";
 import axios from "axios";
 import {
   CreateTeamData,
-  UpdatePokemonData,
+  UpdateTeamData,
   DeletePokemonData,
 } from "../interfaces/index";
 
@@ -36,15 +36,14 @@ export const teams: Module<TeamsState, State> = {
           });
       });
     },
-    /*
-    UPDATE_POKEMON: ({ commit, dispatch }, data: UpdatePokemonData) => {
+    UPDATE_TEAM: ({ commit, dispatch }, data: UpdateTeamData) => {
       return new Promise((resolve, reject) => {
         axios
           .put(
-            `${"http://localhost:5000/api"}/nuzlocke/${
-              data.nuzlockeId
-            }/pokemon/${data.pokemonId}`,
-            data.pokemon
+            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}/team/${
+              data.teamId
+            }`,
+            data.team
           )
           .then((res) => {
             commit("nuzlockes/SET_NUZLOCKE", res.data.nuzlocke, { root: true });
@@ -59,6 +58,7 @@ export const teams: Module<TeamsState, State> = {
           });
       });
     },
+    /*
     DELETE_POKEMON: ({ commit, dispatch }, data: DeletePokemonData) => {
       return new Promise((resolve, reject) => {
         axios

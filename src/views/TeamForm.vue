@@ -640,6 +640,7 @@ export default defineComponent({
     }),
     ...mapActions("teams", {
       addNewTeam: "ADD_TEAM",
+      updateExistingTeam: "UPDATE_TEAM",
     }),
     toEditTeamData() {
       let toEditTeam = {
@@ -833,7 +834,19 @@ export default defineComponent({
       });
     },
     async updateTeam(pokemonList: Array<TeamPokemon>) {
-      console.log("UPDATE TEAM: ", pokemonList);
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        teamId: this.$route.params.teamId,
+        team: {
+          name: this.team.name,
+          description: this.team.description,
+          pokemon: pokemonList,
+        },
+      };
+
+      this.updateExistingTeam(data).then(() => {
+        this.toNuzlocke();
+      });
     },
     required(value: string, type: string) {
       if (value) return true;

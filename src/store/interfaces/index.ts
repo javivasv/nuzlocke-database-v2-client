@@ -122,6 +122,12 @@ export interface CreateTeamData {
   team: Team;
 }
 
+export interface UpdateTeamData {
+  nuzlockeId: string;
+  teamId: string;
+  team: Team;
+}
+
 // Pokeapi response-related
 export interface Name {
   codedName: string;
