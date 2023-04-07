@@ -17,29 +17,30 @@
             <v-form ref="teamForm">
               <v-row no-gutters>
                 <v-col>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Name'" />
+                  <v-row no-gutters>
                     <v-text-field
                       v-model="team.name"
-                      placeholder="Name"
                       variant="outlined"
                       color="secondary"
                       density="compact"
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Vs'" />
+                  <v-row class="mb-5" no-gutters>
                     <v-text-field
                       v-model="team.vs"
-                      placeholder="Vs"
                       variant="outlined"
                       color="secondary"
                       density="compact"
+                      hide-details
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Description'" />
+                  <v-row class="mb-5" no-gutters>
                     <v-textarea
                       v-model="team.description"
-                      placeholder="Description"
                       variant="outlined"
                       color="secondary"
                       no-resize
@@ -84,7 +85,8 @@
                             </v-row> </template
                         ></v-img>
                       </v-row>
-                      <v-row class="py-2" no-gutters>
+                      <TextFieldName :text="'Pokemon'" />
+                      <v-row no-gutters>
                         <v-autocomplete
                           v-model="pokemon.pokemon"
                           :items="filteredPokemon(index)"
@@ -130,13 +132,11 @@
                             </v-row> </template
                         ></v-img>
                       </v-row>
-                      <v-row
-                        class="py-2"
+                      <TextFieldName
+                        :text="'Held item'"
                         :class="pokemon.pokemon ? 'mt-5' : ''"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
+                      />
+                      <v-row no-gutters align="center" justify="center">
                         <v-progress-circular
                           v-if="loadingItems"
                           color="primary"
@@ -183,6 +183,7 @@
                                 :type="pokemon.moves.first.class"
                               />
                             </v-row>
+                            <TextFieldName :text="'First move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.first.name"
@@ -212,6 +213,7 @@
                                 :type="pokemon.moves.second.class"
                               />
                             </v-row>
+                            <TextFieldName :text="'Second move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.second.name"
@@ -243,6 +245,7 @@
                                 :type="pokemon.moves.third.class"
                               />
                             </v-row>
+                            <TextFieldName :text="'Third move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.third.name"
@@ -272,6 +275,7 @@
                                 :type="pokemon.moves.fourth.class"
                               />
                             </v-row>
+                            <TextFieldName :text="'Fourth move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.fourth.name"
@@ -311,6 +315,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import TextFieldName from "@/components/TextFieldName.vue";
 import Card from "../components/InfoActions/Card.vue";
 import PokemonType from "../components/PokemonType.vue";
 import MoveClass from "../components/MoveClass.vue";
@@ -324,6 +329,7 @@ import {
 export default defineComponent({
   name: "TeamForm",
   components: {
+    TextFieldName,
     Card,
     PokemonType,
     MoveClass,

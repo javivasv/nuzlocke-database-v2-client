@@ -16,20 +16,20 @@
               >
                 <v-row no-gutters>
                   <v-col>
-                    <v-row class="py-1" no-gutters>
+                    <TextFieldName :text="'Username'" />
+                    <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.username"
-                        label="Username"
                         variant="outlined"
                         color="secondary"
                         density="compact"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
-                    <v-row class="py-1" no-gutters>
+                    <TextFieldName :text="'Password'" />
+                    <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.password"
-                        label="Password"
                         variant="outlined"
                         type="password"
                         color="secondary"
@@ -37,10 +37,10 @@
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>
-                    <v-row class="py-1" no-gutters>
+                    <TextFieldName :text="'Password confirmation'" />
+                    <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.passwordConfirmation"
-                        label="Password confirmation"
                         variant="outlined"
                         type="password"
                         color="secondary"
@@ -79,20 +79,20 @@
               <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
                 <v-row no-gutters>
                   <v-col>
-                    <v-row class="py-1" no-gutters>
+                    <TextFieldName :text="'Username'" />
+                    <v-row no-gutters>
                       <v-text-field
                         v-model="userData.username"
-                        label="Username"
                         variant="outlined"
                         color="secondary"
                         density="compact"
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
-                    <v-row class="py-1" no-gutters>
+                    <TextFieldName :text="'Password'" />
+                    <v-row no-gutters>
                       <v-text-field
                         v-model="userData.password"
-                        label="Password"
                         variant="outlined"
                         type="password"
                         color="secondary"
@@ -136,10 +136,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
+import TextFieldName from "@/components/TextFieldName.vue";
 export default defineComponent({
   name: "Login",
-  components: {},
+  components: {
+    TextFieldName,
+  },
   data() {
     return {
       background: require("../assets/login_background.png"),

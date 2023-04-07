@@ -45,12 +45,13 @@
                     ></v-checkbox>
                   </v-row>
                   <v-row
-                    class="py-3"
+                    class="mb-5"
                     no-gutters
                     align="center"
                     justify="center"
                   >
                     <v-col>
+                      <TextFieldName :text="'First type'" />
                       <v-row class="pr-3" no-gutters>
                         <v-select
                           v-model="pokemon.types.first"
@@ -64,6 +65,7 @@
                       </v-row>
                     </v-col>
                     <v-col>
+                      <TextFieldName :text="'Second type'" class="pl-3" />
                       <v-row class="pl-3" no-gutters>
                         <v-select
                           v-model="pokemon.types.second"
@@ -79,7 +81,8 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Species'" />
+                  <v-row no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters align="center" justify="center">
                         <template v-if="loadingPokemonList">
@@ -92,7 +95,6 @@
                           <v-text-field
                             v-if="pokemon.originalSpecies"
                             v-model="pokemon.species.codedName"
-                            placeholder="Species"
                             variant="outlined"
                             color="secondary"
                             density="compact"
@@ -101,7 +103,6 @@
                           <v-autocomplete
                             v-else
                             v-model="pokemon.species"
-                            placeholder="Species"
                             variant="outlined"
                             color="secondary"
                             :items="getPokemon"
@@ -128,7 +129,8 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Ability'" />
+                  <v-row class="mb-5" no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters align="center" justify="center">
                         <template v-if="loadingPokemonAbilities">
@@ -141,7 +143,6 @@
                           <v-text-field
                             v-if="pokemon.originalAbility"
                             v-model="pokemon.ability.codedName"
-                            placeholder="Ability"
                             variant="outlined"
                             color="secondary"
                             hide-details
@@ -150,7 +151,6 @@
                           <v-autocomplete
                             v-else
                             v-model="pokemon.ability"
-                            placeholder="Ability"
                             variant="outlined"
                             color="secondary"
                             :items="getAbilities"
@@ -178,35 +178,35 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <v-row class="py-3" no-gutters>
+                  <TextFieldName :text="'Nickname'" />
+                  <v-row class="mb-5" no-gutters>
                     <v-text-field
                       v-model="pokemon.nickname"
-                      placeholder="Nickname"
                       variant="outlined"
                       color="secondary"
                       hide-details
                       density="compact"
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Location'" />
+                  <v-row no-gutters>
                     <v-text-field
                       v-model="pokemon.location"
-                      placeholder="Location"
                       variant="outlined"
                       color="secondary"
                       density="compact"
                       :rules="locationRules()"
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Obtained'" />
+                  <v-row no-gutters>
                     <v-select
                       v-model="pokemon.obtained"
-                      placeholder="Obtained"
                       variant="outlined"
                       color="secondary"
+                      hide-details=""
                       :items="obtained"
                       density="compact"
-                      :rules="obtainedRules()"
                     ></v-select>
                   </v-row>
                 </v-col>
@@ -225,13 +225,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import TextFieldName from "@/components/TextFieldName.vue";
 import Card from "../components/InfoActions/Card.vue";
-import { Pokemon, BasicDataFromApi } from "../store/interfaces/index";
+import { Pokemon } from "../store/interfaces/index";
 import mixin from "../mixin";
 export default defineComponent({
   name: "PokemonForm",
   mixins: [mixin],
   components: {
+    TextFieldName,
     Card,
   },
   computed: {
@@ -537,9 +539,6 @@ export default defineComponent({
     },
     locationRules() {
       return [(value: string) => this.required(value, "location")];
-    },
-    obtainedRules() {
-      return [(value: string) => this.required(value, "obtained")];
     },
   },
 });

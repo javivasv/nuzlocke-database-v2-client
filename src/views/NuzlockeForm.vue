@@ -12,30 +12,30 @@
             <v-form ref="nuzlockeForm">
               <v-row no-gutters>
                 <v-col>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Name'" />
+                  <v-row no-gutters>
                     <v-text-field
                       v-model="nuzlocke.name"
-                      placeholder="Name"
                       variant="outlined"
                       color="secondary"
                       density="compact"
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Game'" />
+                  <v-row no-gutters>
                     <v-text-field
                       v-model="nuzlocke.game"
-                      placeholder="Game"
                       variant="outlined"
                       color="secondary"
                       density="compact"
                       :rules="gameRules"
                     ></v-text-field>
                   </v-row>
-                  <v-row class="py-1" no-gutters>
+                  <TextFieldName :text="'Description'" />
+                  <v-row no-gutters>
                     <v-textarea
                       v-model="nuzlocke.description"
-                      placeholder="Description"
                       variant="outlined"
                       color="secondary"
                       no-resize
@@ -59,11 +59,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
-import Card from "../components/InfoActions/Card.vue";
+import { mapGetters, mapActions } from "vuex";
+import TextFieldName from "@/components/TextFieldName.vue";
+import Card from "@/components/InfoActions/Card.vue";
 export default defineComponent({
   name: "NuzlockeForm",
   components: {
+    TextFieldName,
     Card,
   },
   computed: {
