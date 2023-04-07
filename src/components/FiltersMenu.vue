@@ -44,15 +44,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import TextFieldName from "@/components/TextFieldName.vue";
-import mixin from "../mixin";
+import mixin from "@/mixin";
 export default defineComponent({
-  name: "Filters",
+  name: "FiltersMenu",
   mixins: [mixin],
   components: {
     TextFieldName,
   },
-  props: {},
-  computed: {},
   data() {
     return {
       statusFilters: [

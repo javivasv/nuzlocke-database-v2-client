@@ -53,8 +53,6 @@ import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 export default defineComponent({
   name: "Sidebar",
-  components: {},
-  props: {},
   computed: {
     ...mapGetters("auth", {
       getUser: "GET_USER",

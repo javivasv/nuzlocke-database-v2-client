@@ -7,18 +7,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import mixin from "../mixin";
+import mixin from "@/mixin";
 export default defineComponent({
-  name: "MoveType",
+  name: "MoveClass",
   mixins: [mixin],
-  components: {},
   props: {
     type: {
       type: String,
       default: "",
     },
   },
-  computed: {},
   data() {
     return {};
   },

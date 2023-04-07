@@ -177,10 +177,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { Pokemon, Team } from "../store/interfaces/index";
+import { Pokemon, Team } from "@/store/interfaces/index";
 export default defineComponent({
   name: "TeamsTable",
-  components: {},
   props: {
     isLoading: {
       type: Boolean,

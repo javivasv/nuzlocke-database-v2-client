@@ -90,10 +90,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { Nuzlocke } from "../store/interfaces";
+import { Nuzlocke } from "@/store/interfaces";
 export default defineComponent({
   name: "NuzlockesTable",
-  components: {},
   props: {
     isLoading: {
       type: Boolean,

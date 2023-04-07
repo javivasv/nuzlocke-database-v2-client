@@ -25,11 +25,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Nuzlockes from "./Nuzlockes.vue";
-import NuzlockeForm from "./NuzlockeForm.vue";
-import PokemonForm from "./PokemonForm.vue";
-import TeamForm from "./TeamForm.vue";
-import Nuzlocke from "./Nuzlocke.vue";
+import Nuzlockes from "@/components/InfoActions/Nuzlockes.vue";
+import NuzlockeForm from "@/components/InfoActions/NuzlockeForm.vue";
+import PokemonForm from "@/components/InfoActions/PokemonForm.vue";
+import TeamForm from "@/components/InfoActions/TeamForm.vue";
+import Nuzlocke from "@/components/InfoActions/Nuzlocke.vue";
 export default defineComponent({
   name: "InfoActionsCard",
   components: {
@@ -45,10 +45,6 @@ export default defineComponent({
       default: "",
     },
   },
-  computed: {},
-  data() {
-    return {};
-  },
   methods: {
     submitNuzlocke() {
       this.$emit("submitNuzlocke");
@@ -63,17 +59,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.card-container {
-  padding-top: 97.5px;
-}
-.pokeball {
-  width: 195px;
-  z-index: 100 !important;
-  position: absolute !important;
-  top: 15px;
-}
-.info-card {
-  padding-top: 112.5px !important;
-}
-</style>
+<style></style>

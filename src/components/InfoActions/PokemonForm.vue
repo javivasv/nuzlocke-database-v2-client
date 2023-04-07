@@ -22,51 +22,57 @@
     <v-row no-gutters>
       <v-col>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Species:</strong>
             The species of the pokemon
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Original species:</strong>
             In case of being an original pokemon species or being a species not
             existing in any previous game or region
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
+            <strong>Types:</strong>
+            The types of the pokemon
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="card-text">
             <strong>Ability:</strong>
             The ability of the pokemon, if it has one
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Original ability:</strong>
             In case of being an original pokemon ability or being an ability not
             existing in any previous game or region
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Nickname:</strong>
             The nickname given to the pokemon, if given one
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Location:</strong>
             The location in which the pokemon was obtained or encountered
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Obtained:</strong>
             The way in which the pokemon was obtained, or if it was obtained
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="pokemon-form-info">
+          <span class="card-text">
             <strong>Shiny:</strong>
             The species sprite is shown with the shiny coloration, if there is
             one
@@ -82,8 +88,8 @@
         <v-row class="py-1" no-gutters align="center" justify="center">
           <span>
             Not all the pokemon listed have a sprite and not all the pokemon
-            that have one, have a sprite with the shiny coloration. This data
-            comes from the
+            that have one, have a sprite with the shiny coloration. The pokemon
+            data and abilities come from the
             <a
               class="website-link"
               href="https://pokeapi.co/docs/v2"
@@ -106,8 +112,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import DeleteDialog from "../DeleteDialog.vue";
-import { Pokemon } from "../../store/interfaces/index";
+import DeleteDialog from "@/components/DeleteDialog.vue";
+import { Pokemon } from "@/store/interfaces/index";
 export default defineComponent({
   name: "InfoActionsPokemonForm",
   emits: ["submitPokemon"],
@@ -173,8 +179,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.pokemon-form-info {
-  text-align: start;
-}
-</style>
+<style></style>

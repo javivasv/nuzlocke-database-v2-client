@@ -1,6 +1,7 @@
 @import "./login.less";
 @import "./sidebar.less";
 @import "./table.less";
+@import "./card.less";
 
 // Content wrapper
 .content {
@@ -11,6 +12,19 @@
 .video-iframe {
   width: 100%;
   height: calc(100% - 50px);
+}
+
+// External links
+.website-link {
+  text-decoration: none;
+  color: #1685c5;
+  font-weight: 600;
+}
+
+// Nuzlocke status
+.current-status {
+  pointer-events: none;
+  cursor: default;
 }
 
 // Pokemon type component
@@ -49,6 +63,11 @@
       font-weight: 600;
     }
   }
+}
+
+// Override v-snackbar default style
+.v-snackbar__wrapper {
+  min-width: 0px !important;
 }
 
 // Overflow scrollbar

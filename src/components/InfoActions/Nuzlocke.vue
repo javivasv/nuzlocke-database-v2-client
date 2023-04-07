@@ -67,7 +67,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import DeleteDialog from "../DeleteDialog.vue";
+import DeleteDialog from "@/components/DeleteDialog.vue";
 export default defineComponent({
   name: "InfoActionsNuzlocke",
   components: {
@@ -138,9 +138,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.current-status {
-  pointer-events: none;
-  cursor: default;
-}
-</style>
+<style></style>

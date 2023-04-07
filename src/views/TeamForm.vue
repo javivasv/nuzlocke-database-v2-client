@@ -316,16 +316,16 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import TextFieldName from "@/components/TextFieldName.vue";
-import Card from "../components/InfoActions/Card.vue";
-import PokemonType from "../components/PokemonType.vue";
-import MoveClass from "../components/MoveClass.vue";
+import Card from "@/components/InfoActions/Card.vue";
+import PokemonType from "@/components/PokemonType.vue";
+import MoveClass from "@/components/MoveClass.vue";
 import {
   Moves,
   Pokemon,
   TeamPokemon,
   TeamPokemonData,
   Team,
-} from "../store/interfaces/index";
+} from "@/store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {

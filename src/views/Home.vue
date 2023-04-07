@@ -131,10 +131,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import { Video } from "../store/interfaces/index";
+import { Video } from "@/store/interfaces/index";
 export default defineComponent({
   name: "Home",
-  components: {},
   computed: {
     ...mapGetters("videos", {
       getVideos: "GET_VIDEOS",

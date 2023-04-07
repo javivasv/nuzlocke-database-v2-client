@@ -9,7 +9,6 @@ import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 export default defineComponent({
   name: "Snackbar",
-  components: {},
   computed: {
     ...mapGetters("notifications", {
       getSnackbarText: "GET_SNACKBAR_TEXT",
@@ -42,8 +41,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.v-snackbar__wrapper {
-  min-width: 0px !important;
-}
-</style>
+<style></style>

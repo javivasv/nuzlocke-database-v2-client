@@ -180,12 +180,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
-import FiltersMenu from "../components/FiltersMenu.vue";
-import PokemonType from "../components/PokemonType.vue";
-import { Pokemon, Filters, Filter } from "../store/interfaces/index";
+import { mapGetters, mapActions } from "vuex";
+import FiltersMenu from "@/components/FiltersMenu.vue";
+import PokemonType from "@/components/PokemonType.vue";
+import { Pokemon, Filters, Filter } from "@/store/interfaces/index";
 export default defineComponent({
-  name: "Nuzlocke",
+  name: "PokemonTable",
   components: {
     FiltersMenu,
     PokemonType,

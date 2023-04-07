@@ -20,21 +20,40 @@
     <v-row no-gutters>
       <v-col>
         <v-row class="py-1" no-gutters>
-          <span class="team-form-info">
+          <span class="card-text">
             <strong>Name:</strong>
             The name of the team
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="team-form-info">
+          <span class="card-text">
             <strong>Vs:</strong>
             The trainer or pokemon the team is going to be used against
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="team-form-info">
+          <span class="card-text">
             <strong>Description:</strong>
             Relevant information of the team, such as strategies
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="card-text">
+            <strong>Pokemon:</strong>
+            A member of the team. The options depend on the pokemon obtained
+            during the playthrough
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="card-text">
+            <strong>Held item:</strong>
+            An item to be held by the pokemon during the battle
+          </span>
+        </v-row>
+        <v-row class="py-1" no-gutters>
+          <span class="card-text">
+            <strong>Moves:</strong>
+            The moves the pokemon has during the battle
           </span>
         </v-row>
       </v-col>
@@ -46,7 +65,8 @@
       <v-col>
         <v-row class="py-1" no-gutters align="center" justify="center">
           <span>
-            Not all the items listed have a sprite. This data comes from the
+            Not all the items listed have a sprite. The pokemon data, moves and
+            items come from the
             <a
               class="website-link"
               href="https://pokeapi.co/docs/v2"
@@ -69,8 +89,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import DeleteDialog from "../DeleteDialog.vue";
-import { Team } from "../../store/interfaces/index";
+import DeleteDialog from "@/components/DeleteDialog.vue";
+import { Team } from "@/store/interfaces/index";
 export default defineComponent({
   name: "InfoActionsTeamForm",
   emits: ["submitTeam"],
@@ -134,8 +154,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.team-form-info {
-  text-align: start;
-}
-</style>
+<style></style>

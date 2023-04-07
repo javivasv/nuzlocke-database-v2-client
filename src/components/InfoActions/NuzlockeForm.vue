@@ -13,19 +13,19 @@
     <v-row no-gutters>
       <v-col>
         <v-row class="py-1" no-gutters>
-          <span class="nuzlocke-form-info">
+          <span class="card-text">
             <strong>Name:</strong>
             The name of the playthrough
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="nuzlocke-form-info">
+          <span class="card-text">
             <strong>Game:</strong>
             The name of the game
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
-          <span class="nuzlocke-form-info">
+          <span class="card-text">
             <strong>Description:</strong>
             Relevant information of the playthrough, such as extra rules
           </span>
@@ -40,11 +40,6 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsNuzlockeForm",
   emits: ["submitNuzlocke"],
-  components: {},
-  computed: {},
-  data() {
-    return {};
-  },
   methods: {
     submitNuzlocke() {
       this.$emit("submitNuzlocke");
@@ -53,8 +48,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.nuzlocke-form-info {
-  text-align: start;
-}
-</style>
+<style></style>

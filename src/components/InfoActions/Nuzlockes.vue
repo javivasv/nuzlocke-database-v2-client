@@ -30,8 +30,6 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsNuzlockes",
-  components: {},
-  computed: {},
   data() {
     return {
       websites: [
@@ -60,9 +58,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.website-link {
-  text-decoration: none;
-  color: #1685c5;
-}
-</style>
+<style></style>

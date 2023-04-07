@@ -229,9 +229,9 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import TextFieldName from "@/components/TextFieldName.vue";
-import Card from "../components/InfoActions/Card.vue";
-import { Pokemon } from "../store/interfaces/index";
-import mixin from "../mixin";
+import Card from "@/components/InfoActions/Card.vue";
+import { Pokemon } from "@/store/interfaces/index";
+import mixin from "@/mixin";
 export default defineComponent({
   name: "PokemonForm",
   mixins: [mixin],

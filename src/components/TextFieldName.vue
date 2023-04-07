@@ -10,17 +10,12 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "TextFieldName",
-  components: {},
   props: {
     text: {
       type: String,
       default: "",
     },
   },
-  data() {
-    return {};
-  },
-  methods: {},
 });
 </script>
 
