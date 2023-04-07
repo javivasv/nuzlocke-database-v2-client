@@ -45,20 +45,46 @@
                 no-gutters
                 @click="toEditTeam(team._id)"
               >
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span class="table-text">
-                      {{ team.name }}
-                    </span>
-                  </v-row>
-                </v-col>
-                <v-col cols="10">
+                <v-col>
                   <v-row no-gutters>
+                    <v-col cols="3">
+                      <v-row
+                        class="h-100"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <span class="table-text">
+                          {{ team.name }}
+                        </span>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-row
+                        class="h-100"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <span class="table-text">
+                          {{ team.vs }}
+                        </span>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-row
+                        class="h-100"
+                        no-gutters
+                        align="center"
+                        justify="center"
+                      >
+                        <span class="table-text">
+                          {{ team.description }}
+                        </span>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <v-row no-gutters align="center" justify="center">
                     <template
                       v-for="(pokemon, index) in team.pokemon"
                       :key="index"
@@ -156,12 +182,17 @@ export default defineComponent({
         {
           name: "name",
           text: "Name",
-          cols: 2,
+          cols: 3,
+        },
+        {
+          name: "vs",
+          text: "Vs",
+          cols: 3,
         },
         {
           name: "pokemon",
           text: "Pokemon",
-          cols: 10,
+          cols: 6,
         },
       ],
     };
