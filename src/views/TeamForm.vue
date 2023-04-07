@@ -666,8 +666,12 @@ export default defineComponent({
 
         pokemonList.push({
           pokemon: teamPokemon,
-          item: pokemon.item,
-          moves: pokemon.moves,
+          item: {
+            ...pokemon.item,
+          },
+          moves: {
+            ...pokemon.moves,
+          },
         });
       });
 
