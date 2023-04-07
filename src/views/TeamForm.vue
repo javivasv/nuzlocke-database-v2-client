@@ -663,7 +663,15 @@ export default defineComponent({
         type: "",
       };
     },
-    submitTeam() {
+    async submitTeam() {
+      const { valid } = await (
+        this.$refs.teamForm as HTMLFormElement
+      ).validate();
+
+      if (!valid) {
+        return;
+      }
+
       let pokemonList: TeamPokemon[] = [];
 
       this.team.pokemon.forEach((pokemon) => {
