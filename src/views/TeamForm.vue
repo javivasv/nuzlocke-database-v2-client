@@ -129,7 +129,7 @@
                         ></v-progress-circular>
                         <v-autocomplete
                           v-else
-                          v-model="pokemon.item"
+                          v-model="pokemon.item.name"
                           :items="getItems"
                           item-value="formattedName"
                           item-title="formattedName"
@@ -170,7 +170,7 @@
                             </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
-                                v-model="pokemon.moves.first"
+                                v-model="pokemon.moves.first.name"
                                 :items="getMoves"
                                 item-value="formattedName"
                                 item-title="formattedName"
@@ -199,7 +199,7 @@
                             </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
-                                v-model="pokemon.moves.second"
+                                v-model="pokemon.moves.second.name"
                                 :items="getMoves"
                                 item-value="formattedName"
                                 item-title="formattedName"
@@ -230,7 +230,7 @@
                             </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
-                                v-model="pokemon.moves.third"
+                                v-model="pokemon.moves.third.name"
                                 :items="getMoves"
                                 item-value="formattedName"
                                 item-title="formattedName"
@@ -259,7 +259,7 @@
                             </v-row>
                             <v-row no-gutters>
                               <v-autocomplete
-                                v-model="pokemon.moves.fourth"
+                                v-model="pokemon.moves.fourth.name"
                                 :items="getMoves"
                                 item-value="formattedName"
                                 item-title="formattedName"
@@ -325,32 +325,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -359,32 +369,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -393,32 +413,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -427,32 +457,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -461,32 +501,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -495,32 +545,42 @@ export default defineComponent({
           {
             pokemon: null,
             item: {
+              name: {
+                codedName: "",
+                formattedName: "",
+              },
               sprite: "",
-              codedName: "",
-              formattedName: "",
             },
             moves: {
               first: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               second: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               third: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
               fourth: {
-                codedName: "",
-                formattedName: "",
+                name: {
+                  codedName: "",
+                  formattedName: "",
+                },
                 class: "",
                 type: "",
               },
@@ -591,11 +651,13 @@ export default defineComponent({
         return;
       }
 
-      this.fetchItem(this.team.pokemon[index].item.codedName).then((res) => {
-        this.team.pokemon[index].item.sprite = res.sprites.default
-          ? res.sprites.default
-          : "";
-      });
+      this.fetchItem(this.team.pokemon[index].item.name.codedName).then(
+        (res) => {
+          this.team.pokemon[index].item.sprite = res.sprites.default
+            ? res.sprites.default
+            : "";
+        }
+      );
     },
     fetchMoveData(index: number, move: string) {
       if (!this.team.pokemon[index].moves[move as keyof Moves]) {
@@ -603,7 +665,7 @@ export default defineComponent({
       }
 
       this.fetchMove(
-        this.team.pokemon[index].moves[move as keyof Moves].codedName
+        this.team.pokemon[index].moves[move as keyof Moves].name.codedName
       ).then((res) => {
         this.team.pokemon[index].moves[move as keyof Moves].type =
           res.type.name;
@@ -616,32 +678,42 @@ export default defineComponent({
       this.team.pokemon[index] = {
         pokemon: null,
         item: {
+          name: {
+            codedName: "",
+            formattedName: "",
+          },
           sprite: "",
-          codedName: "",
-          formattedName: "",
         },
         moves: {
           first: {
-            codedName: "",
-            formattedName: "",
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
             class: "",
             type: "",
           },
           second: {
-            codedName: "",
-            formattedName: "",
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
             class: "",
             type: "",
           },
           third: {
-            codedName: "",
-            formattedName: "",
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
             class: "",
             type: "",
           },
           fourth: {
-            codedName: "",
-            formattedName: "",
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
             class: "",
             type: "",
           },
@@ -650,15 +722,19 @@ export default defineComponent({
     },
     clearItem(index: number) {
       this.team.pokemon[index].item = {
+        name: {
+          codedName: "",
+          formattedName: "",
+        },
         sprite: "",
-        codedName: "",
-        formattedName: "",
       };
     },
     clearMove(index: number, move: string) {
       this.team.pokemon[index].moves[move as keyof Moves] = {
-        codedName: "",
-        formattedName: "",
+        name: {
+          codedName: "",
+          formattedName: "",
+        },
         class: "",
         type: "",
       };

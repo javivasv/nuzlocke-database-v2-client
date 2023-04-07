@@ -95,15 +95,20 @@ export interface TeamPokemon {
 
 export interface Item {
   sprite: string;
-  codedName: string;
-  formattedName: string;
+  name: Name;
 }
 
 export interface Moves {
-  first: Name;
-  second: Name;
-  third: Name;
-  fourth: Name;
+  first: Move;
+  second: Move;
+  third: Move;
+  fourth: Move;
+}
+
+export interface Move {
+  name: Name;
+  class: string;
+  type: string;
 }
 
 export interface CreateTeamData {

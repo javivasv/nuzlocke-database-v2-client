@@ -111,7 +111,7 @@
                         </v-row>
                         <v-row no-gutters align="center" justify="center">
                           <span class="table-text">
-                            {{ pokemon.item.formattedName }}
+                            {{ pokemon.item.name.formattedName }}
                           </span>
                         </v-row>
                       </v-col>
