@@ -33,7 +33,7 @@
           v-model="filter.on"
           :label="filter.name"
           hide-details
-          color="secondary"
+          :color="getTypeColor(filter.name)"
           @update:modelValue="updateFilter(filter.value, 'type')"
         ></v-checkbox>
       </v-col>
@@ -44,8 +44,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import TextFieldName from "@/components/TextFieldName.vue";
+import mixin from "../mixin";
 export default defineComponent({
   name: "Filters",
+  mixins: [mixin],
   components: {
     TextFieldName,
   },
@@ -192,6 +194,16 @@ export default defineComponent({
         value,
         type,
       });
+    },
+    getTypeColor(typeName: string) {
+      let color = "secondary";
+      let type = this.pokemonTypes.find((type) => type.name === typeName);
+
+      if (type) {
+        color = type.color;
+      }
+
+      return color;
     },
   },
 });
