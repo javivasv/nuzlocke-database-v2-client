@@ -52,7 +52,7 @@
                         <v-row
                           v-for="nuzlocke in filteredNuzlockes()"
                           :key="nuzlocke._id"
-                          class="nuzlocke-row py-5"
+                          class="table-row py-5"
                           no-gutters
                           @click="checkNuzlocke(nuzlocke)"
                         >
@@ -173,11 +173,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.nuzlocke-row {
-  cursor: pointer;
-}
-.nuzlocke-row:hover {
-  background-color: #9e9e9e4d;
-}
-</style>
+<style></style>

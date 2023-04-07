@@ -44,12 +44,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.pokemon-type {
-  padding: 4px 8px;
-  border-radius: 10px;
-  color: white;
-  font-size: 12px;
-  margin: 4px;
-}
-</style>
+<style></style>

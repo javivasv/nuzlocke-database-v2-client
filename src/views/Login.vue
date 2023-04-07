@@ -7,7 +7,7 @@
     <v-row class="h-100 w-100" no-gutters>
       <v-col align-self="center">
         <v-row class="w-100" no-gutters align="center" justify="center">
-          <v-card id="login-card" class="pa-6">
+          <v-card class="login-card pa-6">
             <v-row v-if="newUser" no-gutters>
               <v-form
                 ref="registerForm"
@@ -225,14 +225,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-#login {
-  background-size: cover;
-}
-#login-card {
-  width: 30%;
-}
-.form-action {
-  cursor: pointer;
-}
-</style>
+<style></style>

@@ -40,11 +40,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.move-class {
-  margin: 4px;
-  height: 25px;
-  width: 50px;
-  background-size: cover;
-}
-</style>
+<style></style>

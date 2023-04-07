@@ -55,7 +55,7 @@
                 :class="{
                   'py-3': pokemon.sprite !== 0,
                   'py-5': pokemon.sprite === 0,
-                  'pokemon-row': !pokemon.fainted,
+                  'table-row': !pokemon.fainted,
                   'fainted-pokemon-row': pokemon.fainted,
                 }"
                 no-gutters
@@ -346,18 +346,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.pokemon-row,
-.fainted-pokemon-row {
-  cursor: pointer;
-}
-.pokemon-row:hover {
-  background-color: #9e9e9e4d;
-}
-.fainted-pokemon-row {
-  background-color: #b000201a;
-}
-.fainted-pokemon-row:hover {
-  background-color: #b0002033;
-}
-</style>
+<style></style>

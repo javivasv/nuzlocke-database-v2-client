@@ -45,17 +45,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.content {
-  width: 100%;
-}
-.table-header {
-  color: #ffffff;
-  background-color: #1685c5;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.table-text {
-  word-break: break-word;
-}
-</style>
+<style></style>

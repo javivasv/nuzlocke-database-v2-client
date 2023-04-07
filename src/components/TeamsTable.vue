@@ -41,7 +41,7 @@
           >
             <template v-for="(team, index) in filteredTeams()" :key="team._id">
               <v-row
-                class="team-row py-5"
+                class="table-row py-5"
                 no-gutters
                 @click="toEditTeam(team._id)"
               >
@@ -256,11 +256,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.team-row {
-  cursor: pointer;
-}
-.team-row:hover {
-  background-color: #9e9e9e4d;
-}
-</style>
+<style></style>
