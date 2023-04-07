@@ -9,8 +9,7 @@
         </v-row>
         <v-row no-gutters>
           <v-card
-            class="pa-4 w-100"
-            style="overflow: auto"
+            class="thin-scrollbar pa-4 w-100"
             :style="{
               'max-height': $vuetify.display.height - 96 + 'px',
             }"

@@ -161,9 +161,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.video-iframe {
-  width: 100%;
-  height: calc(100% - 50px);
-}
-</style>
+<style></style>

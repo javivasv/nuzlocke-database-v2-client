@@ -34,7 +34,7 @@
       <template v-else>
         <v-row no-gutters>
           <v-col
-            style="overflow: auto"
+            class="thin-scrollbar"
             :style="{
               'max-height': $vuetify.display.height - 304 + 'px',
             }"

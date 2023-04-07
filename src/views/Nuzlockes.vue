@@ -44,7 +44,7 @@
                     </v-row>
                     <v-row v-else no-gutters>
                       <v-col
-                        style="overflow: auto"
+                        class="thin-scrollbar"
                         :style="{
                           'max-height': $vuetify.display.height - 172 + 'px',
                         }"
