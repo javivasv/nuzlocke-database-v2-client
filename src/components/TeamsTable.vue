@@ -39,81 +39,87 @@
               'max-height': $vuetify.display.height - 312 + 'px',
             }"
           >
-            <v-row
-              v-for="team in filteredTeams()"
-              :key="team._id"
-              class="py-5"
-              no-gutters
-            >
-              <v-col cols="2">
-                <v-row class="h-100" no-gutters align="center" justify="center">
-                  <span class="table-text">
-                    {{ team.name }}
-                  </span>
-                </v-row>
-              </v-col>
-              <v-col cols="10">
-                <v-row no-gutters>
-                  <template
-                    v-for="(pokemon, index) in team.pokemon"
-                    :key="index"
+            <template v-for="(team, index) in filteredTeams()" :key="team._id">
+              <v-row class="py-5" no-gutters>
+                <v-col cols="2">
+                  <v-row
+                    class="h-100"
+                    no-gutters
+                    align="center"
+                    justify="center"
                   >
-                    <v-col v-if="pokemon.pokemonId !== ''" cols="4">
-                      <v-row no-gutters align="center" justify="center">
-                        <v-img
-                          :src="pokemonData(pokemon.pokemonId, 'sprite')"
-                          height="100px"
+                    <span class="table-text">
+                      {{ team.name }}
+                    </span>
+                  </v-row>
+                </v-col>
+                <v-col cols="10">
+                  <v-row no-gutters>
+                    <template
+                      v-for="(pokemon, index) in team.pokemon"
+                      :key="index"
+                    >
+                      <v-col v-if="pokemon.pokemonId !== ''" cols="4">
+                        <v-row no-gutters align="center" justify="center">
+                          <v-img
+                            :src="pokemonData(pokemon.pokemonId, 'sprite')"
+                            height="100px"
+                          >
+                            <template #placeholder>
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-progress-circular
+                                  color="primary"
+                                  indeterminate
+                                ></v-progress-circular>
+                              </v-row> </template
+                          ></v-img>
+                        </v-row>
+                        <v-row no-gutters align="center" justify="center">
+                          <span class="table-text">
+                            {{ pokemonData(pokemon.pokemonId, "nickname") }}
+                          </span>
+                        </v-row>
+                        <v-row
+                          v-if="pokemon.item.sprite !== ''"
+                          no-gutters
+                          align="center"
+                          justify="center"
                         >
-                          <template #placeholder>
-                            <v-row
-                              class="h-100"
-                              no-gutters
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                color="primary"
-                                indeterminate
-                              ></v-progress-circular>
-                            </v-row> </template
-                        ></v-img>
-                      </v-row>
-                      <v-row no-gutters align="center" justify="center">
-                        <span class="table-text">
-                          {{ pokemonData(pokemon.pokemonId, "nickname") }}
-                        </span>
-                      </v-row>
-                      <v-row
-                        v-if="pokemon.item.sprite !== ''"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
-                        <v-img :src="pokemon.item.sprite" height="50px">
-                          <template #placeholder>
-                            <v-row
-                              class="h-100"
-                              no-gutters
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                color="primary"
-                                indeterminate
-                              ></v-progress-circular>
-                            </v-row> </template
-                        ></v-img>
-                      </v-row>
-                      <v-row no-gutters align="center" justify="center">
-                        <span class="table-text">
-                          {{ pokemon.item.formattedName }}
-                        </span>
-                      </v-row>
-                    </v-col>
-                  </template>
-                </v-row>
-              </v-col>
-            </v-row>
+                          <v-img :src="pokemon.item.sprite" height="50px">
+                            <template #placeholder>
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-progress-circular
+                                  color="primary"
+                                  indeterminate
+                                ></v-progress-circular>
+                              </v-row> </template
+                          ></v-img>
+                        </v-row>
+                        <v-row no-gutters align="center" justify="center">
+                          <span class="table-text">
+                            {{ pokemon.item.formattedName }}
+                          </span>
+                        </v-row>
+                      </v-col>
+                    </template>
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-divider
+                v-if="index + 1 !== filteredTeams().length"
+                class="my-3"
+              ></v-divider>
+            </template>
           </v-col>
         </v-row>
       </template>
