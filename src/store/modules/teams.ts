@@ -1,11 +1,7 @@
 import { Module } from "vuex";
-import { State } from "../index";
+import { State } from "@/store/index";
 import axios from "axios";
-import {
-  CreateTeamData,
-  UpdateTeamData,
-  DeleteTeamData,
-} from "../interfaces/index";
+import { CreateTeamData, UpdateTeamData, DeleteTeamData } from "@/interface";
 
 export interface TeamsState {}
 

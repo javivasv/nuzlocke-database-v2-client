@@ -183,7 +183,7 @@ import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import FiltersMenu from "@/components/FiltersMenu.vue";
 import PokemonType from "@/components/PokemonType.vue";
-import { Pokemon, Filters, Filter } from "@/store/interfaces/index";
+import { Pokemon, Filters, Filter } from "@/interface";
 export default defineComponent({
   name: "PokemonTable",
   components: {

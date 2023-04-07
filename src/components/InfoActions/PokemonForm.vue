@@ -113,7 +113,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import DeleteDialog from "@/components/DeleteDialog.vue";
-import { Pokemon } from "@/store/interfaces/index";
+import { Pokemon } from "@/interface";
 export default defineComponent({
   name: "InfoActionsPokemonForm",
   emits: ["submitPokemon"],

@@ -1,9 +1,9 @@
 import { Module } from "vuex";
-import { State } from "../index";
+import { State } from "@/store/index";
 import axios from "axios";
-import { UserData, Token } from "../interfaces/index";
+import { UserData, Token } from "@/interface";
 import jwtDecode from "jwt-decode";
-import router from "../../router";
+import router from "@/router";
 
 axios.interceptors.request.use((config) => {
   config.headers["Authorization"] = window.localStorage.getItem("pndb_token");

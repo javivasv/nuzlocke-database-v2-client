@@ -177,7 +177,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { Pokemon, Team } from "@/store/interfaces/index";
+import { Pokemon, Team } from "@/interface";
 export default defineComponent({
   name: "TeamsTable",
   props: {

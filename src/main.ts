@@ -1,9 +1,9 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store";
 import { aliases, md } from "vuetify/iconsets/md";
-import mixin from "./mixin";
+import mixin from "@/mixin";
 
 // Vuetify
 import "vuetify/styles";
@@ -11,7 +11,7 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
-import "./style/global.less";
+import "@/style/global.less";
 
 const customLightTheme = {
   dark: false,

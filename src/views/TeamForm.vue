@@ -325,7 +325,7 @@ import {
   TeamPokemon,
   TeamPokemonData,
   Team,
-} from "@/store/interfaces/index";
+} from "@/interface";
 export default defineComponent({
   name: "TeamForm",
   components: {

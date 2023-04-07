@@ -1,7 +1,7 @@
 import { Module } from "vuex";
-import { State } from "../index";
+import { State } from "@/store/index";
 import axios from "axios";
-import { Nuzlocke, UpdateNuzlockeData } from "../interfaces/index";
+import { Nuzlocke, UpdateNuzlockeData } from "@/interface";
 
 export interface NuzlockesState {
   nuzlockes: [];

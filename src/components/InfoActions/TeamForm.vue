@@ -90,7 +90,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import DeleteDialog from "@/components/DeleteDialog.vue";
-import { Team } from "@/store/interfaces/index";
+import { Team } from "@/interface";
 export default defineComponent({
   name: "InfoActionsTeamForm",
   emits: ["submitTeam"],

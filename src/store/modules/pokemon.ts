@@ -1,11 +1,11 @@
 import { Module } from "vuex";
-import { State } from "../index";
+import { State } from "@/store/index";
 import axios from "axios";
 import {
   CreatePokemonData,
   UpdatePokemonData,
   DeletePokemonData,
-} from "../interfaces/index";
+} from "@/interface";
 
 export interface PokemonState {}
 
