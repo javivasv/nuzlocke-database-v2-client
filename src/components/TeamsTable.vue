@@ -55,7 +55,7 @@
                         justify="center"
                       >
                         <span class="table-text">
-                          {{ team.name }}
+                          {{ team.name !== "" ? team.name : "-" }}
                         </span>
                       </v-row>
                     </v-col>
@@ -67,7 +67,7 @@
                         justify="center"
                       >
                         <span class="table-text">
-                          {{ team.vs }}
+                          {{ team.vs !== "" ? team.vs : "-" }}
                         </span>
                       </v-row>
                     </v-col>
@@ -79,7 +79,7 @@
                         justify="center"
                       >
                         <span class="table-text">
-                          {{ team.description }}
+                          {{ team.description !== "" ? team.description : "-" }}
                         </span>
                       </v-row>
                     </v-col>
@@ -190,8 +190,8 @@ export default defineComponent({
           cols: 3,
         },
         {
-          name: "pokemon",
-          text: "Pokemon",
+          name: "description",
+          text: "Description",
           cols: 6,
         },
       ],
