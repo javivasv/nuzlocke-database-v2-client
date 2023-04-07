@@ -82,6 +82,7 @@ export interface Filter {
 export interface Team {
   _id?: string;
   name: string;
+  vs: string;
   description: string;
   pokemon: Array<TeamPokemon>;
 }

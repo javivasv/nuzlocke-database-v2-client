@@ -29,6 +29,15 @@
                     ></v-text-field>
                   </v-row>
                   <v-row class="py-1" no-gutters>
+                    <v-text-field
+                      v-model="team.vs"
+                      placeholder="Vs"
+                      variant="outlined"
+                      color="secondary"
+                      density="compact"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row class="py-1" no-gutters>
                     <v-textarea
                       v-model="team.description"
                       placeholder="Description"
@@ -47,7 +56,13 @@
               <v-col>
                 <template v-for="(pokemon, index) in team.pokemon" :key="index">
                   <v-row no-gutters align="center" justify="center">
-                    <v-col class="pr-3" cols="3">
+                    <v-col
+                      class="pr-3"
+                      cols="3"
+                      :align-self="
+                        pokemon.item.name.codedName !== '' ? 'end' : 'center'
+                      "
+                    >
                       <v-row
                         v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
                         class="py-2"
@@ -88,7 +103,11 @@
                     <v-col
                       class="px-3"
                       cols="3"
-                      :align-self="pokemon.pokemon ? 'end' : 'center'"
+                      :align-self="
+                        pokemon.pokemon || pokemon.item.name.codedName !== ''
+                          ? 'end'
+                          : 'center'
+                      "
                     >
                       <v-row
                         v-if="pokemon.item && pokemon.item.sprite !== ''"
@@ -323,6 +342,7 @@ export default defineComponent({
     return {
       team: {
         name: "",
+        vs: "",
         description: "",
         pokemon: [
           {
@@ -730,50 +750,7 @@ export default defineComponent({
       });
     },
     clearPokemon(index: number) {
-      this.team.pokemon[index] = {
-        pokemon: null,
-        item: {
-          name: {
-            codedName: "",
-            formattedName: "",
-          },
-          sprite: "",
-        },
-        moves: {
-          first: {
-            name: {
-              codedName: "",
-              formattedName: "",
-            },
-            class: "",
-            type: "",
-          },
-          second: {
-            name: {
-              codedName: "",
-              formattedName: "",
-            },
-            class: "",
-            type: "",
-          },
-          third: {
-            name: {
-              codedName: "",
-              formattedName: "",
-            },
-            class: "",
-            type: "",
-          },
-          fourth: {
-            name: {
-              codedName: "",
-              formattedName: "",
-            },
-            class: "",
-            type: "",
-          },
-        },
-      };
+      this.team.pokemon[index].pokemon = null;
     },
     clearItem(index: number) {
       this.team.pokemon[index].item = {
@@ -824,6 +801,7 @@ export default defineComponent({
         nuzlockeId: this.$route.params.nuzlockeId,
         team: {
           name: this.team.name,
+          vs: this.team.vs,
           description: this.team.description,
           pokemon: pokemonList,
         },
@@ -839,6 +817,7 @@ export default defineComponent({
         teamId: this.$route.params.teamId,
         team: {
           name: this.team.name,
+          vs: this.team.vs,
           description: this.team.description,
           pokemon: pokemonList,
         },
