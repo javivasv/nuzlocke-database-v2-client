@@ -88,7 +88,7 @@ export interface Team {
 
 export interface TeamPokemon {
   _id?: string;
-  pokemon: string;
+  pokemonId: string;
   item: Item;
   moves: Moves;
 }

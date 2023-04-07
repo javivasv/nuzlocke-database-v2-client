@@ -676,7 +676,7 @@ export default defineComponent({
 
       this.team.pokemon.forEach((pokemon) => {
         pokemonList.push({
-          pokemon: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
+          pokemonId: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
           item: pokemon.item,
           moves: pokemon.moves,
         });

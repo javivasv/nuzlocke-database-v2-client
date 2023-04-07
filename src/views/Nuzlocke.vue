@@ -21,6 +21,9 @@
                   <v-window-item>
                     <PokemonTable :is-loading="isLoading" />
                   </v-window-item>
+                  <v-window-item>
+                    <TeamsTable :is-loading="isLoading" />
+                  </v-window-item>
                 </v-window>
               </v-col>
             </v-row>
@@ -36,13 +39,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import PokemonTable from "../components/PokemonTable.vue";
+import TeamsTable from "../components/TeamsTable.vue";
 import Card from "../components/InfoActions/Card.vue";
 export default defineComponent({
   name: "Nuzlocke",
   components: {
     PokemonTable,
+    TeamsTable,
     Card,
   },
   computed: {

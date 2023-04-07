@@ -167,7 +167,6 @@ export default defineComponent({
   },
   data() {
     return {
-      tab: 0,
       search: "",
       headers: [
         {
