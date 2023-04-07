@@ -84,6 +84,23 @@
                       </v-row>
                     </v-col>
                   </v-row>
+                  <v-row no-gutters>
+                    <v-col cols="3">
+                      <v-row class="px-3 my-3" no-gutters>
+                        <v-divider></v-divider>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-row class="px-3 my-3" no-gutters>
+                        <v-divider></v-divider>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-row class="px-3 my-3" no-gutters>
+                        <v-divider></v-divider>
+                      </v-row>
+                    </v-col>
+                  </v-row>
                   <v-row no-gutters align="center" justify="center">
                     <template
                       v-for="(pokemon, index) in team.pokemon"
