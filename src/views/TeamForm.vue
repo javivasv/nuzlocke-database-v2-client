@@ -287,7 +287,7 @@
         </v-row>
       </v-col>
       <v-col class="pa-3" cols="4">
-        <Card v-if="false" :type="'team-form'" @submitTeam="submitTeam()" />
+        <Card :type="'team-form'" @submitTeam="submitTeam()" />
       </v-col>
     </v-row>
   </div>
@@ -299,7 +299,7 @@ import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import PokemonType from "../components/PokemonType.vue";
 import MoveClass from "../components/MoveClass.vue";
-import { Moves } from "../store/interfaces/index";
+import { Moves, Pokemon, TeamPokemon } from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
@@ -528,6 +528,7 @@ export default defineComponent({
           },
         ],
       },
+      editMode: false,
       loadingItems: false,
       loadingMoves: false,
       nameRules: [(value: string) => this.required(value, "name")],
@@ -561,6 +562,9 @@ export default defineComponent({
       fetchItem: "FETCH_ITEM",
       fetchMoves: "FETCH_MOVES",
       fetchMove: "FETCH_MOVE",
+    }),
+    ...mapActions("teams", {
+      addNewTeam: "ADD_TEAM",
     }),
     toNuzlocke() {
       this.$router.push({
@@ -660,7 +664,38 @@ export default defineComponent({
       };
     },
     submitTeam() {
-      console.log("SUBMIT TEAM");
+      let pokemonList: TeamPokemon[] = [];
+
+      this.team.pokemon.forEach((pokemon) => {
+        pokemonList.push({
+          pokemon: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
+          item: pokemon.item,
+          moves: pokemon.moves,
+        });
+      });
+
+      if (this.editMode) {
+        this.updateTeam(pokemonList);
+      } else {
+        this.addTeam(pokemonList);
+      }
+    },
+    async addTeam(pokemonList: Array<TeamPokemon>) {
+      const data = {
+        nuzlockeId: this.$route.params.nuzlockeId,
+        team: {
+          name: this.team.name,
+          description: this.team.description,
+          pokemon: pokemonList,
+        },
+      };
+
+      this.addNewTeam(data).then(() => {
+        this.toNuzlocke();
+      });
+    },
+    async updateTeam(pokemonList: Array<TeamPokemon>) {
+      console.log("UPDATE TEAM: ", pokemonList);
     },
     required(value: string, type: string) {
       if (value) return true;

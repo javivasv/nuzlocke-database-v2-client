@@ -9,7 +9,7 @@ import {
 
 export interface TeamsState {}
 
-export const pokemon: Module<TeamsState, State> = {
+export const teams: Module<TeamsState, State> = {
   modules: {},
   namespaced: true,
   state: {},

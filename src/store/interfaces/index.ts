@@ -95,8 +95,8 @@ export interface TeamPokemon {
 
 export interface Item {
   sprite: string;
-  codedItem: string;
-  formattedItem: string;
+  codedName: string;
+  formattedName: string;
 }
 
 export interface Moves {

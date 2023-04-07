@@ -17,6 +17,7 @@
         v-if="type === 'pokemon-form'"
         @submitPokemon="submitPokemon()"
       />
+      <TeamForm v-if="type === 'team-form'" @submitTeam="submitTeam()" />
       <Nuzlocke v-if="type === 'nuzlocke'" />
     </v-card>
   </div>
@@ -27,6 +28,7 @@ import { defineComponent } from "vue";
 import Nuzlockes from "./Nuzlockes.vue";
 import NuzlockeForm from "./NuzlockeForm.vue";
 import PokemonForm from "./PokemonForm.vue";
+import TeamForm from "./TeamForm.vue";
 import Nuzlocke from "./Nuzlocke.vue";
 export default defineComponent({
   name: "InfoActionsCard",
@@ -34,6 +36,7 @@ export default defineComponent({
     Nuzlockes,
     NuzlockeForm,
     PokemonForm,
+    TeamForm,
     Nuzlocke,
   },
   props: {
@@ -52,6 +55,9 @@ export default defineComponent({
     },
     submitPokemon() {
       this.$emit("submitPokemon");
+    },
+    submitTeam() {
+      this.$emit("submitTeam");
     },
   },
 });
