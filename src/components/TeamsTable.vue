@@ -196,7 +196,6 @@ export default defineComponent({
       return "";
     },
     toEditTeam(id: string) {
-      /*
       this.$router.push({
         name: "edit-team-form",
         params: {
@@ -204,7 +203,6 @@ export default defineComponent({
           teamId: id,
         },
       });
-      */
     },
   },
 });

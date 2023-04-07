@@ -45,10 +45,7 @@
             </v-form>
             <v-row no-gutters align="center" justify="center">
               <v-col>
-                <template
-                  v-for="(pokemon, index) in team.pokemon"
-                  :key="pokemon.pokemonId"
-                >
+                <template v-for="(pokemon, index) in team.pokemon" :key="index">
                   <v-row no-gutters align="center" justify="center">
                     <v-col class="pr-3" cols="3">
                       <v-row
@@ -299,7 +296,13 @@ import { mapGetters, mapActions } from "vuex";
 import Card from "../components/InfoActions/Card.vue";
 import PokemonType from "../components/PokemonType.vue";
 import MoveClass from "../components/MoveClass.vue";
-import { Moves, Pokemon, TeamPokemon } from "../store/interfaces/index";
+import {
+  Moves,
+  Pokemon,
+  TeamPokemon,
+  TeamPokemonData,
+  Team,
+} from "../store/interfaces/index";
 export default defineComponent({
   name: "TeamForm",
   components: {
@@ -595,8 +598,20 @@ export default defineComponent({
     };
   },
   mounted() {
+    if (this.$route.name === "edit-team-form") {
+      this.editMode = true;
+    }
+
     if (!this.getNuzlocke) {
-      this.fetchNuzlocke(this.$route.params.nuzlockeId);
+      this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+        if (this.editMode) {
+          this.toEditTeamData();
+        }
+      });
+    } else {
+      if (this.editMode) {
+        this.toEditTeamData();
+      }
     }
 
     if (this.getItems.length === 0) {
@@ -626,6 +641,41 @@ export default defineComponent({
     ...mapActions("teams", {
       addNewTeam: "ADD_TEAM",
     }),
+    toEditTeamData() {
+      let toEditTeam = {
+        ...this.getNuzlocke.teams.find(
+          (team: Team) => team._id === this.$route.params.teamId
+        ),
+      };
+
+      delete toEditTeam._id;
+
+      this.team = {
+        ...toEditTeam,
+      };
+
+      let pokemonList: TeamPokemonData[] = [];
+      toEditTeam.pokemon.forEach((pokemon: TeamPokemon) => {
+        let teamPokemon = null;
+
+        if (pokemon.pokemonId !== "") {
+          teamPokemon = this.getNuzlocke.pokemon.find(
+            (item: Pokemon) => item._id === pokemon.pokemonId
+          );
+        }
+
+        pokemonList.push({
+          pokemon: teamPokemon,
+          item: pokemon.item,
+          moves: pokemon.moves,
+        });
+      });
+
+      this.team = {
+        ...toEditTeam,
+        pokemon: [...pokemonList],
+      };
+    },
     toNuzlocke() {
       this.$router.push({
         name: "nuzlocke",

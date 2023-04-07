@@ -93,6 +93,12 @@ export interface TeamPokemon {
   moves: Moves;
 }
 
+export interface TeamPokemonData {
+  pokemon: null | Pokemon;
+  item: Item;
+  moves: Moves;
+}
+
 export interface Item {
   sprite: string;
   name: Name;

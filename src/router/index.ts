@@ -56,6 +56,11 @@ const routes: Array<RouteRecordRaw> = [
         component: TeamForm,
       },
       {
+        path: "nuzlocke/:nuzlockeId/team/:teamId",
+        name: "edit-team-form",
+        component: TeamForm,
+      },
+      {
         path: "about",
         name: "about",
         component: About,
