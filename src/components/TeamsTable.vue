@@ -36,11 +36,15 @@
           <v-col
             style="overflow: auto"
             :style="{
-              'max-height': $vuetify.display.height - 312 + 'px',
+              'max-height': $vuetify.display.height - 304 + 'px',
             }"
           >
             <template v-for="(team, index) in filteredTeams()" :key="team._id">
-              <v-row class="py-5" no-gutters>
+              <v-row
+                class="team-row py-5"
+                no-gutters
+                @click="toEditTeam(team._id)"
+              >
                 <v-col cols="2">
                   <v-row
                     class="h-100"
@@ -191,8 +195,26 @@ export default defineComponent({
 
       return "";
     },
+    toEditTeam(id: string) {
+      /*
+      this.$router.push({
+        name: "edit-team-form",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+          teamId: id,
+        },
+      });
+      */
+    },
   },
 });
 </script>
 
-<style></style>
+<style>
+.team-row {
+  cursor: pointer;
+}
+.team-row:hover {
+  background-color: #9e9e9e4d;
+}
+</style>
