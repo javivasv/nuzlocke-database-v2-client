@@ -5,6 +5,7 @@
       <v-col v-for="filter in statusFilters" :key="filter.value" cols="4">
         <v-checkbox
           v-model="filter.on"
+          :class="{ 'dark-mode': $vuetify.theme.name === 'customDarkTheme' }"
           :label="filter.name"
           hide-details
           color="secondary"
@@ -18,6 +19,7 @@
       <v-col v-for="filter in obtainedFilters" :key="filter.value" cols="4">
         <v-checkbox
           v-model="filter.on"
+          :class="{ 'dark-mode': $vuetify.theme.name === 'customDarkTheme' }"
           :label="filter.name"
           hide-details
           color="secondary"
@@ -31,6 +33,7 @@
       <v-col v-for="filter in typeFilters" :key="filter.value" cols="4">
         <v-checkbox
           v-model="filter.on"
+          :class="{ 'dark-mode': $vuetify.theme.name === 'customDarkTheme' }"
           :label="filter.name"
           hide-details
           :color="getTypeColor(filter.name)"

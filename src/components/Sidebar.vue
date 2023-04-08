@@ -33,6 +33,9 @@
             <v-col cols="6">
               <v-switch
                 @change="toggleTheme()"
+                :class="{
+                  'dark-mode': $vuetify.theme.name === 'customDarkTheme',
+                }"
                 label="Dark mode"
                 color="primary"
                 density="compact"

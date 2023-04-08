@@ -38,6 +38,9 @@
                     <v-checkbox
                       v-model="shiny"
                       class="type-1"
+                      :class="{
+                        'dark-mode': $vuetify.theme.name === 'customDarkTheme',
+                      }"
                       label="Shiny"
                       hide-details
                       color="secondary"
@@ -122,6 +125,10 @@
                         <v-checkbox
                           v-model="pokemon.originalSpecies"
                           class="type-1"
+                          :class="{
+                            'dark-mode':
+                              $vuetify.theme.name === 'customDarkTheme',
+                          }"
                           label="Original species"
                           hide-details
                           color="secondary"
@@ -172,6 +179,10 @@
                         <v-checkbox
                           v-model="pokemon.originalAbility"
                           class="type-1"
+                          :class="{
+                            'dark-mode':
+                              $vuetify.theme.name === 'customDarkTheme',
+                          }"
                           label="Original ability"
                           hide-details
                           color="secondary"
