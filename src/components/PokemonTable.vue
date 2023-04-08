@@ -261,9 +261,9 @@ export default defineComponent({
       let list = this.getNuzlocke.pokemon.filter((pokemon: Pokemon) => {
         if (
           this.search !== "" &&
-          !pokemon.nickname.includes(this.search) &&
-          !pokemon.species.formattedName.includes(this.search) &&
-          !pokemon.location.includes(this.search)
+          !pokemon.nickname.toLowerCase().includes(this.search) &&
+          !pokemon.species.formattedName.toLowerCase().includes(this.search) &&
+          !pokemon.location.toLowerCase().includes(this.search)
         ) {
           return false;
         }

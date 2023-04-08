@@ -157,6 +157,17 @@
                             {{ pokemon.item.name.formattedName }}
                           </span>
                         </v-row>
+                        <v-row
+                          v-if="
+                            (index === 0 && team.pokemon[3].pokemonId !== '') ||
+                            (index === 1 && team.pokemon[4].pokemonId !== '') ||
+                            (index === 2 && team.pokemon[5].pokemonId !== '')
+                          "
+                          class="px-3 my-3"
+                          no-gutters
+                        >
+                          <v-divider></v-divider>
+                        </v-row>
                       </v-col>
                     </template>
                   </v-row>
@@ -216,7 +227,12 @@ export default defineComponent({
   methods: {
     filteredTeams() {
       let list = this.getNuzlocke.teams.filter((team: Team) => {
-        if (this.search !== "" && !team.name.includes(this.search)) {
+        if (
+          this.search !== "" &&
+          !team.name.toLowerCase().includes(this.search) &&
+          !team.vs.toLowerCase().includes(this.search) &&
+          !team.description.toLowerCase().includes(this.search)
+        ) {
           return false;
         }
 

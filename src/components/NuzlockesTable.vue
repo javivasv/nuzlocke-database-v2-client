@@ -134,8 +134,8 @@ export default defineComponent({
 
       return this.getNuzlockes.filter(
         (nuzlocke: Nuzlocke) =>
-          nuzlocke.name.includes(this.search) ||
-          nuzlocke.game.includes(this.search)
+          nuzlocke.name.toLowerCase().includes(this.search) ||
+          nuzlocke.game.toLowerCase().includes(this.search)
       );
     },
     checkNuzlocke(nuzlocke: Nuzlocke) {
