@@ -48,43 +48,6 @@
                       @update:modelValue="pokemonShiny()"
                     ></v-checkbox>
                   </v-row>
-                  <v-row
-                    class="mb-5"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <v-col>
-                      <MultiuseText :text="'First type'" />
-                      <v-row class="pr-3" no-gutters>
-                        <v-select
-                          v-model="pokemon.types.first"
-                          :items="filteredTypesSelection('first')"
-                          item-value="name"
-                          item-title="name"
-                          hide-details
-                          variant="outlined"
-                          density="compact"
-                        ></v-select>
-                      </v-row>
-                    </v-col>
-                    <v-col>
-                      <MultiuseText :text="'Second type'" class="pl-3" />
-                      <v-row class="pl-3" no-gutters>
-                        <v-select
-                          v-model="pokemon.types.second"
-                          :items="filteredTypesSelection('second')"
-                          item-value="name"
-                          item-title="name"
-                          hide-details
-                          variant="outlined"
-                          clearable
-                          density="compact"
-                          @click:clear="clearSecondType()"
-                        ></v-select>
-                      </v-row>
-                    </v-col>
-                  </v-row>
                   <MultiuseText :text="'Species'" />
                   <v-row no-gutters>
                     <v-col cols="9">
@@ -135,6 +98,43 @@
                           density="compact"
                           @update:modelValue="pokemonOriginal()"
                         ></v-checkbox>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    class="mb-5"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <v-col>
+                      <MultiuseText :text="'First type'" />
+                      <v-row class="pr-3" no-gutters>
+                        <v-select
+                          v-model="pokemon.types.first"
+                          :items="filteredTypesSelection('first')"
+                          item-value="name"
+                          item-title="name"
+                          hide-details
+                          variant="outlined"
+                          density="compact"
+                        ></v-select>
+                      </v-row>
+                    </v-col>
+                    <v-col>
+                      <MultiuseText :text="'Second type'" class="pl-3" />
+                      <v-row class="pl-3" no-gutters>
+                        <v-select
+                          v-model="pokemon.types.second"
+                          :items="filteredTypesSelection('second')"
+                          item-value="name"
+                          item-title="name"
+                          hide-details
+                          variant="outlined"
+                          clearable
+                          density="compact"
+                          @click:clear="clearSecondType()"
+                        ></v-select>
                       </v-row>
                     </v-col>
                   </v-row>

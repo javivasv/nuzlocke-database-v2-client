@@ -1,4 +1,9 @@
 <template>
+  <MultiuseText
+    :text="getNuzlocke.name + ' - ' + getNuzlocke.game"
+    :justify="'center'"
+  />
+  <v-divider class="my-3"></v-divider>
   <v-row class="py-3" no-gutters align="center" justify="center">
     <v-btn color="secondary" @click="toEditNuzlocke()">Update nuzlocke</v-btn>
   </v-row>
@@ -67,10 +72,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import MultiuseText from "@/components/MultiuseText.vue";
 import DeleteDialog from "@/components/DeleteDialog.vue";
 export default defineComponent({
   name: "InfoActionsNuzlocke",
   components: {
+    MultiuseText,
     DeleteDialog,
   },
   computed: {
