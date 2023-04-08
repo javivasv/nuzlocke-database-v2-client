@@ -3,9 +3,7 @@
     <v-btn color="secondary" @click="toNuzlockeForm()">New nuzlocke</v-btn>
   </v-row>
   <v-divider class="my-3"></v-divider>
-  <v-card-subtitle>
-    <strong>Relevant websites</strong>
-  </v-card-subtitle>
+  <MultiuseText :text="'Relevant websites'" :justify="'center'" />
   <v-card-text>
     <v-row no-gutters>
       <v-col>
@@ -28,8 +26,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "InfoActionsNuzlockes",
+  components: {
+    MultiuseText,
+  },
   data() {
     return {
       websites: [

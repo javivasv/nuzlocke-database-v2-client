@@ -17,7 +17,7 @@
             <v-form ref="teamForm">
               <v-row no-gutters>
                 <v-col>
-                  <TextFieldName :text="'Name'" />
+                  <MultiuseText :text="'Name'" />
                   <v-row no-gutters>
                     <v-text-field
                       v-model="team.name"
@@ -27,7 +27,7 @@
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Vs'" />
+                  <MultiuseText :text="'Vs'" />
                   <v-row class="mb-5" no-gutters>
                     <v-text-field
                       v-model="team.vs"
@@ -37,7 +37,7 @@
                       hide-details
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Description'" />
+                  <MultiuseText :text="'Description'" />
                   <v-row class="mb-5" no-gutters>
                     <v-textarea
                       v-model="team.description"
@@ -85,7 +85,7 @@
                             </v-row> </template
                         ></v-img>
                       </v-row>
-                      <TextFieldName :text="'Pokemon'" />
+                      <MultiuseText :text="'Pokemon'" />
                       <v-row no-gutters>
                         <v-autocomplete
                           v-model="pokemon.pokemon"
@@ -132,7 +132,7 @@
                             </v-row> </template
                         ></v-img>
                       </v-row>
-                      <TextFieldName
+                      <MultiuseText
                         :text="'Held item'"
                         :class="pokemon.pokemon ? 'mt-5' : ''"
                       />
@@ -183,7 +183,7 @@
                                 :type="pokemon.moves.first.class"
                               />
                             </v-row>
-                            <TextFieldName :text="'First move'" />
+                            <MultiuseText :text="'First move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.first.name"
@@ -213,7 +213,7 @@
                                 :type="pokemon.moves.second.class"
                               />
                             </v-row>
-                            <TextFieldName :text="'Second move'" />
+                            <MultiuseText :text="'Second move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.second.name"
@@ -245,7 +245,7 @@
                                 :type="pokemon.moves.third.class"
                               />
                             </v-row>
-                            <TextFieldName :text="'Third move'" />
+                            <MultiuseText :text="'Third move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.third.name"
@@ -275,7 +275,7 @@
                                 :type="pokemon.moves.fourth.class"
                               />
                             </v-row>
-                            <TextFieldName :text="'Fourth move'" />
+                            <MultiuseText :text="'Fourth move'" />
                             <v-row no-gutters>
                               <v-autocomplete
                                 v-model="pokemon.moves.fourth.name"
@@ -315,7 +315,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import TextFieldName from "@/components/TextFieldName.vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 import Card from "@/components/InfoActions/Card.vue";
 import PokemonType from "@/components/PokemonType.vue";
 import MoveClass from "@/components/MoveClass.vue";
@@ -329,7 +329,7 @@ import {
 export default defineComponent({
   name: "TeamForm",
   components: {
-    TextFieldName,
+    MultiuseText,
     Card,
     PokemonType,
     MoveClass,

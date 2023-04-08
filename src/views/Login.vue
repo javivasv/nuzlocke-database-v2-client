@@ -16,7 +16,7 @@
               >
                 <v-row no-gutters>
                   <v-col>
-                    <TextFieldName :text="'Username'" />
+                    <MultiuseText :text="'Username'" />
                     <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.username"
@@ -26,7 +26,7 @@
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
-                    <TextFieldName :text="'Password'" />
+                    <MultiuseText :text="'Password'" />
                     <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.password"
@@ -37,7 +37,7 @@
                         :rules="passwordRules"
                       ></v-text-field>
                     </v-row>
-                    <TextFieldName :text="'Password confirmation'" />
+                    <MultiuseText :text="'Password confirmation'" />
                     <v-row no-gutters>
                       <v-text-field
                         v-model="newUserData.passwordConfirmation"
@@ -79,7 +79,7 @@
               <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
                 <v-row no-gutters>
                   <v-col>
-                    <TextFieldName :text="'Username'" />
+                    <MultiuseText :text="'Username'" />
                     <v-row no-gutters>
                       <v-text-field
                         v-model="userData.username"
@@ -89,7 +89,7 @@
                         :rules="usernameRules"
                       ></v-text-field>
                     </v-row>
-                    <TextFieldName :text="'Password'" />
+                    <MultiuseText :text="'Password'" />
                     <v-row no-gutters>
                       <v-text-field
                         v-model="userData.password"
@@ -137,11 +137,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions } from "vuex";
-import TextFieldName from "@/components/TextFieldName.vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "Login",
   components: {
-    TextFieldName,
+    MultiuseText,
   },
   data() {
     return {

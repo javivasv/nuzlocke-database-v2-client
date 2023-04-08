@@ -55,7 +55,7 @@
                     justify="center"
                   >
                     <v-col>
-                      <TextFieldName :text="'First type'" />
+                      <MultiuseText :text="'First type'" />
                       <v-row class="pr-3" no-gutters>
                         <v-select
                           v-model="pokemon.types.first"
@@ -69,7 +69,7 @@
                       </v-row>
                     </v-col>
                     <v-col>
-                      <TextFieldName :text="'Second type'" class="pl-3" />
+                      <MultiuseText :text="'Second type'" class="pl-3" />
                       <v-row class="pl-3" no-gutters>
                         <v-select
                           v-model="pokemon.types.second"
@@ -85,7 +85,7 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <TextFieldName :text="'Species'" />
+                  <MultiuseText :text="'Species'" />
                   <v-row no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters align="center" justify="center">
@@ -138,7 +138,7 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <TextFieldName :text="'Ability'" />
+                  <MultiuseText :text="'Ability'" />
                   <v-row class="mb-5" no-gutters>
                     <v-col cols="9">
                       <v-row no-gutters align="center" justify="center">
@@ -192,7 +192,7 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                  <TextFieldName :text="'Nickname'" />
+                  <MultiuseText :text="'Nickname'" />
                   <v-row class="mb-5" no-gutters>
                     <v-text-field
                       v-model="pokemon.nickname"
@@ -202,7 +202,7 @@
                       density="compact"
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Location'" />
+                  <MultiuseText :text="'Location'" />
                   <v-row no-gutters>
                     <v-text-field
                       v-model="pokemon.location"
@@ -212,7 +212,7 @@
                       :rules="locationRules()"
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Obtained'" />
+                  <MultiuseText :text="'Obtained'" />
                   <v-row no-gutters>
                     <v-select
                       v-model="pokemon.obtained"
@@ -239,7 +239,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import TextFieldName from "@/components/TextFieldName.vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 import Card from "@/components/InfoActions/Card.vue";
 import { Pokemon } from "@/interface";
 import mixin from "@/mixin";
@@ -247,7 +247,7 @@ export default defineComponent({
   name: "PokemonForm",
   mixins: [mixin],
   components: {
-    TextFieldName,
+    MultiuseText,
     Card,
   },
   computed: {

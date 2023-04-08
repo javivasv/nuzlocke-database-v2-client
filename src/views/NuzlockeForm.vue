@@ -12,7 +12,7 @@
             <v-form ref="nuzlockeForm">
               <v-row no-gutters>
                 <v-col>
-                  <TextFieldName :text="'Name'" />
+                  <MultiuseText :text="'Name'" />
                   <v-row no-gutters>
                     <v-text-field
                       v-model="nuzlocke.name"
@@ -22,7 +22,7 @@
                       :rules="nameRules"
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Game'" />
+                  <MultiuseText :text="'Game'" />
                   <v-row no-gutters>
                     <v-text-field
                       v-model="nuzlocke.game"
@@ -32,7 +32,7 @@
                       :rules="gameRules"
                     ></v-text-field>
                   </v-row>
-                  <TextFieldName :text="'Description'" />
+                  <MultiuseText :text="'Description'" />
                   <v-row no-gutters>
                     <v-textarea
                       v-model="nuzlocke.description"
@@ -60,12 +60,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import TextFieldName from "@/components/TextFieldName.vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 import Card from "@/components/InfoActions/Card.vue";
 export default defineComponent({
   name: "NuzlockeForm",
   components: {
-    TextFieldName,
+    MultiuseText,
     Card,
   },
   computed: {

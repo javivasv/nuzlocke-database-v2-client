@@ -1,6 +1,6 @@
 <template>
   <v-card class="filters-card pa-4 mt-3" width="420px">
-    <TextFieldName :text="'Status filters'" />
+    <MultiuseText :text="'Status filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in statusFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
     <v-divider class="my-3"></v-divider>
-    <TextFieldName :text="'Obtained filters'" />
+    <MultiuseText :text="'Obtained filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in obtainedFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -28,7 +28,7 @@
       </v-col>
     </v-row>
     <v-divider class="my-3"></v-divider>
-    <TextFieldName :text="'Type filters'" />
+    <MultiuseText :text="'Type filters'" />
     <v-row no-gutters>
       <v-col v-for="filter in typeFilters" :key="filter.value" cols="4">
         <v-checkbox
@@ -46,13 +46,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TextFieldName from "@/components/TextFieldName.vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 import mixin from "@/mixin";
 export default defineComponent({
   name: "FiltersMenu",
   mixins: [mixin],
   components: {
-    TextFieldName,
+    MultiuseText,
   },
   data() {
     return {

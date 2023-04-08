@@ -1,5 +1,5 @@
 <template>
-  <v-row class="py-1" no-gutters>
+  <v-row class="py-1" no-gutters :align="align" :justify="justify">
     <span class="text-field-name">
       {{ text }}
     </span>
@@ -9,11 +9,19 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "TextFieldName",
+  name: "MultiuseText",
   props: {
     text: {
       type: String,
       default: "",
+    },
+    align: {
+      type: String,
+      default: "center",
+    },
+    justify: {
+      type: String,
+      default: "start",
     },
   },
 });

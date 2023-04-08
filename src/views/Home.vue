@@ -11,11 +11,10 @@
             be able to register a nuzlocke of a preexisting game, a romhack or a
             completely original game. You will also be able to register every
             pokemon you obtain (or not) during the run, as well as change its
-            status (alive or dead), in order to keep it organized and updated.
+            status (alive or fainted), in order to keep it organized and
+            updated.
           </v-card-text>
-          <v-card-subtitle>
-            <strong>What is a Nuzlocke?</strong>
-          </v-card-subtitle>
+          <MultiuseText :text="'What is a Nuzlocke?'" :justify="'center'" />
           <v-card-text>
             A Nuzlocke is a set of rules intended to create a higher level of
             difficulty while playing the Pokémon games. Many challengers feel
@@ -51,9 +50,7 @@
       </v-col>
       <v-col class="pa-3" cols="4">
         <v-card class="pa-4 mb-4">
-          <v-card-subtitle>
-            <strong> Nuzlocke Basic Rules </strong>
-          </v-card-subtitle>
+          <MultiuseText :text="'Nuzlocke Basic Rules'" :justify="'center'" />
           <v-row no-gutters>
             <v-card-text>
               <v-row class="mb-5" no-gutters>
@@ -80,9 +77,10 @@
           </v-row>
         </v-card>
         <v-card class="pa-4">
-          <v-card-subtitle>
-            <strong>Commonly accepted extra rules</strong>
-          </v-card-subtitle>
+          <MultiuseText
+            :text="'Commonly accepted extra rules'"
+            :justify="'center'"
+          />
           <v-card-text>
             <v-row class="mb-5" no-gutters>
               <span>
@@ -131,9 +129,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import MultiuseText from "@/components/MultiuseText.vue";
 import { Video } from "@/interface";
 export default defineComponent({
   name: "Home",
+  components: {
+    MultiuseText,
+  },
   computed: {
     ...mapGetters("videos", {
       getVideos: "GET_VIDEOS",
