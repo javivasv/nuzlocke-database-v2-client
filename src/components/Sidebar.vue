@@ -28,9 +28,8 @@
               <span>{{ item.title }}</span>
             </v-row>
           </template>
-          <v-row no-gutters align="center" justify="end">
-            <v-col cols="6"></v-col>
-            <v-col cols="6">
+          <v-row class="pr-3" no-gutters align="center" justify="end">
+            <v-flex>
               <v-switch
                 v-model="darkTheme"
                 :class="{
@@ -42,7 +41,7 @@
                 hide-details
                 @change="changeTheme()"
               ></v-switch>
-            </v-col>
+            </v-flex>
           </v-row>
           <v-row
             :class="getUser ? 'empty-space-1' : 'empty-space-2'"
