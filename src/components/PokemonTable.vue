@@ -84,6 +84,9 @@
                     ></v-img>
                   </v-row>
                   <v-row no-gutters align="center" justify="center">
+                    <span>{{ pokemon.species.formattedName }}</span>
+                  </v-row>
+                  <v-row no-gutters align="center" justify="center">
                     <template v-for="type in pokemon.types" :key="type">
                       <PokemonType v-if="type !== ''" :type="type" />
                     </template>
@@ -109,7 +112,11 @@
                     justify="center"
                   >
                     <span class="table-text">
-                      {{ pokemon.species.formattedName }}
+                      {{
+                        pokemon.ability.formattedName !== ""
+                          ? pokemon.ability.formattedName
+                          : "-"
+                      }}
                     </span>
                   </v-row>
                 </v-col>
@@ -216,8 +223,8 @@ export default defineComponent({
           cols: 2,
         },
         {
-          name: "species",
-          text: "Species",
+          name: "ability",
+          text: "Ability",
           cols: 2,
         },
         {
