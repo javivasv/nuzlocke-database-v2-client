@@ -84,7 +84,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  const token = window.localStorage.getItem("pndb_token");
+  const token = window.localStorage.getItem("ndb_token");
 
   if (!token) {
     if (to.name === "login" || to.name === "home" || to.name === "about") {

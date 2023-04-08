@@ -32,7 +32,7 @@
             <v-col cols="6"></v-col>
             <v-col cols="6">
               <v-switch
-                @change="toggleTheme()"
+                v-model="darkTheme"
                 :class="{
                   'dark-mode': $vuetify.theme.name === 'customDarkTheme',
                 }"
@@ -40,6 +40,7 @@
                 color="primary"
                 density="compact"
                 hide-details
+                @change="changeTheme()"
               ></v-switch>
             </v-col>
           </v-row>
@@ -76,6 +77,7 @@ export default defineComponent({
   },
   data() {
     return {
+      darkTheme: false,
       background: require("../assets/sidebar_background.png"),
       sidebarItems: [
         {
@@ -106,6 +108,14 @@ export default defineComponent({
           ? "customLightTheme"
           : "customDarkTheme"),
     };
+  },
+  mounted() {
+    const theme = window.localStorage.getItem("ndb_theme");
+
+    if (theme === "customDarkTheme") {
+      this.changeTheme();
+      this.darkTheme = true;
+    }
   },
   methods: {
     ...mapActions("auth", {
@@ -139,6 +149,10 @@ export default defineComponent({
       }
 
       return "";
+    },
+    changeTheme() {
+      this.toggleTheme();
+      window.localStorage.setItem("ndb_theme", this.$vuetify.theme.name);
     },
   },
 });

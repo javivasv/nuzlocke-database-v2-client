@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import router from "@/router";
 
 axios.interceptors.request.use((config) => {
-  config.headers["Authorization"] = window.localStorage.getItem("pndb_token");
+  config.headers["Authorization"] = window.localStorage.getItem("ndb_token");
   return config;
 });
 
@@ -34,7 +34,7 @@ export const auth: Module<AuthState, State> = {
         axios
           .post(`${"http://localhost:5000/api"}/login`, data)
           .then((res) => {
-            window.localStorage.setItem("pndb_token", res.data.token);
+            window.localStorage.setItem("ndb_token", res.data.token);
             const token = jwtDecode(res.data.token) as Token;
             commit("SET_USER", { _id: token._id, username: token.username });
             resolve(res.data);
@@ -48,7 +48,7 @@ export const auth: Module<AuthState, State> = {
       });
     },
     LOGOUT: ({ commit, state }) => {
-      window.localStorage.removeItem("pndb_token");
+      window.localStorage.removeItem("ndb_token");
       commit("SET_USER", null);
       commit("nuzlockes/SET_NUZLOCKES", [], { root: true });
       commit("nuzlockes/SET_NUZLOCKE", null, { root: true });
@@ -76,7 +76,7 @@ export const auth: Module<AuthState, State> = {
       });
     },
     VALIDATE_SESSION: ({ commit, state, dispatch }) => {
-      const token = window.localStorage.getItem("pndb_token");
+      const token = window.localStorage.getItem("ndb_token");
 
       if (!token) {
         return;
