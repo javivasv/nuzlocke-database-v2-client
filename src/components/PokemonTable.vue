@@ -1,182 +1,208 @@
 <template>
-  <v-row class="py-3" no-gutters align="center" justify="center">
-    <v-text-field
-      v-model="search"
-      prepend-inner-icon="search"
-      placeholder="Search"
-      hide-details
-      variant="outlined"
-      color="secondary"
-      density="compact"
-    ></v-text-field>
-    <v-menu :close-on-content-click="false" location="left" eager>
-      <template #activator="{ props }">
-        <v-btn class="ml-3" icon v-bind="props">
-          <v-icon icon="filter_list"></v-icon>
-        </v-btn>
-      </template>
-      <FiltersMenu @updateFilter="updateFilter" />
-    </v-menu>
-  </v-row>
   <v-row no-gutters>
     <v-col>
-      <v-row class="py-5 table-header" no-gutters>
-        <v-col v-for="header in headers" :key="header.name" :cols="header.cols">
-          <v-row no-gutters align="center" justify="center">
-            {{ header.text }}
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row
-        v-if="isLoading"
-        class="py-5"
-        no-gutters
-        align="center"
-        justify="center"
-      >
-        <v-progress-circular
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
-      </v-row>
+      <template v-if="getNuzlocke.pokemon.length === 0">
+        <v-row class="py-3" no-gutters align="center" justify="center">
+          <h2>There are no pokemon registered yet</h2>
+        </v-row>
+      </template>
       <template v-else>
+        <v-row class="py-3" no-gutters align="center" justify="center">
+          <v-text-field
+            v-model="search"
+            prepend-inner-icon="search"
+            placeholder="Search"
+            hide-details
+            variant="outlined"
+            color="secondary"
+            density="compact"
+          ></v-text-field>
+          <v-menu :close-on-content-click="false" location="left" eager>
+            <template #activator="{ props }">
+              <v-btn class="ml-3" icon v-bind="props">
+                <v-icon icon="filter_list"></v-icon>
+              </v-btn>
+            </template>
+            <FiltersMenu @updateFilter="updateFilter" />
+          </v-menu>
+        </v-row>
         <v-row no-gutters>
-          <v-col
-            class="thin-scrollbar"
-            :style="{
-              'max-height': $vuetify.display.height - 312 + 'px',
-            }"
-          >
-            <template
-              v-for="(pokemon, index) in filteredPokemon()"
-              :key="pokemon._id"
-            >
-              <v-row
-                :class="{
-                  'py-3': pokemon.sprite !== 0,
-                  'py-5': pokemon.sprite === 0,
-                  'table-row': !pokemon.fainted,
-                  'fainted-pokemon-row': pokemon.fainted,
-                }"
-                no-gutters
-                @click="toEditPokemon(pokemon._id)"
+          <v-col>
+            <v-row class="py-5 table-header" no-gutters>
+              <v-col
+                v-for="header in headers"
+                :key="header.name"
+                :cols="header.cols"
               >
-                <v-col cols="2">
-                  <v-row
-                    v-if="pokemon.sprite !== ''"
-                    no-gutters
-                    align="center"
-                    justify="center"
+                <v-row no-gutters align="center" justify="center">
+                  {{ header.text }}
+                </v-row>
+              </v-col>
+            </v-row>
+            <v-row
+              v-if="isLoading"
+              class="py-5"
+              no-gutters
+              align="center"
+              justify="center"
+            >
+              <v-progress-circular
+                color="primary"
+                indeterminate
+              ></v-progress-circular>
+            </v-row>
+            <template v-else>
+              <v-row no-gutters>
+                <v-col
+                  class="thin-scrollbar"
+                  :style="{
+                    'max-height': $vuetify.display.height - 312 + 'px',
+                  }"
+                >
+                  <template
+                    v-for="(pokemon, index) in filteredPokemon()"
+                    :key="pokemon._id"
                   >
-                    <v-img :src="pokemon.sprite" height="100px">
-                      <template #placeholder>
+                    <v-row
+                      :class="{
+                        'py-3': pokemon.sprite !== 0,
+                        'py-5': pokemon.sprite === 0,
+                        'table-row': !pokemon.fainted,
+                        'fainted-pokemon-row': pokemon.fainted,
+                      }"
+                      no-gutters
+                      @click="toEditPokemon(pokemon._id)"
+                    >
+                      <v-col cols="2">
+                        <v-row
+                          v-if="pokemon.sprite !== ''"
+                          no-gutters
+                          align="center"
+                          justify="center"
+                        >
+                          <v-img :src="pokemon.sprite" height="100px">
+                            <template #placeholder>
+                              <v-row
+                                class="h-100"
+                                no-gutters
+                                align="center"
+                                justify="center"
+                              >
+                                <v-progress-circular
+                                  color="primary"
+                                  indeterminate
+                                ></v-progress-circular>
+                              </v-row> </template
+                          ></v-img>
+                        </v-row>
+                        <v-row no-gutters align="center" justify="center">
+                          <span>{{ pokemon.species.formattedName }}</span>
+                        </v-row>
+                        <v-row no-gutters align="center" justify="center">
+                          <template v-for="type in pokemon.types" :key="type">
+                            <PokemonType v-if="type !== ''" :type="type" />
+                          </template>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="2">
                         <v-row
                           class="h-100"
                           no-gutters
                           align="center"
                           justify="center"
                         >
-                          <v-progress-circular
-                            color="primary"
-                            indeterminate
-                          ></v-progress-circular>
-                        </v-row> </template
-                    ></v-img>
-                  </v-row>
-                  <v-row no-gutters align="center" justify="center">
-                    <span>{{ pokemon.species.formattedName }}</span>
-                  </v-row>
-                  <v-row no-gutters align="center" justify="center">
-                    <template v-for="type in pokemon.types" :key="type">
-                      <PokemonType v-if="type !== ''" :type="type" />
-                    </template>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span class="table-text">
-                      {{ pokemon.nickname !== "" ? pokemon.nickname : "-" }}
-                    </span>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span class="table-text">
-                      {{
-                        pokemon.ability.formattedName !== ""
-                          ? pokemon.ability.formattedName
-                          : "-"
-                      }}
-                    </span>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <span class="table-text">
-                      {{ pokemon.location }}
-                    </span>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <v-icon :icon="obtainedIcon(pokemon.obtained)"></v-icon>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <v-row
-                    class="h-100"
-                    no-gutters
-                    align="center"
-                    justify="center"
-                  >
-                    <v-hover v-if="pokemon.obtained !== 'not'">
-                      <template #default="{ isHovering, props }">
-                        <v-btn icon @click.stop="updatePokemonStatus(pokemon)">
+                          <span class="table-text">
+                            {{
+                              pokemon.nickname !== "" ? pokemon.nickname : "-"
+                            }}
+                          </span>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-row
+                          class="h-100"
+                          no-gutters
+                          align="center"
+                          justify="center"
+                        >
+                          <span class="table-text">
+                            {{
+                              pokemon.ability.formattedName !== ""
+                                ? pokemon.ability.formattedName
+                                : "-"
+                            }}
+                          </span>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-row
+                          class="h-100"
+                          no-gutters
+                          align="center"
+                          justify="center"
+                        >
+                          <span class="table-text">
+                            {{ pokemon.location }}
+                          </span>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-row
+                          class="h-100"
+                          no-gutters
+                          align="center"
+                          justify="center"
+                        >
                           <v-icon
-                            v-if="isHovering"
-                            :icon="
-                              !pokemon.fainted ? 'heart_broken' : 'favorite'
-                            "
-                            v-bind="props"
+                            :icon="obtainedIcon(pokemon.obtained)"
                           ></v-icon>
-                          <v-icon
-                            v-else
-                            :icon="
-                              pokemon.fainted ? 'heart_broken' : 'favorite'
-                            "
-                            v-bind="props"
-                          ></v-icon>
-                        </v-btn>
-                      </template>
-                    </v-hover>
-                    <span v-else>-</span>
-                  </v-row>
+                        </v-row>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-row
+                          class="h-100"
+                          no-gutters
+                          align="center"
+                          justify="center"
+                        >
+                          <v-hover v-if="pokemon.obtained !== 'not'">
+                            <template #default="{ isHovering, props }">
+                              <v-btn
+                                icon
+                                @click.stop="updatePokemonStatus(pokemon)"
+                              >
+                                <v-icon
+                                  v-if="isHovering"
+                                  :icon="
+                                    !pokemon.fainted
+                                      ? 'heart_broken'
+                                      : 'favorite'
+                                  "
+                                  v-bind="props"
+                                ></v-icon>
+                                <v-icon
+                                  v-else
+                                  :icon="
+                                    pokemon.fainted
+                                      ? 'heart_broken'
+                                      : 'favorite'
+                                  "
+                                  v-bind="props"
+                                ></v-icon>
+                              </v-btn>
+                            </template>
+                          </v-hover>
+                          <span v-else>-</span>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                    <v-divider
+                      v-if="index + 1 !== filteredPokemon().length"
+                      class="my-3"
+                    ></v-divider>
+                  </template>
                 </v-col>
               </v-row>
-              <v-divider
-                v-if="index + 1 !== filteredPokemon().length"
-                class="my-3"
-              ></v-divider>
             </template>
           </v-col>
         </v-row>
