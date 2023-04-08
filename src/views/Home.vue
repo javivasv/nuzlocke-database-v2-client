@@ -4,7 +4,7 @@
       <v-col class="pa-3" cols="8">
         <v-card class="pa-4 mb-4 w-100">
           <v-card-title>
-            <h2>Welcome to the Pokemon Nuzlocke DataBase!</h2>
+            <h2>Welcome to the Nuzlocke DataBase!</h2>
           </v-card-title>
           <v-card-text>
             Here you can keep track of all of your pokemon nuzlockes. You will

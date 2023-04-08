@@ -7,14 +7,33 @@ import mixin from "@/mixin";
 
 // Vuetify
 import "vuetify/styles";
-import { createVuetify } from "vuetify";
+import { createVuetify, ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
 import "@/style/global.less";
 
-const customLightTheme = {
+const customLightTheme: ThemeDefinition = {
   dark: false,
+  colors: {
+    primary: "#EE1515",
+    secondary: "#1685C5",
+    /*
+    background: "#FFFFFF",
+    surface: "#FFFFFF",
+    "primary-darken-1": "#3700B3",
+    secondary: "#03DAC6",
+    "secondary-darken-1": "#018786",
+    error: "#B00020",
+    info: "#2196F3",
+    success: "#4CAF50",
+    warning: "#FB8C00",
+    */
+  },
+};
+
+const customDarkTheme: ThemeDefinition = {
+  dark: true,
   colors: {
     primary: "#EE1515",
     secondary: "#1685C5",
@@ -46,6 +65,7 @@ const vuetify = createVuetify({
     defaultTheme: "customLightTheme",
     themes: {
       customLightTheme,
+      customDarkTheme,
     },
   },
 });

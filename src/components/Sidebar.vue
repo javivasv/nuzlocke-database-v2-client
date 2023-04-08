@@ -7,7 +7,7 @@
       <v-row class="h-100" no-gutters>
         <v-col>
           <v-row class="py-6" no-gutters align="center" justify="center">
-            <span>PNDB</span>
+            <span>NDB</span>
           </v-row>
           <v-divider class="my-3"></v-divider>
           <template v-for="item in sidebarItems" :key="item.name">
@@ -28,6 +28,18 @@
               <span>{{ item.title }}</span>
             </v-row>
           </template>
+          <v-row no-gutters align="center" justify="end">
+            <v-col cols="6"></v-col>
+            <v-col cols="6">
+              <v-switch
+                @change="toggleTheme()"
+                label="Dark mode"
+                color="primary"
+                density="compact"
+                hide-details
+              ></v-switch>
+            </v-col>
+          </v-row>
           <v-row
             :class="getUser ? 'empty-space-1' : 'empty-space-2'"
             no-gutters
@@ -51,6 +63,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import { useTheme } from "vuetify";
 export default defineComponent({
   name: "Sidebar",
   computed: {
@@ -78,6 +91,17 @@ export default defineComponent({
           icon: "info_outline",
         },
       ],
+    };
+  },
+  setup() {
+    const theme = useTheme();
+
+    return {
+      theme,
+      toggleTheme: () =>
+        (theme.global.name.value = theme.global.current.value.dark
+          ? "customLightTheme"
+          : "customDarkTheme"),
     };
   },
   methods: {
