@@ -31,7 +31,7 @@
             </v-row>
           </template>
           <v-row class="pr-3" no-gutters align="center" justify="end">
-            <v-flex>
+            <div>
               <v-switch
                 v-model="darkTheme"
                 :class="{
@@ -43,7 +43,7 @@
                 hide-details
                 @change="changeTheme()"
               ></v-switch>
-            </v-flex>
+            </div>
           </v-row>
           <v-row
             :class="getUser ? 'empty-space-1' : 'empty-space-2'"
