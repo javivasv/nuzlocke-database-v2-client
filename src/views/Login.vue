@@ -2,7 +2,9 @@
   <div
     id="login"
     class="h-100 w-100"
-    :style="{ 'background-image': `url(${background})` }"
+    :style="{
+      'background-image': `url(${require('@/assets/login_background.png')})`,
+    }"
   >
     <v-row class="h-100 w-100" no-gutters>
       <v-col align-self="center">
@@ -145,7 +147,6 @@ export default defineComponent({
   },
   data() {
     return {
-      background: require("../assets/login_background.png"),
       userData: {
         username: "",
         password: "",

@@ -4,7 +4,7 @@
       <v-img
         class="pokeball"
         eager
-        :src="require('../../assets/pokeball.png')"
+        :src="require('@/assets/pokeball.png')"
       ></v-img>
     </v-row>
     <v-card class="info-card px-4 pb-4 w-100">

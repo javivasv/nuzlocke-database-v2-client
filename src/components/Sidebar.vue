@@ -2,7 +2,9 @@
   <div id="sidebar" class="h-100 w-100">
     <v-card
       class="h-100 w-100 pa-2 sidebar-card"
-      :style="{ 'background-image': `url(${background})` }"
+      :style="{
+        'background-image': `url(${require('@/assets/sidebar_background.png')})`,
+      }"
     >
       <v-row class="h-100" no-gutters>
         <v-col>
@@ -77,7 +79,6 @@ export default defineComponent({
   data() {
     return {
       darkTheme: false,
-      background: require("../assets/sidebar_background.png"),
       sidebarItems: [
         {
           title: "Home",

@@ -32,7 +32,7 @@ export default defineComponent({
         moveClass = "move_status";
       }
 
-      return require(`../assets/${moveClass}.png`);
+      return require(`@/assets/${moveClass}.png`);
     },
   },
 });

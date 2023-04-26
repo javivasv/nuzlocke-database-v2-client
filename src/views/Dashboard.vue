@@ -11,7 +11,9 @@
           class="h-100"
           no-gutters
           style="background-repeat: repeat"
-          :style="{ backgroundImage: `url(${background})` }"
+          :style="{
+            backgroundImage: `url(${background})`,
+          }"
         >
           <router-view />
         </v-row>
@@ -28,11 +30,12 @@ export default defineComponent({
   components: {
     Sidebar,
   },
-  data() {
-    return {
-      background: require("../assets/pokeball_pattern_opaque.png"),
-      backgroundDark: require("../assets/pokeball_pattern_dark_opaque.png"),
-    };
+  computed: {
+    background() {
+      return require(`@/assets/pokeball_pattern_${
+        this.$vuetify.theme.name === "customLightTheme" ? "light" : "dark"
+      }_transparent.png`);
+    },
   },
   methods: {
     changeView(view: string) {
