@@ -8,23 +8,27 @@
       ></v-img>
     </v-row>
     <v-card class="info-card px-4 pb-4 w-100">
-      <Nuzlockes v-if="type === 'nuzlockes'" />
+      <Nuzlockes v-if="cardType === 'nuzlockes'" />
       <NuzlockeForm
-        v-if="type === 'nuzlocke-form'"
+        v-if="cardType === 'nuzlocke-form'"
         @submitNuzlocke="submitNuzlocke()"
       />
       <PokemonForm
-        v-if="type === 'pokemon-form'"
+        v-if="cardType === 'pokemon-form' && getNuzlocke"
         @submitPokemon="submitPokemon()"
       />
-      <TeamForm v-if="type === 'team-form'" @submitTeam="submitTeam()" />
-      <Nuzlocke v-if="type === 'nuzlocke'" />
+      <TeamForm
+        v-if="cardType === 'team-form' && getNuzlocke"
+        @submitTeam="submitTeam()"
+      />
+      <Nuzlocke v-if="cardType === 'nuzlocke' && getNuzlocke" />
     </v-card>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 import Nuzlockes from "@/components/InfoActions/Nuzlockes.vue";
 import NuzlockeForm from "@/components/InfoActions/NuzlockeForm.vue";
 import PokemonForm from "@/components/InfoActions/PokemonForm.vue";
@@ -43,6 +47,35 @@ export default defineComponent({
     type: {
       type: String,
       default: "",
+    },
+  },
+  computed: {
+    ...mapGetters("nuzlockes", {
+      getNuzlocke: "GET_NUZLOCKE",
+    }),
+    cardType() {
+      if (this.$route.name === "nuzlockes") {
+        return "nuzlockes";
+      } else if (
+        this.$route.name === "nuzlocke-form" ||
+        this.$route.name === "edit-nuzlocke-form"
+      ) {
+        return "nuzlocke-form";
+      } else if (this.$route.name === "nuzlocke") {
+        return "nuzlocke";
+      } else if (
+        this.$route.name === "pokemon-form" ||
+        this.$route.name === "edit-pokemon-form"
+      ) {
+        return "pokemon-form";
+      } else if (
+        this.$route.name === "team-form" ||
+        this.$route.name === "edit-team-form"
+      ) {
+        return "team-form";
+      } else {
+        return "nuzlockes";
+      }
     },
   },
   methods: {

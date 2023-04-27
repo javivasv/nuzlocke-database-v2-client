@@ -13,7 +13,6 @@
       </v-col>
       <v-col class="pa-3" cols="4">
         <Card
-          :type="cardType"
           @submitNuzlocke="submitNuzlocke()"
           @submitPokemon="submitPokemon()"
           @submitTeam="submitTeam()"
@@ -24,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, VueElement } from "vue";
+import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import Card from "@/components/InfoActions/Card.vue";
 export default defineComponent({
@@ -36,30 +35,6 @@ export default defineComponent({
     ...mapGetters("nuzlockes", {
       getNuzlockes: "GET_NUZLOCKES",
     }),
-    cardType() {
-      if (this.$route.name === "nuzlockes") {
-        return "nuzlockes";
-      } else if (
-        this.$route.name === "nuzlocke-form" ||
-        this.$route.name === "edit-nuzlocke-form"
-      ) {
-        return "nuzlocke-form";
-      } else if (this.$route.name === "nuzlocke") {
-        return "nuzlocke";
-      } else if (
-        this.$route.name === "pokemon-form" ||
-        this.$route.name === "edit-pokemon-form"
-      ) {
-        return "pokemon-form";
-      } else if (
-        this.$route.name === "team-form" ||
-        this.$route.name === "edit-team-form"
-      ) {
-        return "team-form";
-      } else {
-        return "";
-      }
-    },
   },
   mounted() {
     if (this.getNuzlockes.length === 0) {
