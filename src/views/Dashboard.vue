@@ -32,7 +32,7 @@ export default defineComponent({
   },
   computed: {
     background() {
-      return require(`@/assets/pokeball_pattern_${
+      return require(`@/assets/background_${
         this.$vuetify.theme.name === "customLightTheme" ? "light" : "dark"
       }_transparent.png`);
     },

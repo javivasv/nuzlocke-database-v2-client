@@ -3,7 +3,7 @@
     <v-card
       class="h-100 w-100 pa-2 sidebar-card"
       :style="{
-        'background-image': `url(${require('@/assets/sidebar_background.png')})`,
+        backgroundImage: `url(${background})`,
       }"
     >
       <v-row class="h-100" no-gutters>
@@ -75,6 +75,13 @@ export default defineComponent({
     ...mapGetters("auth", {
       getUser: "GET_USER",
     }),
+    background() {
+      return require(`@/assets/${
+        this.$vuetify.theme.name === "customLightTheme"
+          ? "sidebar_light"
+          : "sidebar_dark"
+      }.png`);
+    },
   },
   data() {
     return {
