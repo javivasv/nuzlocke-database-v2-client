@@ -126,7 +126,8 @@ export default defineComponent({
     }),
     pokemon() {
       if (this.getNuzlocke) {
-        const toDeletePokemon = this.getNuzlocke.pokemon.find(
+        let toDeletePokemon: Pokemon;
+        toDeletePokemon = this.getNuzlocke.pokemon.find(
           (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
         );
 

@@ -103,7 +103,8 @@ export default defineComponent({
     }),
     team() {
       if (this.getNuzlocke) {
-        const toDeleteTeam = this.getNuzlocke.teams.find(
+        let toDeleteTeam: Team;
+        toDeleteTeam = this.getNuzlocke.teams.find(
           (team: Team) => team._id === this.$route.params.teamId
         );
 
