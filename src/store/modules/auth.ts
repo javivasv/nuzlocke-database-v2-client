@@ -29,7 +29,7 @@ export const auth: Module<AuthState, State> = {
     },
   },
   actions: {
-    LOGIN: ({ commit, state, dispatch }, data: UserData) => {
+    LOGIN: ({ commit }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/login`, data)
@@ -47,7 +47,7 @@ export const auth: Module<AuthState, State> = {
           });
       });
     },
-    LOGOUT: ({ commit, state }) => {
+    LOGOUT: ({ commit }) => {
       window.localStorage.removeItem("ndb_token");
       commit("SET_USER", null);
       commit("nuzlockes/SET_NUZLOCKES", [], { root: true });
@@ -57,7 +57,7 @@ export const auth: Module<AuthState, State> = {
         name: "home",
       });
     },
-    REGISTER_USER: ({ commit, state, dispatch }, data: UserData) => {
+    REGISTER_USER: ({ commit }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/users`, data)
@@ -75,7 +75,7 @@ export const auth: Module<AuthState, State> = {
           });
       });
     },
-    VALIDATE_SESSION: ({ commit, state, dispatch }) => {
+    VALIDATE_SESSION: ({ commit, dispatch }) => {
       const token = window.localStorage.getItem("ndb_token");
 
       if (!token) {
@@ -100,7 +100,7 @@ export const auth: Module<AuthState, State> = {
           });
       });
     },
-    VALIDATE_ERROR: ({ commit, state, dispatch }, error) => {
+    VALIDATE_ERROR: ({ commit, dispatch }, error) => {
       if (
         error.response.status === 401 ||
         error.response.status === 403 ||

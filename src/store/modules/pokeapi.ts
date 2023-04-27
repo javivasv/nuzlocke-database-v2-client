@@ -40,7 +40,7 @@ export const pokeapi: Module<PokeapiState, State> = {
     },
   },
   actions: {
-    FETCH_POKEMON_LIST: ({ commit, state }) => {
+    FETCH_POKEMON_LIST: ({ commit }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/pokemon/?limit=1281`)
@@ -73,7 +73,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_POKEMON: ({ commit, state }, name) => {
+    FETCH_POKEMON: ({ commit }, name) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/pokemon/${name}`)
@@ -92,7 +92,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_ABILITIES: ({ commit, state }) => {
+    FETCH_ABILITIES: ({ commit }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/ability/?limit=358`)
@@ -127,7 +127,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_ITEMS: ({ commit, state }) => {
+    FETCH_ITEMS: ({ commit }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/item/?limit=2050`)
@@ -162,7 +162,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_ITEM: ({ commit, state }, name) => {
+    FETCH_ITEM: ({ commit }, name) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/item/${name}`)
@@ -181,7 +181,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_MOVES: ({ commit, state }) => {
+    FETCH_MOVES: ({ commit }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/move/?limit=920`)
@@ -216,7 +216,7 @@ export const pokeapi: Module<PokeapiState, State> = {
           });
       });
     },
-    FETCH_MOVE: ({ commit, state }, name) => {
+    FETCH_MOVE: ({ commit }, name) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"https://pokeapi.co/api/v2"}/move/${name}`)

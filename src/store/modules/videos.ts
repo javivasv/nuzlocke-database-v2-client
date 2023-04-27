@@ -21,7 +21,7 @@ export const videos: Module<VideosState, State> = {
     },
   },
   actions: {
-    FETCH_VIDEOS: ({ commit, state, dispatch }) => {
+    FETCH_VIDEOS: ({ commit, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/videos`)

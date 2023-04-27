@@ -28,7 +28,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     },
   },
   actions: {
-    FETCH_NUZLOCKES: ({ commit, state, dispatch }) => {
+    FETCH_NUZLOCKES: ({ commit, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/nuzlockes`)
@@ -42,7 +42,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           });
       });
     },
-    CREATE_NUZLOCKE: ({ commit, state, dispatch }, data: Nuzlocke) => {
+    CREATE_NUZLOCKE: ({ commit, dispatch }, data: Nuzlocke) => {
       return new Promise((resolve, reject) => {
         axios
           .post(`${"http://localhost:5000/api"}/nuzlocke`, data)
@@ -59,7 +59,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
           });
       });
     },
-    FETCH_NUZLOCKE: ({ commit, state, dispatch }, id: string) => {
+    FETCH_NUZLOCKE: ({ commit, dispatch }, id: string) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
