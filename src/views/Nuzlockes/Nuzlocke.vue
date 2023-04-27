@@ -9,12 +9,24 @@
               <v-tab> Teams </v-tab>
             </v-tabs>
           </v-row>
-          <v-window v-model="tab">
+          <v-row
+            v-if="isLoading"
+            class="py-5"
+            no-gutters
+            align="center"
+            justify="center"
+          >
+            <v-progress-circular
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
+          </v-row>
+          <v-window v-else v-model="tab">
             <v-window-item>
-              <PokemonTable :is-loading="isLoading" />
+              <PokemonTable />
             </v-window-item>
             <v-window-item>
-              <TeamsTable :is-loading="isLoading" />
+              <TeamsTable />
             </v-window-item>
           </v-window>
         </v-col>
@@ -40,11 +52,17 @@ export default defineComponent({
     }),
   },
   mounted() {
-    if (!this.getNuzlocke) {
-      this.isLoading = true;
+    this.isLoading = true;
+
+    if (
+      !this.getNuzlocke ||
+      this.getNuzlocke._id !== this.$route.params.nuzlockeId
+    ) {
       this.fetchNuzlocke(this.$route.params.nuzlockeId).finally(() => {
         this.isLoading = false;
       });
+    } else {
+      this.isLoading = false;
     }
   },
   data() {
