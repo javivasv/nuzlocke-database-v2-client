@@ -32,9 +32,13 @@ export default defineComponent({
   },
   computed: {
     background() {
-      return require(`@/assets/background_${
+      let background: string;
+
+      background = require(`@/assets/background_${
         this.$vuetify.theme.name === "customLightTheme" ? "light" : "dark"
       }_transparent.png`);
+
+      return background;
     },
   },
   methods: {

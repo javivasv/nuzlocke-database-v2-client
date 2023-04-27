@@ -1,7 +1,7 @@
 <template>
   <div
     class="move-class"
-    :style="{ 'background-image': `url(${moveClass()})` }"
+    :style="{ 'background-image': `url(${moveClass})` }"
   ></div>
 </template>
 
@@ -17,12 +17,9 @@ export default defineComponent({
       default: "",
     },
   },
-  data() {
-    return {};
-  },
-  methods: {
+  computed: {
     moveClass() {
-      let moveClass;
+      let moveClass: string;
 
       if (this.type === "physical") {
         moveClass = "move_physical";

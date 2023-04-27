@@ -78,12 +78,13 @@ export default defineComponent({
       getUser: "GET_USER",
     }),
     background() {
-      let background: string =
-        require(`@/assets/${
-          this.$vuetify.theme.name === "customLightTheme"
-            ? "sidebar_light"
-            : "sidebar_dark"
-        }.png`) || "";
+      let background: string;
+
+      background = require(`@/assets/${
+        this.$vuetify.theme.name === "customLightTheme"
+          ? "sidebar_light"
+          : "sidebar_dark"
+      }.png`);
 
       return background;
     },
