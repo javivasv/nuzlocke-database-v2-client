@@ -66,12 +66,14 @@
                     >
                       <span
                         >Already have an account?
-                        <span
-                          class="form-action text-primary"
-                          @click="changeForm(false)"
+                        <span class="form-action" @click="changeForm(false)"
                           >Login</span
                         ></span
                       >
+                      <v-divider class="mx-3" vertical></v-divider>
+                      <span class="form-action" @click="goHome()">
+                        Go home
+                      </span>
                     </v-row>
                   </v-col>
                 </v-row>
@@ -118,12 +120,14 @@
                     >
                       <span
                         >Don't have an account?
-                        <span
-                          class="form-action text-primary"
-                          @click="changeForm(true)"
+                        <span class="form-action" @click="changeForm(true)"
                           >Register</span
-                        ></span
-                      >
+                        >
+                      </span>
+                      <v-divider class="mx-3" vertical></v-divider>
+                      <span class="form-action" @click="goHome()">
+                        Go home
+                      </span>
                     </v-row>
                   </v-col>
                 </v-row>
@@ -216,6 +220,11 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       };
+    },
+    goHome() {
+      this.$router.push({
+        name: "home",
+      });
     },
     required(value: string, type: string) {
       if (value) return true;
