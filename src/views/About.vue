@@ -8,8 +8,8 @@
           </v-card-title>
           <v-card-text>
             My name is Javier Vivas and I am a Computer Engineer graduated at
-            Universidad Simón Bolívar in Caracas, Venezuela. I live in USA and
-            currently work as a Frontend Engineer.
+            Universidad Simón Bolívar in Caracas, Venezuela. I live in the USA
+            and currently work as a Frontend Engineer.
           </v-card-text>
           <v-card-text>
             In 2020 I got to know what a nuzlocke is from videos on Youtube. At

@@ -113,8 +113,11 @@ export default defineComponent({
     const theme = window.localStorage.getItem("ndb_theme");
 
     if (theme === "customDarkTheme") {
-      this.changeTheme();
       this.darkTheme = true;
+
+      if (this.$vuetify.theme.name !== "customDarkTheme") {
+        this.changeTheme();
+      }
     }
   },
   methods: {
