@@ -67,11 +67,7 @@
         <v-card class="pa-4 mb-4">
           <MultiuseText :text="'Suggestions'" :justify="'center'" />
           <v-row no-gutters>
-            <v-form
-              ref="suggestionForm"
-              class="w-100"
-              @submit.prevent="sendSuggestion()"
-            >
+            <v-form ref="suggestionForm" class="w-100" @submit.prevent="send()">
               <v-row no-gutters>
                 <v-col>
                   <v-row class="py-3" no-gutters>
@@ -91,7 +87,9 @@
                     align="center"
                     justify="center"
                   >
-                    <v-btn color="secondary" type="submit">Send</v-btn>
+                    <v-btn color="secondary" type="submit" :loading="isLoading">
+                      Send
+                    </v-btn>
                   </v-row>
                 </v-col>
               </v-row>
@@ -126,6 +124,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapActions } from "vuex";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "About",
@@ -135,6 +134,7 @@ export default defineComponent({
   data() {
     return {
       suggestion: "",
+      isLoading: false,
       websites: [
         {
           name: "Personal website",
@@ -152,8 +152,23 @@ export default defineComponent({
     };
   },
   methods: {
-    async sendSuggestion() {
-      console.log("SEND SUGGESTION");
+    ...mapActions("suggestions", {
+      sendSuggestion: "SEND_SUGGESTION",
+    }),
+    async send() {
+      if (this.suggestion === "") {
+        return;
+      }
+
+      let data = {
+        suggestion: this.suggestion,
+      };
+
+      this.isLoading = true;
+      this.sendSuggestion(data).then(() => {
+        this.suggestion = "";
+        this.isLoading = false;
+      });
     },
   },
 });

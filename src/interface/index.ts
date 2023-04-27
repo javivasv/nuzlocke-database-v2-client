@@ -146,3 +146,8 @@ export interface Video {
   channel: string;
   url: string;
 }
+
+// Suggestion-related
+export interface SuggestionData {
+  suggestion: string;
+}

@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import { auth } from "./modules/auth";
 import { notifications } from "./modules/notifications";
 import { videos } from "./modules/videos";
+import { suggestions } from "./modules/suggestions";
 import { nuzlockes } from "./modules/nuzlockes";
 import { pokemon } from "./modules/pokemon";
 import { teams } from "./modules/teams";
@@ -16,6 +17,7 @@ export default createStore<State>({
     auth,
     notifications,
     videos,
+    suggestions,
     nuzlockes,
     pokemon,
     teams,
