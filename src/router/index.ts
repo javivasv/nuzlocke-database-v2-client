@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Home from "../views/Home.vue";
-import Nuzlockes from "../views/Nuzlockes.vue";
+import IndexNuzlockes from "../views/Nuzlockes/index.vue";
 import About from "../views/About.vue";
-import NuzlockeForm from "../views/NuzlockeForm.vue";
-import Nuzlocke from "../views/Nuzlocke.vue";
-import PokemonForm from "../views/PokemonForm.vue";
-import TeamForm from "../views/TeamForm.vue";
+import Nuzlockes from "../views/Nuzlockes/Nuzlockes.vue";
+import NuzlockeForm from "../views/Nuzlockes/NuzlockeForm.vue";
+import Nuzlocke from "../views/Nuzlockes/Nuzlocke.vue";
+import PokemonForm from "../views/Nuzlockes/PokemonForm.vue";
+import TeamForm from "../views/Nuzlockes/TeamForm.vue";
 import Login from "../views/Login.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -22,43 +23,50 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "nuzlockes",
-        name: "nuzlockes",
-        component: Nuzlockes,
-      },
-      {
-        path: "nuzlocke-form",
-        name: "nuzlocke-form",
-        component: NuzlockeForm,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId/nuzlocke-form",
-        name: "edit-nuzlocke-form",
-        component: NuzlockeForm,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId",
-        name: "nuzlocke",
-        component: Nuzlocke,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId/pokemon-form",
-        name: "pokemon-form",
-        component: PokemonForm,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId/pokemon/:pokemonId",
-        name: "edit-pokemon-form",
-        component: PokemonForm,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId/team-form",
-        name: "team-form",
-        component: TeamForm,
-      },
-      {
-        path: "nuzlocke/:nuzlockeId/team/:teamId",
-        name: "edit-team-form",
-        component: TeamForm,
+        name: "index-nuzlockes",
+        component: IndexNuzlockes,
+        children: [
+          {
+            path: "",
+            name: "nuzlockes",
+            component: Nuzlockes,
+          },
+          {
+            path: "nuzlocke-form",
+            name: "nuzlocke-form",
+            component: NuzlockeForm,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId/nuzlocke-form",
+            name: "edit-nuzlocke-form",
+            component: NuzlockeForm,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId",
+            name: "nuzlocke",
+            component: Nuzlocke,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId/pokemon-form",
+            name: "pokemon-form",
+            component: PokemonForm,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId/pokemon/:pokemonId",
+            name: "edit-pokemon-form",
+            component: PokemonForm,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId/team-form",
+            name: "team-form",
+            component: TeamForm,
+          },
+          {
+            path: "nuzlocke/:nuzlockeId/team/:teamId",
+            name: "edit-team-form",
+            component: TeamForm,
+          },
+        ],
       },
       {
         path: "about",
@@ -102,13 +110,3 @@ router.beforeEach((to, _from, next) => {
 });
 
 export default router;
-
-// {
-// path: "/about",
-// name: "about",
-// route level code-splitting
-// this generates a separate chunk (about.[hash].js) for this route
-// which is lazy-loaded when the route is visited.
-// component: () =>
-//   import(/* webpackChunkName: "about" */ "../views/About.vue"),
-// },

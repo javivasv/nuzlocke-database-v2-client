@@ -1,166 +1,118 @@
 <template>
-  <div v-if="getNuzlocke" id="team-form" class="content">
-    <v-row class="h-100 w-100" no-gutters>
-      <v-col class="pa-3" cols="8">
-        <v-row class="py-3" no-gutters>
-          <v-btn icon @click="toNuzlocke()">
-            <v-icon icon="arrow_back"></v-icon>
-          </v-btn>
-        </v-row>
+  <v-row v-if="getNuzlocke" id="team-form" no-gutters>
+    <v-card
+      class="thin-scrollbar pa-4 w-100"
+      :style="{
+        'max-height': $vuetify.display.height - 96 + 'px',
+      }"
+    >
+      <v-form ref="teamForm">
         <v-row no-gutters>
-          <v-card
-            class="thin-scrollbar pa-4 w-100"
-            :style="{
-              'max-height': $vuetify.display.height - 96 + 'px',
-            }"
-          >
-            <v-form ref="teamForm">
-              <v-row no-gutters>
-                <v-col>
-                  <MultiuseText :text="'Name'" />
-                  <v-row no-gutters>
-                    <v-text-field
-                      v-model="team.name"
-                      variant="outlined"
-                      color="secondary"
-                      density="compact"
-                      :rules="nameRules"
-                    ></v-text-field>
-                  </v-row>
-                  <MultiuseText :text="'Vs'" />
-                  <v-row class="mb-5" no-gutters>
-                    <v-text-field
-                      v-model="team.vs"
-                      variant="outlined"
-                      color="secondary"
-                      density="compact"
-                      hide-details
-                    ></v-text-field>
-                  </v-row>
-                  <MultiuseText :text="'Description'" />
-                  <v-row class="mb-5" no-gutters>
-                    <v-textarea
-                      v-model="team.description"
-                      variant="outlined"
-                      color="secondary"
-                      no-resize
-                      density="compact"
-                      hide-details
-                      rows="2"
-                    ></v-textarea>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-form>
+          <v-col>
+            <MultiuseText :text="'Name'" />
+            <v-row no-gutters>
+              <v-text-field
+                v-model="team.name"
+                variant="outlined"
+                color="secondary"
+                density="compact"
+                :rules="nameRules"
+              ></v-text-field>
+            </v-row>
+            <MultiuseText :text="'Vs'" />
+            <v-row class="mb-5" no-gutters>
+              <v-text-field
+                v-model="team.vs"
+                variant="outlined"
+                color="secondary"
+                density="compact"
+                hide-details
+              ></v-text-field>
+            </v-row>
+            <MultiuseText :text="'Description'" />
+            <v-row class="mb-5" no-gutters>
+              <v-textarea
+                v-model="team.description"
+                variant="outlined"
+                color="secondary"
+                no-resize
+                density="compact"
+                hide-details
+                rows="2"
+              ></v-textarea>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-form>
+      <v-row no-gutters align="center" justify="center">
+        <v-col>
+          <template v-for="(pokemon, index) in team.pokemon" :key="index">
             <v-row no-gutters align="center" justify="center">
-              <v-col>
-                <template v-for="(pokemon, index) in team.pokemon" :key="index">
-                  <v-row no-gutters align="center" justify="center">
-                    <v-col
-                      class="pr-3"
-                      cols="3"
-                      :align-self="
-                        pokemon.item.name.codedName !== '' ? 'end' : 'center'
-                      "
-                    >
+              <v-col
+                class="pr-3"
+                cols="3"
+                :align-self="
+                  pokemon.item.name.codedName !== '' ? 'end' : 'center'
+                "
+              >
+                <v-row
+                  v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
+                  class="py-2"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <v-img :src="pokemon.pokemon.sprite" height="100px">
+                    <template #placeholder>
                       <v-row
-                        v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
-                        class="py-2"
+                        class="h-100"
                         no-gutters
                         align="center"
                         justify="center"
                       >
-                        <v-img :src="pokemon.pokemon.sprite" height="100px">
-                          <template #placeholder>
-                            <v-row
-                              class="h-100"
-                              no-gutters
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                color="primary"
-                                indeterminate
-                              ></v-progress-circular>
-                            </v-row> </template
-                        ></v-img>
-                      </v-row>
-                      <MultiuseText :text="'Pokemon'" />
-                      <v-row no-gutters>
-                        <v-autocomplete
-                          v-model="pokemon.pokemon"
-                          :items="filteredPokemon(index)"
-                          item-value="species.formattedName"
-                          item-title="species.formattedName"
-                          density="compact"
-                          hide-details
-                          return-object
-                          variant="outlined"
-                          clearable
-                          @click:clear="clearPokemon(index)"
-                        ></v-autocomplete>
-                      </v-row>
-                    </v-col>
-                    <v-col
-                      class="px-3"
-                      cols="3"
-                      :align-self="
-                        pokemon.pokemon || pokemon.item.name.codedName !== ''
-                          ? 'end'
-                          : 'center'
-                      "
-                    >
-                      <v-row
-                        v-if="pokemon.item && pokemon.item.sprite !== ''"
-                        class="py-2"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
-                        <v-img :src="pokemon.item.sprite" height="50px">
-                          <template #placeholder>
-                            <v-row
-                              class="h-100"
-                              no-gutters
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                color="primary"
-                                indeterminate
-                              ></v-progress-circular>
-                            </v-row> </template
-                        ></v-img>
-                      </v-row>
-                      <MultiuseText
-                        :text="'Held item'"
-                        :class="pokemon.pokemon ? 'mt-5' : ''"
-                      />
-                      <v-row no-gutters align="center" justify="center">
                         <v-progress-circular
-                          v-if="loadingItems"
                           color="primary"
                           indeterminate
                         ></v-progress-circular>
-                        <v-autocomplete
-                          v-else
-                          v-model="pokemon.item.name"
-                          :items="getItems"
-                          item-value="formattedName"
-                          item-title="formattedName"
-                          density="compact"
-                          hide-details
-                          return-object
-                          variant="outlined"
-                          clearable
-                          @click:clear="clearItem(index)"
-                          @update:modelValue="fetchItemData(index)"
-                        ></v-autocomplete>
-                      </v-row>
-                    </v-col>
-                    <v-col class="pl-3" cols="6">
+                      </v-row> </template
+                  ></v-img>
+                </v-row>
+                <MultiuseText :text="'Pokemon'" />
+                <v-row no-gutters>
+                  <v-autocomplete
+                    v-model="pokemon.pokemon"
+                    :items="filteredPokemon(index)"
+                    item-value="species.formattedName"
+                    item-title="species.formattedName"
+                    density="compact"
+                    hide-details
+                    return-object
+                    variant="outlined"
+                    clearable
+                    @click:clear="clearPokemon(index)"
+                  ></v-autocomplete>
+                </v-row>
+              </v-col>
+              <v-col
+                class="px-3"
+                cols="3"
+                :align-self="
+                  pokemon.pokemon || pokemon.item.name.codedName !== ''
+                    ? 'end'
+                    : 'center'
+                "
+              >
+                <v-row
+                  v-if="pokemon.item && pokemon.item.sprite !== ''"
+                  class="py-2"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <v-img :src="pokemon.item.sprite" height="50px">
+                    <template #placeholder>
                       <v-row
-                        v-if="loadingMoves"
+                        class="h-100"
                         no-gutters
                         align="center"
                         justify="center"
@@ -168,155 +120,180 @@
                         <v-progress-circular
                           color="primary"
                           indeterminate
-                        ></v-progress-circular
-                      ></v-row>
-                      <template v-else>
-                        <v-row class="py-2" no-gutters>
-                          <v-col class="pr-3" cols="6" align-self="end">
-                            <v-row no-gutters align="center" justify="center">
-                              <PokemonType
-                                v-if="pokemon.moves.first.type !== ''"
-                                :type="pokemon.moves.first.type"
-                              />
-                              <MoveClass
-                                v-if="pokemon.moves.first.class !== ''"
-                                :type="pokemon.moves.first.class"
-                              />
-                            </v-row>
-                            <MultiuseText :text="'First move'" />
-                            <v-row no-gutters>
-                              <v-autocomplete
-                                v-model="pokemon.moves.first.name"
-                                :items="getMoves"
-                                item-value="formattedName"
-                                item-title="formattedName"
-                                return-object
-                                density="compact"
-                                hide-details
-                                variant="outlined"
-                                clearable
-                                @click:clear="clearMove(index, 'first')"
-                                @update:modelValue="
-                                  fetchMoveData(index, 'first')
-                                "
-                              ></v-autocomplete>
-                            </v-row>
-                          </v-col>
-                          <v-col class="pl-3" cols="6" align-self="end">
-                            <v-row no-gutters align="center" justify="center">
-                              <PokemonType
-                                v-if="pokemon.moves.second.type !== ''"
-                                :type="pokemon.moves.second.type"
-                              />
-                              <MoveClass
-                                v-if="pokemon.moves.second.class !== ''"
-                                :type="pokemon.moves.second.class"
-                              />
-                            </v-row>
-                            <MultiuseText :text="'Second move'" />
-                            <v-row no-gutters>
-                              <v-autocomplete
-                                v-model="pokemon.moves.second.name"
-                                :items="getMoves"
-                                item-value="formattedName"
-                                item-title="formattedName"
-                                return-object
-                                density="compact"
-                                hide-details
-                                variant="outlined"
-                                clearable
-                                @click:clear="clearMove(index, 'second')"
-                                @update:modelValue="
-                                  fetchMoveData(index, 'second')
-                                "
-                              ></v-autocomplete>
-                            </v-row>
-                          </v-col>
-                        </v-row>
-                        <v-row class="py-2" no-gutters>
-                          <v-col class="pr-3" cols="6" align-self="end">
-                            <v-row no-gutters align="center" justify="center">
-                              <PokemonType
-                                v-if="pokemon.moves.third.type !== ''"
-                                :type="pokemon.moves.third.type"
-                              />
-                              <MoveClass
-                                v-if="pokemon.moves.third.class !== ''"
-                                :type="pokemon.moves.third.class"
-                              />
-                            </v-row>
-                            <MultiuseText :text="'Third move'" />
-                            <v-row no-gutters>
-                              <v-autocomplete
-                                v-model="pokemon.moves.third.name"
-                                :items="getMoves"
-                                item-value="formattedName"
-                                item-title="formattedName"
-                                return-object
-                                density="compact"
-                                hide-details
-                                variant="outlined"
-                                clearable
-                                @click:clear="clearMove(index, 'third')"
-                                @update:modelValue="
-                                  fetchMoveData(index, 'third')
-                                "
-                              ></v-autocomplete>
-                            </v-row>
-                          </v-col>
-                          <v-col class="pl-3" cols="6" align-self="end">
-                            <v-row no-gutters align="center" justify="center">
-                              <PokemonType
-                                v-if="pokemon.moves.fourth.type !== ''"
-                                :type="pokemon.moves.fourth.type"
-                              />
-                              <MoveClass
-                                v-if="pokemon.moves.fourth.class !== ''"
-                                :type="pokemon.moves.fourth.class"
-                              />
-                            </v-row>
-                            <MultiuseText :text="'Fourth move'" />
-                            <v-row no-gutters>
-                              <v-autocomplete
-                                v-model="pokemon.moves.fourth.name"
-                                :items="getMoves"
-                                item-value="formattedName"
-                                item-title="formattedName"
-                                return-object
-                                density="compact"
-                                hide-details
-                                variant="outlined"
-                                clearable
-                                @click:clear="clearMove(index, 'fourth')"
-                                @update:modelValue="
-                                  fetchMoveData(index, 'fourth')
-                                "
-                              ></v-autocomplete>
-                            </v-row>
-                          </v-col>
-                        </v-row>
-                      </template>
+                        ></v-progress-circular>
+                      </v-row> </template
+                  ></v-img>
+                </v-row>
+                <MultiuseText
+                  :text="'Held item'"
+                  :class="pokemon.pokemon ? 'mt-5' : ''"
+                />
+                <v-row no-gutters align="center" justify="center">
+                  <v-progress-circular
+                    v-if="loadingItems"
+                    color="primary"
+                    indeterminate
+                  ></v-progress-circular>
+                  <v-autocomplete
+                    v-else
+                    v-model="pokemon.item.name"
+                    :items="getItems"
+                    item-value="formattedName"
+                    item-title="formattedName"
+                    density="compact"
+                    hide-details
+                    return-object
+                    variant="outlined"
+                    clearable
+                    @click:clear="clearItem(index)"
+                    @update:modelValue="fetchItemData(index)"
+                  ></v-autocomplete>
+                </v-row>
+              </v-col>
+              <v-col class="pl-3" cols="6">
+                <v-row
+                  v-if="loadingMoves"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <v-progress-circular
+                    color="primary"
+                    indeterminate
+                  ></v-progress-circular
+                ></v-row>
+                <template v-else>
+                  <v-row class="py-2" no-gutters>
+                    <v-col class="pr-3" cols="6" align-self="end">
+                      <v-row no-gutters align="center" justify="center">
+                        <PokemonType
+                          v-if="pokemon.moves.first.type !== ''"
+                          :type="pokemon.moves.first.type"
+                        />
+                        <MoveClass
+                          v-if="pokemon.moves.first.class !== ''"
+                          :type="pokemon.moves.first.class"
+                        />
+                      </v-row>
+                      <MultiuseText :text="'First move'" />
+                      <v-row no-gutters>
+                        <v-autocomplete
+                          v-model="pokemon.moves.first.name"
+                          :items="getMoves"
+                          item-value="formattedName"
+                          item-title="formattedName"
+                          return-object
+                          density="compact"
+                          hide-details
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearMove(index, 'first')"
+                          @update:modelValue="fetchMoveData(index, 'first')"
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                    <v-col class="pl-3" cols="6" align-self="end">
+                      <v-row no-gutters align="center" justify="center">
+                        <PokemonType
+                          v-if="pokemon.moves.second.type !== ''"
+                          :type="pokemon.moves.second.type"
+                        />
+                        <MoveClass
+                          v-if="pokemon.moves.second.class !== ''"
+                          :type="pokemon.moves.second.class"
+                        />
+                      </v-row>
+                      <MultiuseText :text="'Second move'" />
+                      <v-row no-gutters>
+                        <v-autocomplete
+                          v-model="pokemon.moves.second.name"
+                          :items="getMoves"
+                          item-value="formattedName"
+                          item-title="formattedName"
+                          return-object
+                          density="compact"
+                          hide-details
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearMove(index, 'second')"
+                          @update:modelValue="fetchMoveData(index, 'second')"
+                        ></v-autocomplete>
+                      </v-row>
                     </v-col>
                   </v-row>
-                  <v-divider v-if="index !== 5" class="my-3 px-3"></v-divider>
+                  <v-row class="py-2" no-gutters>
+                    <v-col class="pr-3" cols="6" align-self="end">
+                      <v-row no-gutters align="center" justify="center">
+                        <PokemonType
+                          v-if="pokemon.moves.third.type !== ''"
+                          :type="pokemon.moves.third.type"
+                        />
+                        <MoveClass
+                          v-if="pokemon.moves.third.class !== ''"
+                          :type="pokemon.moves.third.class"
+                        />
+                      </v-row>
+                      <MultiuseText :text="'Third move'" />
+                      <v-row no-gutters>
+                        <v-autocomplete
+                          v-model="pokemon.moves.third.name"
+                          :items="getMoves"
+                          item-value="formattedName"
+                          item-title="formattedName"
+                          return-object
+                          density="compact"
+                          hide-details
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearMove(index, 'third')"
+                          @update:modelValue="fetchMoveData(index, 'third')"
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                    <v-col class="pl-3" cols="6" align-self="end">
+                      <v-row no-gutters align="center" justify="center">
+                        <PokemonType
+                          v-if="pokemon.moves.fourth.type !== ''"
+                          :type="pokemon.moves.fourth.type"
+                        />
+                        <MoveClass
+                          v-if="pokemon.moves.fourth.class !== ''"
+                          :type="pokemon.moves.fourth.class"
+                        />
+                      </v-row>
+                      <MultiuseText :text="'Fourth move'" />
+                      <v-row no-gutters>
+                        <v-autocomplete
+                          v-model="pokemon.moves.fourth.name"
+                          :items="getMoves"
+                          item-value="formattedName"
+                          item-title="formattedName"
+                          return-object
+                          density="compact"
+                          hide-details
+                          variant="outlined"
+                          clearable
+                          @click:clear="clearMove(index, 'fourth')"
+                          @update:modelValue="fetchMoveData(index, 'fourth')"
+                        ></v-autocomplete>
+                      </v-row>
+                    </v-col>
+                  </v-row>
                 </template>
               </v-col>
             </v-row>
-          </v-card>
-        </v-row>
-      </v-col>
-      <v-col class="pa-3" cols="4">
-        <Card :type="'team-form'" @submitTeam="submitTeam()" />
-      </v-col>
-    </v-row>
-  </div>
+            <v-divider v-if="index !== 5" class="my-3 px-3"></v-divider>
+          </template>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-row>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import MultiuseText from "@/components/MultiuseText.vue";
-import Card from "@/components/InfoActions/Card.vue";
 import PokemonType from "@/components/PokemonType.vue";
 import MoveClass from "@/components/MoveClass.vue";
 import {
@@ -330,7 +307,6 @@ export default defineComponent({
   name: "TeamForm",
   components: {
     MultiuseText,
-    Card,
     PokemonType,
     MoveClass,
   },
@@ -706,14 +682,6 @@ export default defineComponent({
         pokemon: [...pokemonList],
       };
     },
-    toNuzlocke() {
-      this.$router.push({
-        name: "nuzlocke",
-        params: {
-          nuzlockeId: this.$route.params.nuzlockeId,
-        },
-      });
-    },
     filteredPokemon(teamPokemonIndex: number) {
       let pokemonList = [...this.getNuzlocke.pokemon];
       this.team.pokemon.forEach((pokemon, index) => {
@@ -830,6 +798,14 @@ export default defineComponent({
 
       this.updateExistingTeam(data).then(() => {
         this.toNuzlocke();
+      });
+    },
+    toNuzlocke() {
+      this.$router.push({
+        name: "nuzlocke",
+        params: {
+          nuzlockeId: this.$route.params.nuzlockeId,
+        },
       });
     },
     required(value: string, type: string) {
