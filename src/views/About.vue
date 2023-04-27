@@ -1,10 +1,160 @@
 <template>
-  <div id="about">ABOUT</div>
+  <div id="about" class="content">
+    <v-row class="h-100 w-100" no-gutters>
+      <v-col class="pa-3" cols="8">
+        <v-card class="pa-4 mb-4 w-100">
+          <v-card-title>
+            <h2>About</h2>
+          </v-card-title>
+          <v-card-text>
+            My name is Javier Vivas and I am a Computer Engineer graduated at
+            Universidad Simón Bolívar in Caracas, Venezuela. I live in USA and
+            currently work as a Frontend Engineer.
+          </v-card-text>
+          <v-card-text>
+            In 2020 I got to know what a nuzlocke is from videos on Youtube. At
+            first I did not know how people liked it, but it grew on my over
+            time and I really enjoy it now. I have done a couple myself, some
+            finished, some lost, but either way, in the end, is very fun to play
+            them. I started following some of the Youtubers and learning and
+            getting better because of them.
+          </v-card-text>
+          <v-card-text>
+            As I played, I found uncomfortable to keep track of my nuzlockes. I
+            decided to develop an app that would meet my needs as a player and
+            that can be as inclusive as possible in terms of different types of
+            games a player can play. At first I thought about providing lists of
+            locations and encounters based on the games, but that ended up
+            restricting the players freedom to play the nuzlocke with the rules
+            they wanted to play with. In the end, I decided to let the player
+            type manually some of the information in order to make it as free as
+            possible. This gives the player the opportunity to keep track of any
+            nuzlocke of any type of Pokemon game.
+          </v-card-text>
+        </v-card>
+        <v-card class="pa-4 mb-4 w-100">
+          <v-card-text>
+            Pokemon names, Pokemon sprites, Pokemon moves and held items are
+            taken from
+            <a
+              class="website-link"
+              href="https://pokeapi.co/docs/v2"
+              target="_blank"
+            >
+              PokeAPI </a
+            >, a website dedicated to provide data related to Pokemon games.
+          </v-card-text>
+          <v-card-text>
+            Nuzlocke rules and general information are taken from
+            <a
+              class="website-link"
+              href="https://bulbapedia.bulbagarden.net/wiki/Main_Page"
+              target="_blank"
+            >
+              Bulbapedia </a
+            >.
+          </v-card-text>
+        </v-card>
+        <v-card class="pa-4">
+          <v-card-text>
+            Pokémon © 2002-2021 Pokémon. © 1995-2021 Nintendo/Creatures
+            Inc./GAME FREAK inc. TM, ® and Pokémon character names are
+            trademarks of Nintendo.
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col class="pa-3" cols="4">
+        <v-card class="pa-4 mb-4">
+          <MultiuseText :text="'Suggestions'" :justify="'center'" />
+          <v-row no-gutters>
+            <v-form
+              ref="suggestionForm"
+              class="w-100"
+              @submit.prevent="sendSuggestion()"
+            >
+              <v-row no-gutters>
+                <v-col>
+                  <v-row class="py-3" no-gutters>
+                    <v-textarea
+                      v-model="suggestion"
+                      variant="outlined"
+                      hide-details
+                      color="secondary"
+                      density="compact"
+                      no-resize
+                      rows="5"
+                    ></v-textarea>
+                  </v-row>
+                  <v-row
+                    class="py-3"
+                    no-gutters
+                    align="center"
+                    justify="center"
+                  >
+                    <v-btn color="secondary" type="submit">Send</v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-row>
+        </v-card>
+        <v-card class="pa-4">
+          <MultiuseText :text="'Contact'" :justify="'center'" />
+          <v-card-text>
+            <v-row no-gutters>
+              <v-col>
+                <v-row
+                  v-for="website in websites"
+                  :key="website.url"
+                  class="py-1"
+                  no-gutters
+                  align="center"
+                  justify="center"
+                >
+                  <a class="website-link" :href="website.url" target="_blank">
+                    {{ website.name }}
+                  </a>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "About",
+  components: {
+    MultiuseText,
+  },
+  data() {
+    return {
+      suggestion: "",
+      websites: [
+        {
+          name: "Personal website",
+          url: "https://javivasv.com/",
+        },
+        {
+          name: "Github",
+          url: "https://github.com/javivasv",
+        },
+        {
+          name: "LinkedIn",
+          url: "https://www.linkedin.com/in/javier-vivas-veliz/",
+        },
+      ],
+    };
+  },
+  methods: {
+    async sendSuggestion() {
+      console.log("SEND SUGGESTION");
+    },
+  },
 });
 </script>
