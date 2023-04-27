@@ -4,6 +4,8 @@
       class="h-100 w-100 pa-2 sidebar-card"
       :style="{
         backgroundImage: `url(${background})`,
+        'background-position':
+          this.$vuetify.theme.name === 'customLightTheme' ? 'right' : 'left',
       }"
     >
       <v-row class="h-100" no-gutters>
@@ -76,11 +78,14 @@ export default defineComponent({
       getUser: "GET_USER",
     }),
     background() {
-      return require(`@/assets/${
-        this.$vuetify.theme.name === "customLightTheme"
-          ? "sidebar_light"
-          : "sidebar_dark"
-      }.png`);
+      let background: string =
+        require(`@/assets/${
+          this.$vuetify.theme.name === "customLightTheme"
+            ? "sidebar_light"
+            : "sidebar_dark"
+        }.png`) || "";
+
+      return background;
     },
   },
   data() {
