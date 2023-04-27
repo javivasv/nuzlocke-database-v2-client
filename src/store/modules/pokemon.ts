@@ -20,9 +20,7 @@ export const pokemon: Module<PokemonState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .post(
-            `${"http://localhost:5000/api"}/nuzlocke/${
-              data.nuzlockeId
-            }/pokemon`,
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/pokemon`,
             data.pokemon
           )
           .then((res) => {
@@ -42,9 +40,7 @@ export const pokemon: Module<PokemonState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .put(
-            `${"http://localhost:5000/api"}/nuzlocke/${
-              data.nuzlockeId
-            }/pokemon/${data.pokemonId}`,
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/pokemon/${data.pokemonId}`,
             data.pokemon
           )
           .then((res) => {
@@ -64,9 +60,7 @@ export const pokemon: Module<PokemonState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .delete(
-            `${"http://localhost:5000/api"}/nuzlocke/${
-              data.nuzlockeId
-            }/pokemon/${data.pokemonId}`
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/pokemon/${data.pokemonId}`
           )
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {

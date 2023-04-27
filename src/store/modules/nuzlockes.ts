@@ -31,7 +31,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     FETCH_NUZLOCKES: ({ commit, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${"http://localhost:5000/api"}/nuzlockes`)
+          .get(`${process.env.VUE_APP_API}/nuzlockes`)
           .then((res) => {
             commit("SET_NUZLOCKES", res.data.nuzlockes);
             resolve(res.data);
@@ -45,7 +45,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     CREATE_NUZLOCKE: ({ commit, dispatch }, data: Nuzlocke) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/nuzlocke`, data)
+          .post(`${process.env.VUE_APP_API}/nuzlocke`, data)
           .then((res) => {
             commit("SET_NUZLOCKES", res.data.nuzlockes);
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
@@ -62,7 +62,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     FETCH_NUZLOCKE: ({ commit, dispatch }, id: string) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
+          .get(`${process.env.VUE_APP_API}/nuzlocke/${id}`)
           .then((res) => {
             commit("SET_NUZLOCKE", res.data.nuzlocke);
             resolve(res.data);
@@ -77,7 +77,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .put(
-            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}`,
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}`,
             data.nuzlocke
           )
           .then((res) => {
@@ -96,7 +96,7 @@ export const nuzlockes: Module<NuzlockesState, State> = {
     DELETE_NUZLOCKE: ({ commit, dispatch }, id: string) => {
       return new Promise((resolve, reject) => {
         axios
-          .delete(`${"http://localhost:5000/api"}/nuzlocke/${id}`)
+          .delete(`${process.env.VUE_APP_API}/nuzlocke/${id}`)
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
               root: true,

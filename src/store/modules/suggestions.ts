@@ -15,7 +15,7 @@ export const suggestions: Module<SuggestionsState, State> = {
     SEND_SUGGESTION: ({ commit, dispatch }, data: SuggestionData) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/suggestions`, data)
+          .post(`${process.env.VUE_APP_API}/suggestions`, data)
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
               root: true,

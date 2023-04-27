@@ -32,7 +32,7 @@ export const auth: Module<AuthState, State> = {
     LOGIN: ({ commit }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/login`, data)
+          .post(`${process.env.VUE_APP_API}/login`, data)
           .then((res) => {
             window.localStorage.setItem("ndb_token", res.data.token);
             const token = jwtDecode(res.data.token) as Token;
@@ -60,7 +60,7 @@ export const auth: Module<AuthState, State> = {
     REGISTER_USER: ({ commit }, data: UserData) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/users`, data)
+          .post(`${process.env.VUE_APP_API}/users`, data)
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
               root: true,
@@ -88,7 +88,7 @@ export const auth: Module<AuthState, State> = {
 
       return new Promise((resolve, reject) => {
         axios
-          .post(`${"http://localhost:5000/api"}/session`, data)
+          .post(`${process.env.VUE_APP_API}/session`, data)
           .then((res) => {
             const token = jwtDecode(data.token) as Token;
             commit("SET_USER", { _id: token._id, username: token.username });

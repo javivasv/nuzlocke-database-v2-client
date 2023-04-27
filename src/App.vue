@@ -14,6 +14,7 @@ export default {
   },
   mounted() {
     this.validateSession();
+    console.log("ENV: ", process.env);
   },
   methods: {
     ...mapActions("auth", {

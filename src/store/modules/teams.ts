@@ -16,7 +16,7 @@ export const teams: Module<TeamsState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .post(
-            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}/team`,
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/team`,
             data.team
           )
           .then((res) => {
@@ -36,9 +36,7 @@ export const teams: Module<TeamsState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .put(
-            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}/team/${
-              data.teamId
-            }`,
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/team/${data.teamId}`,
             data.team
           )
           .then((res) => {
@@ -58,9 +56,7 @@ export const teams: Module<TeamsState, State> = {
       return new Promise((resolve, reject) => {
         axios
           .delete(
-            `${"http://localhost:5000/api"}/nuzlocke/${data.nuzlockeId}/team/${
-              data.teamId
-            }`
+            `${process.env.VUE_APP_API}/nuzlocke/${data.nuzlockeId}/team/${data.teamId}`
           )
           .then((res) => {
             commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {

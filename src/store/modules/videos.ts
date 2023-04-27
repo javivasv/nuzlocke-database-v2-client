@@ -24,7 +24,7 @@ export const videos: Module<VideosState, State> = {
     FETCH_VIDEOS: ({ commit, dispatch }) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${"http://localhost:5000/api"}/videos`)
+          .get(`${process.env.VUE_APP_API}/videos`)
           .then((res) => {
             commit("SET_VIDEOS", res.data.videos);
             resolve(res.data);
