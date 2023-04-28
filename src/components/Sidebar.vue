@@ -28,18 +28,27 @@
               v-ripple
               @click="changeView(item.name)"
             >
-              <v-icon class="mr-2" :icon="item.icon"></v-icon>
-              <span>{{ item.title }}</span>
+              <v-icon
+                :class="$vuetify.display.lgAndUp ? 'mr-2' : ''"
+                :icon="item.icon"
+              ></v-icon>
+              <span v-if="$vuetify.display.lgAndUp">{{ item.title }}</span>
             </v-row>
           </template>
-          <v-row class="pr-3" no-gutters align="center" justify="end">
+          <v-row
+            :class="$vuetify.display.lgAndUp ? 'pr-3' : ''"
+            no-gutters
+            align="center"
+            justify="end"
+          >
             <div>
               <v-switch
                 v-model="darkTheme"
                 :class="{
                   'dark-mode': $vuetify.theme.name === 'customDarkTheme',
                 }"
-                label="Dark mode"
+                :label="$vuetify.display.lgAndUp ? 'Dark mode' : ''"
+                :append-icon="$vuetify.display.lgAndUp ? '' : 'dark_mode'"
                 color="primary"
                 density="compact"
                 hide-details
@@ -53,12 +62,18 @@
           ></v-row>
           <v-row class="py-4" no-gutters align="center" justify="center">
             <v-btn v-if="getUser" color="primary" block @click="logout()">
-              <v-icon class="mr-2" icon="logout"></v-icon>
-              <span>Logout</span>
+              <v-icon
+                :class="$vuetify.display.lgAndUp ? 'mr-2' : ''"
+                icon="logout"
+              ></v-icon>
+              <span v-if="$vuetify.display.lgAndUp">Logout</span>
             </v-btn>
             <v-btn v-else color="primary" block @click="login()">
-              <v-icon class="mr-2" icon="login"></v-icon>
-              <span>Login</span>
+              <v-icon
+                :class="$vuetify.display.lgAndUp ? 'mr-2' : ''"
+                icon="login"
+              ></v-icon>
+              <span v-if="$vuetify.display.lgAndUp">Login</span>
             </v-btn>
           </v-row>
         </v-col>
