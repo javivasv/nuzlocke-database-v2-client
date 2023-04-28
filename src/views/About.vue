@@ -41,7 +41,7 @@
               href="https://pokeapi.co/docs/v2"
               target="_blank"
             >
-              PokeAPI </a
+              PokeAPI V2 </a
             >, a website dedicated to provide data related to Pokemon games.
           </v-card-text>
           <v-card-text>
