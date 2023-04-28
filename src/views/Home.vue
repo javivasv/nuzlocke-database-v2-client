@@ -30,7 +30,10 @@
             <h2>Relevant Nuzlocke Videos</h2>
           </v-card-title>
           <v-row no-gutters>
-            <v-carousel v-model="currentVideo">
+            <v-carousel
+              v-if="randomizedVideos.length > 0"
+              v-model="currentVideo"
+            >
               <v-carousel-item
                 v-for="(video, index) in randomizedVideos"
                 :key="video.url"

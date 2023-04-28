@@ -101,6 +101,10 @@ export const auth: Module<AuthState, State> = {
       });
     },
     VALIDATE_ERROR: ({ commit, dispatch }, error) => {
+      if (!error.response) {
+        return;
+      }
+
       if (
         error.response.status === 401 ||
         error.response.status === 403 ||
