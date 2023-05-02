@@ -16,7 +16,7 @@
                 variant="outlined"
                 color="secondary"
                 density="compact"
-                :rules="nameRules"
+                :rules="nameRules()"
               ></v-text-field>
             </v-row>
             <MultiuseText :text="'Vs'" />
@@ -296,6 +296,7 @@ import { mapGetters, mapActions } from "vuex";
 import MultiuseText from "@/components/MultiuseText.vue";
 import PokemonType from "@/components/PokemonType.vue";
 import MoveClass from "@/components/MoveClass.vue";
+import mixin from "@/mixin";
 import {
   Moves,
   Pokemon,
@@ -305,6 +306,7 @@ import {
 } from "@/interface";
 export default defineComponent({
   name: "TeamForm",
+  mixins: [mixin],
   components: {
     MultiuseText,
     PokemonType,
@@ -325,280 +327,16 @@ export default defineComponent({
         name: "",
         vs: "",
         description: "",
-        pokemon: [
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-          {
-            pokemon: null,
-            item: {
-              name: {
-                codedName: "",
-                formattedName: "",
-              },
-              sprite: "",
-            },
-            moves: {
-              first: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              second: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              third: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-              fourth: {
-                name: {
-                  codedName: "",
-                  formattedName: "",
-                },
-                class: "",
-                type: "",
-              },
-            },
-          },
-        ],
+        pokemon: this.teamPokemon,
       },
       editMode: false,
       loadingItems: false,
       loadingMoves: false,
-      nameRules: [(value: string) => this.required(value, "name")],
     };
   },
   mounted() {
+    this.team.pokemon = this.teamPokemon;
+
     if (this.$route.name === "edit-team-form") {
       this.editMode = true;
     }
@@ -839,6 +577,9 @@ export default defineComponent({
     required(value: string, type: string) {
       if (value) return true;
       return `You must enter a ${type}`;
+    },
+    nameRules() {
+      return [(value: string) => this.required(value, "name")];
     },
   },
 });

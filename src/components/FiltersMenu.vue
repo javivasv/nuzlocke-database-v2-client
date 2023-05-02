@@ -30,13 +30,13 @@
     <v-divider class="my-3"></v-divider>
     <MultiuseText :text="'Type filters'" />
     <v-row no-gutters>
-      <v-col v-for="filter in typeFilters" :key="filter.value" cols="4">
+      <v-col v-for="filter in pokemonTypes" :key="filter.value" cols="4">
         <v-checkbox
           v-model="filter.on"
           :class="{ 'dark-mode': $vuetify.theme.name === 'customDarkTheme' }"
           :label="filter.name"
           hide-details
-          :color="getTypeColor(filter.name)"
+          :color="filter.color"
           @update:modelValue="updateFilter(filter.value, 'type')"
         ></v-checkbox>
       </v-col>
@@ -95,98 +95,6 @@ export default defineComponent({
           on: false,
         },
       ],
-      typeFilters: [
-        {
-          name: "Normal",
-          value: "normal",
-          on: false,
-        },
-        {
-          name: "Fighting",
-          value: "fighting",
-          on: false,
-        },
-        {
-          name: "Flying",
-          value: "flying",
-          on: false,
-        },
-        {
-          name: "Poison",
-          value: "poison",
-          on: false,
-        },
-        {
-          name: "Ground",
-          value: "ground",
-          on: false,
-        },
-        {
-          name: "Rock",
-          value: "rock",
-          on: false,
-        },
-        {
-          name: "Bug",
-          value: "bug",
-          on: false,
-        },
-        {
-          name: "Ghost",
-          value: "ghost",
-          on: false,
-        },
-        {
-          name: "Steel",
-          value: "steel",
-          on: false,
-        },
-        {
-          name: "Fire",
-          value: "fire",
-          on: false,
-        },
-        {
-          name: "Water",
-          value: "water",
-          on: false,
-        },
-        {
-          name: "Grass",
-          value: "grass",
-          on: false,
-        },
-        {
-          name: "Electric",
-          value: "electric",
-          on: false,
-        },
-        {
-          name: "Psychic",
-          value: "psychic",
-          on: false,
-        },
-        {
-          name: "Ice",
-          value: "ice",
-          on: false,
-        },
-        {
-          name: "Dragon",
-          value: "dragon",
-          on: false,
-        },
-        {
-          name: "Dark",
-          value: "dark",
-          on: false,
-        },
-        {
-          name: "Fairy",
-          value: "fairy",
-          on: false,
-        },
-      ],
     };
   },
   methods: {
@@ -195,16 +103,6 @@ export default defineComponent({
         value,
         type,
       });
-    },
-    getTypeColor(typeName: string) {
-      let color = "secondary";
-      let type = this.pokemonTypes.find((type) => type.name === typeName);
-
-      if (type) {
-        color = type.color;
-      }
-
-      return color;
     },
   },
 });
