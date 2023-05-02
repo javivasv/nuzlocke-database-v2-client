@@ -710,7 +710,7 @@ export default defineComponent({
       return pokemonList;
     },
     fetchItemData(index: number) {
-      if (!this.team.pokemon[index].item) {
+      if (!this.team.pokemon[index].item.name) {
         return;
       }
 
@@ -723,7 +723,7 @@ export default defineComponent({
       );
     },
     fetchMoveData(index: number, move: string) {
-      if (!this.team.pokemon[index].moves[move as keyof Moves]) {
+      if (!this.team.pokemon[index].moves[move as keyof Moves].name) {
         return;
       }
 
