@@ -48,106 +48,106 @@
         <v-col>
           <template v-for="(pokemon, index) in team.pokemon" :key="index">
             <v-row no-gutters align="center" justify="center">
-              <v-col
-                class="pr-3"
-                cols="3"
-                :align-self="
-                  pokemon.item.name.codedName !== '' ? 'end' : 'center'
-                "
-              >
-                <v-row
-                  v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
-                  class="py-2"
-                  no-gutters
-                  align="center"
-                  justify="center"
-                >
-                  <v-img :src="pokemon.pokemon.sprite" height="100px">
-                    <template #placeholder>
-                      <v-row
-                        class="h-100"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          color="primary"
-                          indeterminate
-                        ></v-progress-circular>
-                      </v-row> </template
-                  ></v-img>
-                </v-row>
-                <MultiuseText :text="'Pokemon'" />
-                <v-row no-gutters>
-                  <v-autocomplete
-                    v-model="pokemon.pokemon"
-                    :items="filteredPokemon()"
-                    item-value="species.formattedName"
-                    item-title="species.formattedName"
-                    density="compact"
-                    hide-details
-                    return-object
-                    variant="outlined"
-                    clearable
-                    @click:clear="clearPokemon(index)"
-                  ></v-autocomplete>
-                </v-row>
-              </v-col>
-              <v-col
-                class="px-3"
-                cols="3"
-                :align-self="
-                  pokemon.pokemon || pokemon.item.name.codedName !== ''
-                    ? 'end'
-                    : 'center'
-                "
-              >
-                <v-row
-                  v-if="pokemon.item && pokemon.item.sprite !== ''"
-                  class="py-2"
-                  no-gutters
-                  align="center"
-                  justify="center"
-                >
-                  <v-img :src="pokemon.item.sprite" height="50px">
-                    <template #placeholder>
-                      <v-row
-                        class="h-100"
-                        no-gutters
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          color="primary"
-                          indeterminate
-                        ></v-progress-circular>
-                      </v-row> </template
-                  ></v-img>
-                </v-row>
-                <MultiuseText
-                  :text="'Held item'"
-                  :class="pokemon.pokemon ? 'mt-5' : ''"
-                />
+              <v-col cols="6">
                 <v-row no-gutters align="center" justify="center">
-                  <v-progress-circular
-                    v-if="loadingItems"
-                    color="primary"
-                    indeterminate
-                  ></v-progress-circular>
-                  <v-autocomplete
-                    v-else
-                    v-model="pokemon.item.name"
-                    :items="getItems"
-                    item-value="formattedName"
-                    item-title="formattedName"
-                    density="compact"
-                    hide-details
-                    return-object
-                    variant="outlined"
-                    clearable
-                    @click:clear="clearItem(index)"
-                    @update:modelValue="fetchItemData(index)"
-                  ></v-autocomplete>
+                  <v-col
+                    class="pr-3"
+                    cols="6"
+                    :align-self="
+                      pokemon.item.name.codedName !== '' ? 'end' : 'center'
+                    "
+                  >
+                    <v-row
+                      v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
+                      class="py-2"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <v-img :src="pokemon.pokemon.sprite" height="100px">
+                        <template #placeholder>
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
+                            <v-progress-circular
+                              color="primary"
+                              indeterminate
+                            ></v-progress-circular>
+                          </v-row> </template
+                      ></v-img>
+                    </v-row>
+                    <MultiuseText :text="'Pokemon'" />
+                    <v-row no-gutters>
+                      <v-autocomplete
+                        v-model="pokemon.pokemon"
+                        :items="filteredPokemon()"
+                        item-value="species.formattedName"
+                        item-title="species.formattedName"
+                        density="compact"
+                        hide-details
+                        return-object
+                        variant="outlined"
+                        clearable
+                        @click:clear="clearPokemon(index)"
+                      ></v-autocomplete>
+                    </v-row>
+                  </v-col>
+                  <v-col
+                    class="px-3"
+                    cols="6"
+                    :align-self="pokemon.pokemon ? 'end' : 'center'"
+                  >
+                    <v-row
+                      v-if="pokemon.item && pokemon.item.sprite !== ''"
+                      class="py-2"
+                      no-gutters
+                      align="center"
+                      justify="center"
+                    >
+                      <v-img :src="pokemon.item.sprite" height="50px">
+                        <template #placeholder>
+                          <v-row
+                            class="h-100"
+                            no-gutters
+                            align="center"
+                            justify="center"
+                          >
+                            <v-progress-circular
+                              color="primary"
+                              indeterminate
+                            ></v-progress-circular>
+                          </v-row> </template
+                      ></v-img>
+                    </v-row>
+                    <MultiuseText
+                      :text="'Held item'"
+                      :class="pokemon.pokemon ? 'mt-5' : ''"
+                    />
+                    <v-row no-gutters align="center" justify="center">
+                      <v-progress-circular
+                        v-if="loadingItems"
+                        color="primary"
+                        indeterminate
+                      ></v-progress-circular>
+                      <v-autocomplete
+                        v-else
+                        v-model="pokemon.item.name"
+                        :items="getItems"
+                        item-value="formattedName"
+                        item-title="formattedName"
+                        density="compact"
+                        hide-details
+                        return-object
+                        variant="outlined"
+                        clearable
+                        @click:clear="clearItem(index)"
+                        @update:modelValue="fetchItemData(index)"
+                      ></v-autocomplete>
+                    </v-row>
+                  </v-col>
                 </v-row>
               </v-col>
               <v-col class="pl-3" cols="6">

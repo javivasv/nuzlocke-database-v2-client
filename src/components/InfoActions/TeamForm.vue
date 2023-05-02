@@ -41,7 +41,7 @@
           <span class="card-text">
             <strong>Pokemon:</strong>
             A member of the team. The options depend on the pokemon obtained
-            during the playthrough
+            during the playthrough and the current species of the pokemon
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
@@ -73,6 +73,20 @@
               target="_blank"
               >PokeAPI V2</a
             >
+          </span>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-card-text>
+  <v-divider class="my-3"></v-divider>
+  <v-card-text>
+    <v-row no-gutters>
+      <v-col>
+        <v-row class="py-1" no-gutters align="center" justify="center">
+          <span>
+            The species of the pokemon selected will be the current one at the
+            moment of the team building. In case of needing to update the
+            species, the pokemon will have to be selected again
           </span>
         </v-row>
       </v-col>
