@@ -89,15 +89,21 @@ export interface Team {
 
 export interface TeamPokemon {
   _id?: string;
-  pokemonId: string;
+  pokemon: TeamPokemonInfo;
   item: Item;
   moves: Moves;
 }
 
 export interface TeamPokemonData {
-  pokemon: null | Pokemon;
+  pokemon: TeamPokemonInfo;
   item: Item;
   moves: Moves;
+}
+
+export interface TeamPokemonInfo {
+  id: string;
+  sprite: string;
+  species: Name;
 }
 
 export interface Item {

@@ -81,7 +81,7 @@
                 <v-row no-gutters>
                   <v-autocomplete
                     v-model="pokemon.pokemon"
-                    :items="filteredPokemon(index)"
+                    :items="filteredPokemon()"
                     item-value="species.formattedName"
                     item-title="species.formattedName"
                     density="compact"
@@ -660,10 +660,19 @@ export default defineComponent({
       toEditTeam.pokemon.forEach((pokemon: TeamPokemon) => {
         let teamPokemon = null;
 
-        if (pokemon.pokemonId !== "") {
-          teamPokemon = this.getNuzlocke.pokemon.find(
-            (item: Pokemon) => item._id === pokemon.pokemonId
-          );
+        if (pokemon.pokemon.id !== "") {
+          teamPokemon = {
+            ...this.getNuzlocke.pokemon.find(
+              (item: Pokemon) => item._id === pokemon.pokemon.id
+            ),
+          };
+
+          if (
+            teamPokemon.species.codedName !== pokemon.pokemon.species.codedName
+          ) {
+            teamPokemon.sprite = pokemon.pokemon.sprite;
+            teamPokemon.species = pokemon.pokemon.species;
+          }
         }
 
         pokemonList.push({
@@ -682,13 +691,19 @@ export default defineComponent({
         pokemon: [...pokemonList],
       };
     },
-    filteredPokemon(teamPokemonIndex: number) {
+    filteredPokemon() {
       let pokemonList = [...this.getNuzlocke.pokemon];
-      this.team.pokemon.forEach((pokemon, index) => {
-        if (teamPokemonIndex !== index) {
-          if (pokemon.pokemon) {
-            pokemonList.splice(pokemonList.indexOf(pokemon.pokemon), 1);
-          }
+
+      this.team.pokemon.forEach((teamPokemon) => {
+        if (teamPokemon.pokemon) {
+          let indexOfPokemon = pokemonList.indexOf(
+            pokemonList.find(
+              (pokemonObject) =>
+                pokemonObject._id === (teamPokemon.pokemon! as Pokemon)._id
+            )
+          );
+
+          pokemonList.splice(indexOfPokemon, 1);
         }
       });
 
@@ -756,8 +771,21 @@ export default defineComponent({
       let pokemonList: TeamPokemon[] = [];
 
       this.team.pokemon.forEach((pokemon) => {
+        let pokemonData = {
+          id: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
+          sprite: pokemon.pokemon ? (pokemon.pokemon as Pokemon).sprite : "",
+          species: {
+            codedName: pokemon.pokemon
+              ? (pokemon.pokemon as Pokemon).species.codedName
+              : "",
+            formattedName: pokemon.pokemon
+              ? (pokemon.pokemon as Pokemon).species.formattedName
+              : "",
+          },
+        };
+
         pokemonList.push({
-          pokemonId: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
+          pokemon: pokemonData,
           item: pokemon.item,
           moves: pokemon.moves,
         });

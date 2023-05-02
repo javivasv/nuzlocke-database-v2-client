@@ -110,10 +110,10 @@
                           v-for="(pokemon, index) in team.pokemon"
                           :key="index"
                         >
-                          <v-col v-if="pokemon.pokemonId !== ''" cols="4">
+                          <v-col v-if="pokemon.pokemon.id !== ''" cols="4">
                             <v-row no-gutters align="center" justify="center">
                               <v-img
-                                :src="pokemonData(pokemon.pokemonId, 'sprite')"
+                                :src="pokemonData(pokemon.pokemon, 'sprite')"
                                 height="100px"
                               >
                                 <template #placeholder>
@@ -132,7 +132,7 @@
                             </v-row>
                             <v-row no-gutters align="center" justify="center">
                               <span class="table-text">
-                                {{ pokemonData(pokemon.pokemonId, "nickname") }}
+                                {{ pokemonData(pokemon.pokemon, "nickname") }}
                               </span>
                             </v-row>
                             <v-row
@@ -164,11 +164,11 @@
                             <v-row
                               v-if="
                                 (index === 0 &&
-                                  team.pokemon[3].pokemonId !== '') ||
+                                  team.pokemon[3].pokemon.id !== '') ||
                                 (index === 1 &&
-                                  team.pokemon[4].pokemonId !== '') ||
+                                  team.pokemon[4].pokemon.id !== '') ||
                                 (index === 2 &&
-                                  team.pokemon[5].pokemonId !== '')
+                                  team.pokemon[5].pokemon.id !== '')
                               "
                               class="px-3 my-3"
                               no-gutters
@@ -197,7 +197,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { Pokemon, Team } from "@/interface";
+import { Pokemon, Team, TeamPokemonInfo } from "@/interface";
 export default defineComponent({
   name: "TeamsTable",
   computed: {
@@ -244,19 +244,29 @@ export default defineComponent({
 
       return list;
     },
-    pokemonData(pokemonId: string, type: string) {
+    pokemonData(pokemonData: TeamPokemonInfo, type: string) {
       let pokemon = this.getNuzlocke.pokemon.find(
-        (pokemon: Pokemon) => pokemon._id === pokemonId
+        (pokemon: Pokemon) => pokemon._id === pokemonData.id
       );
 
       if (pokemon) {
         if (type === "sprite") {
-          return pokemon.sprite;
-        }
+          if (pokemon.species.codedName === pokemonData.species.codedName) {
+            return pokemon.sprite;
+          } else {
+            return pokemonData.sprite;
+          }
+        } else {
+          if (pokemon.nickname !== "") {
+            pokemon.nickname;
+          }
 
-        return pokemon.nickname !== ""
-          ? pokemon.nickname
-          : pokemon.species.formattedName;
+          if (pokemon.species.codedName === pokemonData.species.codedName) {
+            return pokemon.species.formattedName;
+          } else {
+            return pokemonData.species.formattedName;
+          }
+        }
       }
 
       return "";
