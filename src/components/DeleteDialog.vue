@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="show" persistent width="25%">
+  <v-dialog v-model="show" persistent max-width="500px">
     <v-card class="pa-4">
       <v-card-text class="mb-3">
         <span>
-          Are you sure you want to delete
+          <span>Are you sure you want to delete </span>
           <strong>{{ name }}</strong>
-          ?
+          <span>?</span>
         </span>
       </v-card-text>
       <v-row no-gutters align="center" justify="space-around">

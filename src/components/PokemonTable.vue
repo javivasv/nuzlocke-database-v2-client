@@ -25,6 +25,16 @@
             </template>
             <FiltersMenu @updateFilter="updateFilter" />
           </v-menu>
+          <!---->
+          <v-menu :close-on-content-click="false" location="left" eager>
+            <template #activator="{ props }">
+              <v-btn class="ml-3" icon v-bind="props">
+                <v-icon icon="settings"></v-icon>
+              </v-btn>
+            </template>
+            <SettingsMenu @updateSetting="updateSetting" />
+          </v-menu>
+          <!---->
         </v-row>
         <v-row no-gutters>
           <v-col>
@@ -52,8 +62,12 @@
                 >
                   <v-row
                     :class="{
-                      'py-3': pokemon.sprite !== 0,
-                      'py-5': pokemon.sprite === 0,
+                      'py-3': settings.showAsObtained
+                        ? pokemon.obtainedAs.sprite !== ''
+                        : pokemon.sprite !== '',
+                      'py-5': settings.showAsObtained
+                        ? pokemon.obtainedAs.sprite === ''
+                        : pokemon.sprite === '',
                       'table-row': !pokemon.fainted,
                       'fainted-pokemon-row': pokemon.fainted,
                     }"
@@ -62,12 +76,23 @@
                   >
                     <v-col cols="2">
                       <v-row
-                        v-if="pokemon.sprite !== ''"
+                        v-if="
+                          settings.showAsObtained
+                            ? pokemon.obtainedAs.sprite !== ''
+                            : pokemon.sprite !== ''
+                        "
                         no-gutters
                         align="center"
                         justify="center"
                       >
-                        <v-img :src="pokemon.sprite" height="100px">
+                        <v-img
+                          :src="
+                            settings.showAsObtained
+                              ? pokemon.obtainedAs.sprite
+                              : pokemon.sprite
+                          "
+                          height="100px"
+                        >
                           <template #placeholder>
                             <v-row
                               class="h-100"
@@ -83,10 +108,19 @@
                         ></v-img>
                       </v-row>
                       <v-row no-gutters align="center" justify="center">
-                        <span>{{ pokemon.species.formattedName }}</span>
+                        <span>{{
+                          settings.showAsObtained
+                            ? pokemon.obtainedAs.species.formattedName
+                            : pokemon.species.formattedName
+                        }}</span>
                       </v-row>
                       <v-row no-gutters align="center" justify="center">
-                        <template v-for="type in pokemon.types" :key="type">
+                        <template
+                          v-for="type in settings.showAsObtained
+                            ? pokemon.obtainedAs.types
+                            : pokemon.types"
+                          :key="type"
+                        >
                           <PokemonType v-if="type !== ''" :type="type" />
                         </template>
                       </v-row>
@@ -193,12 +227,14 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import FiltersMenu from "@/components/FiltersMenu.vue";
+import SettingsMenu from "@/components/SettingsMenu.vue";
 import PokemonType from "@/components/PokemonType.vue";
 import { Pokemon, Filters, Filter } from "@/interface";
 export default defineComponent({
   name: "PokemonTable",
   components: {
     FiltersMenu,
+    SettingsMenu,
     PokemonType,
   },
   computed: {
@@ -245,6 +281,9 @@ export default defineComponent({
         status: [],
         obtained: [],
         type: [],
+      },
+      settings: {
+        showAsObtained: false,
       },
     };
   },
@@ -313,6 +352,9 @@ export default defineComponent({
       } else {
         filterList.splice(index, 1);
       }
+    },
+    updateSetting(val: boolean) {
+      this.settings.showAsObtained = val;
     },
     obtainedIcon(obtained: string) {
       if (obtained === "caught") {
