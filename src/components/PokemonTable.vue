@@ -146,9 +146,13 @@
                       >
                         <span class="table-text">
                           {{
-                            pokemon.ability.formattedName !== ""
-                              ? pokemon.ability.formattedName
-                              : "-"
+                            settings.showAsObtained
+                              ? pokemon.obtainedAs.ability.formattedName === ""
+                                ? "-"
+                                : pokemon.obtainedAs.ability.formattedName
+                              : pokemon.ability.formattedName === ""
+                              ? "-"
+                              : pokemon.ability.formattedName
                           }}
                         </span>
                       </v-row>
