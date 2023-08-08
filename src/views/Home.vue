@@ -14,9 +14,9 @@
             status (alive or fainted), in order to keep it organized and
             updated.
           </v-card-text>
-          <MultiuseText :text="'What is a Nuzlocke?'" :justify="'center'" />
+          <MultiuseText :text="'What is a nuzlocke?'" :justify="'center'" />
           <v-card-text>
-            A Nuzlocke is a set of rules intended to create a higher level of
+            A nuzlocke is a set of rules intended to create a higher level of
             difficulty while playing the Pokémon games. Many challengers feel
             that the rules also serve the purpose of encouraging the use of
             Pokémon the player would not normally choose, and promoting closer

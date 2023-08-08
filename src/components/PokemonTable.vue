@@ -25,7 +25,6 @@
             </template>
             <FiltersMenu @updateFilter="updateFilter" />
           </v-menu>
-          <!---->
           <v-menu :close-on-content-click="false" location="left" eager>
             <template #activator="{ props }">
               <v-btn class="ml-3" icon v-bind="props">
@@ -34,7 +33,6 @@
             </template>
             <SettingsMenu @updateSetting="updateSetting" />
           </v-menu>
-          <!---->
         </v-row>
         <v-row no-gutters>
           <v-col>

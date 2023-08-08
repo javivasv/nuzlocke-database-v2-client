@@ -7,17 +7,17 @@
             <h2>About</h2>
           </v-card-title>
           <v-card-text>
-            My name is Javier Vivas and I am a Computer Engineer graduated at
-            Universidad Simón Bolívar in Caracas, Venezuela. I live in the USA
-            and currently work as a Frontend Engineer.
+            My name is Javier Vivas and I am a Computer/Software Engineer
+            graduated at Universidad Simón Bolívar in Caracas, Venezuela. I live
+            in the USA and currently work as a Frontend Engineer.
           </v-card-text>
           <v-card-text>
             In 2020 I got to know what a nuzlocke is from videos on Youtube. At
-            first I did not know how people liked it, but it grew on my over
+            first I did not know how people liked it, but it grew on me over
             time and I really enjoy it now. I have done a couple myself, some
             finished, some lost, but either way, in the end, is very fun to play
-            them. I started following some of the Youtubers and learning and
-            getting better because of them.
+            them. I started following some Youtubers and learning and getting
+            better because of them.
           </v-card-text>
           <v-card-text>
             As I played, I found uncomfortable to keep track of my nuzlockes. I
@@ -41,7 +41,7 @@
               href="https://pokeapi.co/docs/v2"
               target="_blank"
             >
-              PokeAPI V2 </a
+              PokeAPI V2</a
             >, a website dedicated to provide data related to Pokemon games.
           </v-card-text>
           <v-card-text>
@@ -51,13 +51,13 @@
               href="https://bulbapedia.bulbagarden.net/wiki/Main_Page"
               target="_blank"
             >
-              Bulbapedia </a
+              Bulbapedia</a
             >.
           </v-card-text>
         </v-card>
         <v-card class="pa-4">
           <v-card-text>
-            Pokémon © 2002-2021 Pokémon. © 1995-2021 Nintendo/Creatures
+            Pokémon © 2002-2023 Pokémon. © 1995-2023 Nintendo/Creatures
             Inc./GAME FREAK inc. TM, ® and Pokémon character names are
             trademarks of Nintendo.
           </v-card-text>
