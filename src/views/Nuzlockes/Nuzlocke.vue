@@ -38,8 +38,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import PokemonTable from "@/components/PokemonTable.vue";
-import TeamsTable from "@/components/TeamsTable.vue";
+import PokemonTable from "@/components/PokemonTable/index.vue";
+import TeamsTable from "@/components/TeamsTable/index.vue";
 export default defineComponent({
   name: "Nuzlocke",
   components: {

@@ -50,41 +50,15 @@
                   'max-height': $vuetify.display.height - 172 + 'px',
                 }"
               >
-                <v-row
+                <template
                   v-for="nuzlocke in filteredNuzlockes()"
                   :key="nuzlocke._id"
-                  class="table-row py-5"
-                  no-gutters
-                  @click="checkNuzlocke(nuzlocke)"
                 >
-                  <v-col cols="6">
-                    <v-row no-gutters align="center" justify="center">
-                      <span class="table-text">
-                        {{ nuzlocke.name }}
-                      </span>
-                    </v-row>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-row no-gutters align="center" justify="center">
-                      <span class="table-text">
-                        {{ nuzlocke.game }}
-                      </span>
-                    </v-row>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-row no-gutters align="center" justify="center">
-                      <v-icon
-                        :icon="
-                          nuzlocke.status === 'started'
-                            ? 'flag'
-                            : nuzlocke.status === 'completed'
-                            ? 'done'
-                            : 'close'
-                        "
-                      ></v-icon>
-                    </v-row>
-                  </v-col>
-                </v-row>
+                  <NuzlockeRow
+                    :nuzlocke="nuzlocke"
+                    @checkNuzlocke="checkNuzlocke"
+                  />
+                </template>
               </v-col>
             </v-row>
           </v-col>
@@ -97,9 +71,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import NuzlockeRow from "@/components/NuzlockesTable/NuzlockeRow.vue";
 import { Nuzlocke } from "@/interface";
 export default defineComponent({
   name: "NuzlockesTable",
+  components: {
+    NuzlockeRow,
+  },
   props: {
     isLoading: {
       type: Boolean,
