@@ -84,24 +84,19 @@ export interface Team {
   name: string;
   vs: string;
   description: string;
-  pokemon: Array<TeamPokemon>;
+  members: Array<TeamMember>;
 }
 
-export interface TeamPokemon {
+export interface TeamMember {
   _id?: string;
-  pokemon: TeamPokemonInfo;
+  pokemon: TeamMemberInfo | null;
   item: Item;
   moves: Moves;
 }
 
-export interface TeamPokemonData {
-  pokemon: TeamPokemonInfo;
-  item: Item;
-  moves: Moves;
-}
-
-export interface TeamPokemonInfo {
-  id: string;
+export interface TeamMemberInfo {
+  _id?: string;
+  id?: string;
   sprite: string;
   species: Name;
 }

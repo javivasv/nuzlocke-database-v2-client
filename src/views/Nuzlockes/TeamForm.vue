@@ -41,12 +41,21 @@
                 rows="2"
               ></v-textarea>
             </v-row>
+            <v-row no-gutters align="center" justify="center">
+              <v-btn
+                color="secondary"
+                :disabled="team.members.length === 6"
+                @click="addTeamMember()"
+              >
+                Add team member
+              </v-btn>
+            </v-row>
           </v-col>
         </v-row>
       </v-form>
       <v-row no-gutters align="center" justify="center">
         <v-col>
-          <template v-for="(pokemon, index) in team.pokemon" :key="index">
+          <template v-for="(member, index) in team.members" :key="index">
             <v-row no-gutters align="center" justify="center">
               <v-col cols="6">
                 <v-row no-gutters align="center" justify="center">
@@ -54,17 +63,17 @@
                     class="pr-3"
                     cols="6"
                     :align-self="
-                      pokemon.item.name.codedName !== '' ? 'end' : 'center'
+                      member.item.name.codedName !== '' ? 'end' : 'center'
                     "
                   >
                     <v-row
-                      v-if="pokemon.pokemon && pokemon.pokemon.sprite !== ''"
+                      v-if="member.pokemon && member.pokemon.sprite !== ''"
                       class="py-2"
                       no-gutters
                       align="center"
                       justify="center"
                     >
-                      <v-img :src="pokemon.pokemon.sprite" height="100px">
+                      <v-img :src="member.pokemon.sprite" height="100px">
                         <template #placeholder>
                           <v-row
                             class="h-100"
@@ -82,7 +91,7 @@
                     <MultiuseText :text="'Pokemon'" />
                     <v-row no-gutters>
                       <v-autocomplete
-                        v-model="pokemon.pokemon"
+                        v-model="member.pokemon"
                         :items="filteredPokemon()"
                         item-value="species.formattedName"
                         item-title="species.formattedName"
@@ -98,16 +107,16 @@
                   <v-col
                     class="px-3"
                     cols="6"
-                    :align-self="pokemon.pokemon ? 'end' : 'center'"
+                    :align-self="member.pokemon ? 'end' : 'center'"
                   >
                     <v-row
-                      v-if="pokemon.item && pokemon.item.sprite !== ''"
+                      v-if="member.item && member.item.sprite !== ''"
                       class="py-2"
                       no-gutters
                       align="center"
                       justify="center"
                     >
-                      <v-img :src="pokemon.item.sprite" height="50px">
+                      <v-img :src="member.item.sprite" height="50px">
                         <template #placeholder>
                           <v-row
                             class="h-100"
@@ -124,7 +133,11 @@
                     </v-row>
                     <MultiuseText
                       :text="'Held item'"
-                      :class="pokemon.pokemon ? 'mt-5' : ''"
+                      :class="
+                        member.pokemon && member.pokemon.sprite !== ''
+                          ? 'mt-5'
+                          : ''
+                      "
                     />
                     <v-row no-gutters align="center" justify="center">
                       <v-progress-circular
@@ -134,7 +147,7 @@
                       ></v-progress-circular>
                       <v-autocomplete
                         v-else
-                        v-model="pokemon.item.name"
+                        v-model="member.item.name"
                         :items="getItems"
                         item-value="formattedName"
                         item-title="formattedName"
@@ -167,18 +180,18 @@
                     <v-col class="pr-3" cols="6" align-self="end">
                       <v-row no-gutters align="center" justify="center">
                         <PokemonType
-                          v-if="pokemon.moves.first.type !== ''"
-                          :type="pokemon.moves.first.type"
+                          v-if="member.moves.first.type !== ''"
+                          :type="member.moves.first.type"
                         />
                         <MoveClass
-                          v-if="pokemon.moves.first.class !== ''"
-                          :type="pokemon.moves.first.class"
+                          v-if="member.moves.first.class !== ''"
+                          :type="member.moves.first.class"
                         />
                       </v-row>
                       <MultiuseText :text="'First move'" />
                       <v-row no-gutters>
                         <v-autocomplete
-                          v-model="pokemon.moves.first.name"
+                          v-model="member.moves.first.name"
                           :items="getMoves"
                           item-value="formattedName"
                           item-title="formattedName"
@@ -195,18 +208,18 @@
                     <v-col class="pl-3" cols="6" align-self="end">
                       <v-row no-gutters align="center" justify="center">
                         <PokemonType
-                          v-if="pokemon.moves.second.type !== ''"
-                          :type="pokemon.moves.second.type"
+                          v-if="member.moves.second.type !== ''"
+                          :type="member.moves.second.type"
                         />
                         <MoveClass
-                          v-if="pokemon.moves.second.class !== ''"
-                          :type="pokemon.moves.second.class"
+                          v-if="member.moves.second.class !== ''"
+                          :type="member.moves.second.class"
                         />
                       </v-row>
                       <MultiuseText :text="'Second move'" />
                       <v-row no-gutters>
                         <v-autocomplete
-                          v-model="pokemon.moves.second.name"
+                          v-model="member.moves.second.name"
                           :items="getMoves"
                           item-value="formattedName"
                           item-title="formattedName"
@@ -225,18 +238,18 @@
                     <v-col class="pr-3" cols="6" align-self="end">
                       <v-row no-gutters align="center" justify="center">
                         <PokemonType
-                          v-if="pokemon.moves.third.type !== ''"
-                          :type="pokemon.moves.third.type"
+                          v-if="member.moves.third.type !== ''"
+                          :type="member.moves.third.type"
                         />
                         <MoveClass
-                          v-if="pokemon.moves.third.class !== ''"
-                          :type="pokemon.moves.third.class"
+                          v-if="member.moves.third.class !== ''"
+                          :type="member.moves.third.class"
                         />
                       </v-row>
                       <MultiuseText :text="'Third move'" />
                       <v-row no-gutters>
                         <v-autocomplete
-                          v-model="pokemon.moves.third.name"
+                          v-model="member.moves.third.name"
                           :items="getMoves"
                           item-value="formattedName"
                           item-title="formattedName"
@@ -253,18 +266,18 @@
                     <v-col class="pl-3" cols="6" align-self="end">
                       <v-row no-gutters align="center" justify="center">
                         <PokemonType
-                          v-if="pokemon.moves.fourth.type !== ''"
-                          :type="pokemon.moves.fourth.type"
+                          v-if="member.moves.fourth.type !== ''"
+                          :type="member.moves.fourth.type"
                         />
                         <MoveClass
-                          v-if="pokemon.moves.fourth.class !== ''"
-                          :type="pokemon.moves.fourth.class"
+                          v-if="member.moves.fourth.class !== ''"
+                          :type="member.moves.fourth.class"
                         />
                       </v-row>
                       <MultiuseText :text="'Fourth move'" />
                       <v-row no-gutters>
                         <v-autocomplete
-                          v-model="pokemon.moves.fourth.name"
+                          v-model="member.moves.fourth.name"
                           :items="getMoves"
                           item-value="formattedName"
                           item-title="formattedName"
@@ -297,13 +310,7 @@ import MultiuseText from "@/components/MultiuseText.vue";
 import PokemonType from "@/components/PokemonType.vue";
 import MoveClass from "@/components/MoveClass.vue";
 import mixin from "@/mixin";
-import {
-  Moves,
-  Pokemon,
-  TeamPokemon,
-  TeamPokemonData,
-  Team,
-} from "@/interface";
+import { Moves, Pokemon, TeamMember, Team } from "@/interface";
 export default defineComponent({
   name: "TeamForm",
   mixins: [mixin],
@@ -327,7 +334,7 @@ export default defineComponent({
         name: "",
         vs: "",
         description: "",
-        pokemon: this.teamPokemon,
+        members: [] as TeamMember[],
       },
       editMode: false,
       loadingItems: false,
@@ -335,8 +342,6 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.team.pokemon = this.teamPokemon;
-
     if (this.$route.name === "edit-team-form") {
       this.editMode = true;
     }
@@ -394,32 +399,33 @@ export default defineComponent({
         ...toEditTeam,
       };
 
-      let pokemonList: TeamPokemonData[] = [];
-      toEditTeam.pokemon.forEach((pokemon: TeamPokemon) => {
+      let pokemonList: TeamMember[] = [];
+      toEditTeam.members.forEach((member: TeamMember) => {
         let teamPokemon = null;
 
-        if (pokemon.pokemon.id !== "") {
+        if (member.pokemon && member.pokemon.id !== "") {
           teamPokemon = {
             ...this.getNuzlocke.pokemon.find(
-              (item: Pokemon) => item._id === pokemon.pokemon.id
+              (item: Pokemon) =>
+                member.pokemon && item._id === member.pokemon.id
             ),
           };
 
           if (
-            teamPokemon.species.codedName !== pokemon.pokemon.species.codedName
+            teamPokemon.species.codedName !== member.pokemon.species.codedName
           ) {
-            teamPokemon.sprite = pokemon.pokemon.sprite;
-            teamPokemon.species = pokemon.pokemon.species;
+            teamPokemon.sprite = member.pokemon.sprite;
+            teamPokemon.species = member.pokemon.species;
           }
         }
 
         pokemonList.push({
           pokemon: teamPokemon,
           item: {
-            ...pokemon.item,
+            ...member.item,
           },
           moves: {
-            ...pokemon.moves,
+            ...member.moves,
           },
         });
       });
@@ -432,12 +438,13 @@ export default defineComponent({
     filteredPokemon() {
       let pokemonList = [...this.getNuzlocke.pokemon];
 
-      this.team.pokemon.forEach((teamPokemon) => {
-        if (teamPokemon.pokemon) {
+      this.team.members.forEach((teamMember) => {
+        if (teamMember.pokemon) {
           let indexOfPokemon = pokemonList.indexOf(
             pokemonList.find(
               (pokemonObject) =>
-                pokemonObject._id === (teamPokemon.pokemon! as Pokemon)._id
+                teamMember.pokemon &&
+                pokemonObject._id === teamMember.pokemon._id
             )
           );
 
@@ -448,38 +455,86 @@ export default defineComponent({
       return pokemonList;
     },
     fetchItemData(index: number) {
-      if (!this.team.pokemon[index].item.name) {
+      if (!this.team.members[index].item.name) {
         return;
       }
 
-      this.fetchItem(this.team.pokemon[index].item.name.codedName).then(
+      this.fetchItem(this.team.members[index].item.name.codedName).then(
         (res) => {
-          this.team.pokemon[index].item.sprite = res.sprites.default
+          this.team.members[index].item.sprite = res.sprites.default
             ? res.sprites.default
             : "";
         }
       );
     },
     fetchMoveData(index: number, move: string) {
-      if (!this.team.pokemon[index].moves[move as keyof Moves].name) {
+      if (!this.team.members[index].moves[move as keyof Moves].name) {
         return;
       }
 
       this.fetchMove(
-        this.team.pokemon[index].moves[move as keyof Moves].name.codedName
+        this.team.members[index].moves[move as keyof Moves].name.codedName
       ).then((res) => {
-        this.team.pokemon[index].moves[move as keyof Moves].type =
+        this.team.members[index].moves[move as keyof Moves].type =
           res.type.name;
 
-        this.team.pokemon[index].moves[move as keyof Moves].class =
+        this.team.members[index].moves[move as keyof Moves].class =
           res.damage_class.name;
       });
     },
+    addTeamMember() {
+      const teamMember: TeamMember = {
+        pokemon: null,
+        item: {
+          name: {
+            codedName: "",
+            formattedName: "",
+          },
+          sprite: "",
+        },
+        moves: {
+          first: {
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
+            class: "",
+            type: "",
+          },
+          second: {
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
+            class: "",
+            type: "",
+          },
+          third: {
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
+            class: "",
+            type: "",
+          },
+          fourth: {
+            name: {
+              codedName: "",
+              formattedName: "",
+            },
+            class: "",
+            type: "",
+          },
+        },
+      };
+
+      this.team.members.push(teamMember);
+    },
     clearPokemon(index: number) {
-      this.team.pokemon[index].pokemon = null;
+      this.team.members[index].pokemon = null;
     },
     clearItem(index: number) {
-      this.team.pokemon[index].item = {
+      this.team.members[index].item = {
         name: {
           codedName: "",
           formattedName: "",
@@ -488,7 +543,7 @@ export default defineComponent({
       };
     },
     clearMove(index: number, move: string) {
-      this.team.pokemon[index].moves[move as keyof Moves] = {
+      this.team.members[index].moves[move as keyof Moves] = {
         name: {
           codedName: "",
           formattedName: "",
@@ -506,26 +561,28 @@ export default defineComponent({
         return;
       }
 
-      let pokemonList: TeamPokemon[] = [];
+      let pokemonList: TeamMember[] = [];
 
-      this.team.pokemon.forEach((pokemon) => {
+      this.team.members.forEach((member) => {
         let pokemonData = {
-          id: pokemon.pokemon ? (pokemon.pokemon as Pokemon)._id! : "",
-          sprite: pokemon.pokemon ? (pokemon.pokemon as Pokemon).sprite : "",
+          id: member.pokemon
+            ? member.pokemon.id
+              ? member.pokemon.id
+              : member.pokemon._id
+            : "",
+          sprite: member.pokemon ? member.pokemon.sprite : "",
           species: {
-            codedName: pokemon.pokemon
-              ? (pokemon.pokemon as Pokemon).species.codedName
-              : "",
-            formattedName: pokemon.pokemon
-              ? (pokemon.pokemon as Pokemon).species.formattedName
+            codedName: member.pokemon ? member.pokemon.species.codedName : "",
+            formattedName: member.pokemon
+              ? member.pokemon.species.formattedName
               : "",
           },
         };
 
         pokemonList.push({
           pokemon: pokemonData,
-          item: pokemon.item,
-          moves: pokemon.moves,
+          item: member.item,
+          moves: member.moves,
         });
       });
 
@@ -535,14 +592,14 @@ export default defineComponent({
         this.addTeam(pokemonList);
       }
     },
-    async addTeam(pokemonList: Array<TeamPokemon>) {
+    async addTeam(pokemonList: Array<TeamMember>) {
       const data = {
         nuzlockeId: this.$route.params.nuzlockeId,
         team: {
           name: this.team.name,
           vs: this.team.vs,
           description: this.team.description,
-          pokemon: pokemonList,
+          members: pokemonList,
         },
       };
 
@@ -550,7 +607,7 @@ export default defineComponent({
         this.toNuzlocke();
       });
     },
-    async updateTeam(pokemonList: Array<TeamPokemon>) {
+    async updateTeam(pokemonList: Array<TeamMember>) {
       const data = {
         nuzlockeId: this.$route.params.nuzlockeId,
         teamId: this.$route.params.teamId,
@@ -558,7 +615,7 @@ export default defineComponent({
           name: this.team.name,
           vs: this.team.vs,
           description: this.team.description,
-          pokemon: pokemonList,
+          members: pokemonList,
         },
       };
 
