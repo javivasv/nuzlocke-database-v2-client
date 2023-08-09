@@ -440,14 +440,12 @@ export default defineComponent({
 
       this.team.members.forEach((teamMember) => {
         if (teamMember.pokemon) {
-          let indexOfPokemon = pokemonList.indexOf(
-            pokemonList.find(
-              (pokemonObject) =>
-                teamMember.pokemon &&
-                pokemonObject._id === teamMember.pokemon._id
-            )
+          const pokemon = pokemonList.find(
+            (pokemonObject) =>
+              teamMember.pokemon && pokemonObject._id === teamMember.pokemon._id
           );
 
+          const indexOfPokemon = pokemonList.indexOf(pokemon);
           pokemonList.splice(indexOfPokemon, 1);
         }
       });
