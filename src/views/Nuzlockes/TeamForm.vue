@@ -56,6 +56,11 @@
       <v-row no-gutters align="center" justify="center">
         <v-col>
           <template v-for="(member, index) in team.members" :key="index">
+            <v-row no-gutters align="center" justify="end">
+              <v-btn icon size="x-small" @click="removeTeamMember(index)">
+                <v-icon icon="close"></v-icon>
+              </v-btn>
+            </v-row>
             <v-row no-gutters align="center" justify="center">
               <v-col cols="6">
                 <v-row no-gutters align="center" justify="center">
@@ -527,6 +532,9 @@ export default defineComponent({
       };
 
       this.team.members.push(teamMember);
+    },
+    removeTeamMember(index: number) {
+      this.team.members.splice(index, 1);
     },
     clearPokemon(index: number) {
       this.team.members[index].pokemon = null;
