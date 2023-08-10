@@ -102,7 +102,7 @@
     </v-row>
   </v-card-text>
   <DeleteDialog
-    :name="pokemon"
+    :name="pokemonName"
     :show-dialog="showDeleteDialog"
     @delete="deletePokemon()"
     @close="showDeleteDialog = false"
@@ -124,27 +124,27 @@ export default defineComponent({
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
     }),
-    pokemon() {
-      if (this.getNuzlocke) {
-        let toDeletePokemon: Pokemon;
-        toDeletePokemon = this.getNuzlocke.pokemon.find(
-          (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
-        );
-
-        if (toDeletePokemon) {
-          return toDeletePokemon.nickname !== ""
-            ? toDeletePokemon.nickname
-            : toDeletePokemon.species.formattedName;
-        }
-      }
-
-      return "";
-    },
   },
   data() {
     return {
+      pokemonName: "",
       showDeleteDialog: false,
     };
+  },
+  mounted() {
+    if (this.getNuzlocke) {
+      let toDeletePokemon: Pokemon;
+      toDeletePokemon = this.getNuzlocke.pokemon.find(
+        (pokemon: Pokemon) => pokemon._id === this.$route.params.pokemonId
+      );
+
+      if (toDeletePokemon) {
+        this.pokemonName =
+          toDeletePokemon.nickname !== ""
+            ? toDeletePokemon.nickname
+            : toDeletePokemon.species.formattedName;
+      }
+    }
   },
   methods: {
     ...mapActions("pokemon", {

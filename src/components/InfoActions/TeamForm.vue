@@ -93,7 +93,7 @@
     </v-row>
   </v-card-text>
   <DeleteDialog
-    :name="team"
+    :name="teamName"
     :show-dialog="showDeleteDialog"
     @delete="deleteTeam()"
     @close="showDeleteDialog = false"
@@ -115,25 +115,24 @@ export default defineComponent({
     ...mapGetters("nuzlockes", {
       getNuzlocke: "GET_NUZLOCKE",
     }),
-    team() {
-      if (this.getNuzlocke) {
-        let toDeleteTeam: Team;
-        toDeleteTeam = this.getNuzlocke.teams.find(
-          (team: Team) => team._id === this.$route.params.teamId
-        );
-
-        if (toDeleteTeam) {
-          return toDeleteTeam.name;
-        }
-      }
-
-      return "";
-    },
   },
   data() {
     return {
+      teamName: "",
       showDeleteDialog: false,
     };
+  },
+  mounted() {
+    if (this.getNuzlocke) {
+      let toDeleteTeam: Team;
+      toDeleteTeam = this.getNuzlocke.teams.find(
+        (team: Team) => team._id === this.$route.params.teamId
+      );
+
+      if (toDeleteTeam) {
+        this.teamName = toDeleteTeam.name;
+      }
+    }
   },
   methods: {
     ...mapActions("teams", {
