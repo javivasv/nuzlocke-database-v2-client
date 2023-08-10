@@ -65,14 +65,26 @@
       </v-col>
       <v-col class="pa-3" cols="4">
         <v-card class="pa-4 mb-4">
-          <MultiuseText :text="'Suggestions'" :justify="'center'" />
+          <MultiuseText :text="'Feedback'" :justify="'center'" />
           <v-row no-gutters>
             <v-form ref="suggestionForm" class="w-100" @submit.prevent="send()">
               <v-row no-gutters>
                 <v-col>
-                  <v-row class="py-3" no-gutters>
+                  <MultiuseText :text="'Name'" />
+                  <v-row class="mb-5" no-gutters>
+                    <v-text-field
+                      v-model="suggestion.name"
+                      variant="outlined"
+                      hide-details
+                      color="secondary"
+                      density="compact"
+                    >
+                    </v-text-field>
+                  </v-row>
+                  <MultiuseText :text="'Suggestions'" />
+                  <v-row no-gutters>
                     <v-textarea
-                      v-model="suggestion"
+                      v-model="suggestion.text"
                       variant="outlined"
                       hide-details
                       color="secondary"
@@ -133,7 +145,10 @@ export default defineComponent({
   },
   data() {
     return {
-      suggestion: "",
+      suggestion: {
+        name: "",
+        text: "",
+      },
       isLoading: false,
       websites: [
         {
@@ -156,19 +171,20 @@ export default defineComponent({
       sendSuggestion: "SEND_SUGGESTION",
     }),
     async send() {
-      if (this.suggestion === "") {
+      if (this.suggestion.text === "") {
         return;
       }
 
-      let data = {
-        suggestion: this.suggestion,
-      };
-
       this.isLoading = true;
-      this.sendSuggestion(data).then(() => {
-        this.suggestion = "";
-        this.isLoading = false;
-      });
+      this.sendSuggestion(this.suggestion)
+        .then(() => {
+          this.suggestion.name = "";
+          this.suggestion.text = "";
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
     },
   },
 });
