@@ -447,7 +447,9 @@ export default defineComponent({
         if (teamMember.pokemon) {
           const pokemon = pokemonList.find(
             (pokemonObject) =>
-              teamMember.pokemon && pokemonObject._id === teamMember.pokemon._id
+              teamMember.pokemon &&
+              (pokemonObject._id === teamMember.pokemon._id ||
+                pokemonObject._id === teamMember.pokemon.id)
           );
 
           const indexOfPokemon = pokemonList.indexOf(pokemon);

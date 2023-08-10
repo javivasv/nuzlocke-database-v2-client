@@ -365,7 +365,9 @@ export default defineComponent({
         this.pokemon.types.second = "";
       }
 
-      this.fetchPokemonData();
+      if (!this.pokemon.originalSpecies) {
+        this.fetchPokemonData();
+      }
     },
     defaultPokemon() {
       if (!this.editMode) {
