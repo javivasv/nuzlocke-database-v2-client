@@ -37,7 +37,7 @@
                 hide-details
                 color="secondary"
                 density="compact"
-                @update:modelValue="pokemonShiny()"
+                @update:modelValue="pokemonShinyChange()"
               ></v-checkbox>
             </v-row>
             <MultiuseText :text="'Species'" />
@@ -87,7 +87,7 @@
                     hide-details
                     color="secondary"
                     density="compact"
-                    @update:modelValue="pokemonOriginal()"
+                    @update:modelValue="pokemonOriginalReset()"
                   ></v-checkbox>
                 </v-row>
               </v-col>
@@ -172,7 +172,7 @@
                     hide-details
                     color="secondary"
                     density="compact"
-                    @update:modelValue="pokemonAbility()"
+                    @update:modelValue="pokemonAbilityReset()"
                   ></v-checkbox>
                 </v-row>
               </v-col>
@@ -342,11 +342,13 @@ export default defineComponent({
         },
       };
 
+      // Set obtained selector value
       this.pokemon.obtained =
         this.obtained.find(
           (option) => option.toLowerCase() === toEditPokemon.obtained
         ) || toEditPokemon.obtained;
 
+      // Set first type selector value
       const firstType =
         this.pokemonTypes.find(
           (type) => type.name.toLowerCase() === toEditPokemon.types.first
@@ -354,6 +356,7 @@ export default defineComponent({
 
       this.pokemon.types.first = firstType.name;
 
+      // Set second type selector value
       if (this.pokemon.types.second !== "") {
         const secondType =
           this.pokemonTypes.find(
@@ -365,6 +368,7 @@ export default defineComponent({
         this.pokemon.types.second = "";
       }
 
+      // Fetch to get info about the sprites
       if (!this.pokemon.originalSpecies) {
         this.fetchPokemonData();
       }
@@ -383,6 +387,7 @@ export default defineComponent({
       this.loadingPokemonData = true;
       this.fetchPokemon(this.pokemon.species.codedName)
         .then((res) => {
+          // Processing of the sprites (normal and shiny)
           this.normalSpriteUrl = res.sprites.front_default
             ? res.sprites.front_default
             : "";
@@ -398,31 +403,34 @@ export default defineComponent({
             this.shiny = false;
           }
 
-          this.pokemonShiny();
+          this.pokemonShinyChange();
 
-          const firstType =
-            this.pokemonTypes.find(
-              (type) => type.name.toLowerCase() === res.types[0].type.name
-            ) || this.pokemonTypes[0];
-
-          this.pokemon.types.first = firstType.name;
-
-          if (res.types[1]) {
-            const secondType =
+          // Set the types of the new pokemon being added
+          if (!this.editMode) {
+            const firstType =
               this.pokemonTypes.find(
-                (type) => type.name.toLowerCase() === res.types[1].type.name
+                (type) => type.name.toLowerCase() === res.types[0].type.name
               ) || this.pokemonTypes[0];
 
-            this.pokemon.types.second = secondType.name;
-          } else {
-            this.pokemon.types.second = "";
+            this.pokemon.types.first = firstType.name;
+
+            if (res.types[1]) {
+              const secondType =
+                this.pokemonTypes.find(
+                  (type) => type.name.toLowerCase() === res.types[1].type.name
+                ) || this.pokemonTypes[0];
+
+              this.pokemon.types.second = secondType.name;
+            } else {
+              this.pokemon.types.second = "";
+            }
           }
         })
         .finally(() => {
           this.loadingPokemonData = false;
         });
     },
-    pokemonOriginal() {
+    pokemonOriginalReset() {
       this.pokemon.species.codedName = "";
       this.pokemon.species.formattedName = "";
       this.pokemon.sprite = "";
@@ -430,11 +438,11 @@ export default defineComponent({
       this.shinySpriteUrl = "";
       this.shiny = false;
     },
-    pokemonAbility() {
+    pokemonAbilityReset() {
       this.pokemon.ability.codedName = "";
       this.pokemon.ability.formattedName = "";
     },
-    pokemonShiny() {
+    pokemonShinyChange() {
       this.pokemon.sprite = this.shiny
         ? this.shinySpriteUrl
         : this.normalSpriteUrl;
@@ -478,12 +486,6 @@ export default defineComponent({
         this.toNuzlocke();
       });
     },
-    clearAbility() {
-      this.pokemon.ability = {
-        codedName: "",
-        formattedName: "",
-      };
-    },
     async updatePokemon() {
       const data = {
         nuzlockeId: this.$route.params.nuzlockeId,
@@ -523,6 +525,13 @@ export default defineComponent({
     clearSecondType() {
       this.pokemon.types.second = "";
     },
+    clearAbility() {
+      this.pokemon.ability = {
+        codedName: "",
+        formattedName: "",
+      };
+    },
+    // Inputs validations
     required(value: string, type: string) {
       if (value) return true;
       return `You must enter a ${type}`;
