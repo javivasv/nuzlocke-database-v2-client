@@ -17,7 +17,7 @@
     <v-btn class="ma-2" color="secondary" @click="toAddPokemon()">
       Add pokemon
     </v-btn>
-    <v-btn class="ma-2" color="secondary" @click="toAddTeam()">
+    <v-btn v-if="false" class="ma-2" color="secondary" @click="toAddTeam()">
       Add team
     </v-btn>
   </v-row>

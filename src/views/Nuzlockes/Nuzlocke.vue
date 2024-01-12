@@ -6,7 +6,7 @@
           <v-row no-gutters>
             <v-tabs v-model="tab" color="primary">
               <v-tab> Pokemon </v-tab>
-              <v-tab> Teams </v-tab>
+              <v-tab v-if="false"> Teams </v-tab>
             </v-tabs>
           </v-row>
           <v-row
@@ -25,7 +25,7 @@
             <v-window-item>
               <PokemonTable />
             </v-window-item>
-            <v-window-item>
+            <v-window-item v-if="false">
               <TeamsTable />
             </v-window-item>
           </v-window>

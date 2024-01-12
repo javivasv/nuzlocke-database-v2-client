@@ -34,8 +34,8 @@
         </v-card>
         <v-card class="pa-4 mb-4 w-100">
           <v-card-text>
-            Pokemon names, Pokemon sprites, Pokemon moves and held items are
-            taken from
+            Pokemon sprites, Pokemon names, Pokemon types and Pokemon abilities
+            are taken from
             <a
               class="website-link"
               href="https://pokeapi.co/docs/v2"
@@ -57,9 +57,10 @@
         </v-card>
         <v-card class="pa-4">
           <v-card-text>
-            Pokémon © 2002-2023 Pokémon. © 1995-2023 Nintendo/Creatures
-            Inc./GAME FREAK inc. TM, ® and Pokémon character names are
-            trademarks of Nintendo.
+            This website/app is a fan-made project and is not affiliated with,
+            endorsed, sponsored, or specifically approved by Nintendo, Game
+            Freak, or The Pokémon Company. Pokémon and its trademarks are the
+            property of Nintendo, Game Freak, and The Pokémon Company.
           </v-card-text>
         </v-card>
       </v-col>
