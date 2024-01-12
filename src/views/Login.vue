@@ -100,7 +100,7 @@
                         variant="outlined"
                         color="secondary"
                         density="compact"
-                        :rules="usernameRules"
+                        :rules="emailRules"
                       ></v-text-field>
                     </v-row>
                     <MultiuseText :text="'Password'" />
@@ -173,7 +173,10 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       },
-      emailRules: [(value: string) => this.required(value, "email")],
+      emailRules: [
+        (value: string) => this.required(value, "email"),
+        (value: string) => this.validEmail(value),
+      ],
       usernameRules: [(value: string) => this.required(value, "username")],
       passwordRules: [(value: string) => this.required(value, "password")],
       passwordConfirmationRules: [
@@ -263,7 +266,13 @@ export default defineComponent({
     },
     required(value: string, type: string) {
       if (value) return true;
-      return `You must enter a ${type}`;
+      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
+    },
+    validEmail(value: string) {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+      if (emailRegex.test(value)) return true;
+      return `You must enter a valid email`;
     },
     passwordMatch(value: string) {
       if (value === this.newUserData.password) return true;
