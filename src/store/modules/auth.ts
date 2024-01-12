@@ -36,7 +36,11 @@ export const auth: Module<AuthState, State> = {
           .then((res) => {
             window.localStorage.setItem("ndb_token", res.data.token);
             const token = jwtDecode(res.data.token) as Token;
-            commit("SET_USER", { _id: token._id, username: token.username });
+            commit("SET_USER", {
+              _id: token._id,
+              email: token.email,
+              username: token.username,
+            });
             resolve(res.data);
           })
           .catch((error) => {
@@ -91,7 +95,11 @@ export const auth: Module<AuthState, State> = {
           .post(`${process.env.VUE_APP_API}/session`, data)
           .then((res) => {
             const token = jwtDecode(data.token) as Token;
-            commit("SET_USER", { _id: token._id, username: token.username });
+            commit("SET_USER", {
+              _id: token._id,
+              email: token.email,
+              username: token.username,
+            });
             resolve(res.data);
           })
           .catch((error) => {

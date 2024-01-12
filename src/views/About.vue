@@ -185,6 +185,7 @@ export default defineComponent({
 
       const data = {
         ...this.suggestion,
+        email: this.getUser ? this.getUser.email : null,
         username: this.getUser ? this.getUser.username : null,
       };
 
