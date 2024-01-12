@@ -10,138 +10,27 @@
       <v-col align-self="center">
         <v-row class="w-100" no-gutters align="center" justify="center">
           <v-card class="login-card pa-6">
-            <v-row v-if="newUser" no-gutters>
-              <v-form
-                ref="registerForm"
-                class="w-100"
-                @submit.prevent="register()"
-              >
-                <v-row no-gutters>
-                  <v-col>
-                    <MultiuseText :text="'Email'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="newUserData.email"
-                        variant="outlined"
-                        color="secondary"
-                        density="compact"
-                        :rules="emailRules"
-                      ></v-text-field>
-                    </v-row>
-                    <MultiuseText :text="'Username'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="newUserData.username"
-                        variant="outlined"
-                        color="secondary"
-                        density="compact"
-                        :rules="usernameRules"
-                      ></v-text-field>
-                    </v-row>
-                    <MultiuseText :text="'Password'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="newUserData.password"
-                        variant="outlined"
-                        type="password"
-                        color="secondary"
-                        density="compact"
-                        :rules="passwordRules"
-                      ></v-text-field>
-                    </v-row>
-                    <MultiuseText :text="'Password confirmation'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="newUserData.passwordConfirmation"
-                        variant="outlined"
-                        type="password"
-                        color="secondary"
-                        density="compact"
-                        :rules="passwordConfirmationRules"
-                      ></v-text-field>
-                    </v-row>
-                    <v-row
-                      class="py-3"
-                      no-gutters
-                      align="center"
-                      justify="center"
-                    >
-                      <v-btn color="primary" type="submit">Register</v-btn>
-                    </v-row>
-                    <v-row
-                      class="pt-3"
-                      no-gutters
-                      align="center"
-                      justify="center"
-                    >
-                      <span
-                        >Already have an account?
-                        <span class="form-action" @click="changeForm(false)"
-                          >Login</span
-                        ></span
-                      >
-                      <v-divider class="mx-3" vertical></v-divider>
-                      <span class="form-action" @click="goHome()">
-                        Go home
-                      </span>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-form>
-            </v-row>
-            <v-row v-else no-gutters>
-              <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
-                <v-row no-gutters>
-                  <v-col>
-                    <MultiuseText :text="'Email'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="userData.email"
-                        variant="outlined"
-                        color="secondary"
-                        density="compact"
-                        :rules="emailRules"
-                      ></v-text-field>
-                    </v-row>
-                    <MultiuseText :text="'Password'" />
-                    <v-row no-gutters>
-                      <v-text-field
-                        v-model="userData.password"
-                        variant="outlined"
-                        type="password"
-                        color="secondary"
-                        density="compact"
-                        :rules="passwordRules"
-                      ></v-text-field>
-                    </v-row>
-                    <v-row
-                      class="py-3"
-                      no-gutters
-                      align="center"
-                      justify="center"
-                    >
-                      <v-btn color="primary" type="submit">Login</v-btn>
-                    </v-row>
-                    <v-row
-                      class="pt-3"
-                      no-gutters
-                      align="center"
-                      justify="center"
-                    >
-                      <span
-                        >Don't have an account?
-                        <span class="form-action" @click="changeForm(true)"
-                          >Register</span
-                        >
-                      </span>
-                      <v-divider class="mx-3" vertical></v-divider>
-                      <span class="form-action" @click="goHome()">
-                        Go home
-                      </span>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-form>
+            <LoginForm v-if="formType === 0" @changeForm="changeForm" />
+            <RegisterForm v-else-if="formType === 1" @changeForm="changeForm" />
+            <v-row class="pt-3" no-gutters align="center" justify="center">
+              <template v-if="formType === 0">
+                <span
+                  >Don't have an account?
+                  <span class="form-action" @click="changeForm(1)"
+                    >Register</span
+                  >
+                </span>
+              </template>
+              <template v-else-if="formType === 1">
+                <span
+                  >Already have an account?
+                  <span class="form-action" @click="changeForm(0)"
+                    >Login</span
+                  ></span
+                >
+              </template>
+              <v-divider class="mx-3" vertical></v-divider>
+              <span class="form-action" @click="goHome()"> Go home </span>
             </v-row>
           </v-card>
         </v-row>
@@ -152,37 +41,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
 import { useTheme } from "vuetify";
-import MultiuseText from "@/components/MultiuseText.vue";
+import LoginForm from "@/components/Login/LoginForm.vue";
+import RegisterForm from "@/components/Login/RegisterForm.vue";
 export default defineComponent({
   name: "Login",
   components: {
-    MultiuseText,
+    LoginForm,
+    RegisterForm,
   },
   data() {
     return {
-      userData: {
-        email: "",
-        password: "",
-      },
-      newUser: false,
-      newUserData: {
-        email: "",
-        username: "",
-        password: "",
-        passwordConfirmation: "",
-      },
-      emailRules: [
-        (value: string) => this.required(value, "email"),
-        (value: string) => this.validEmail(value),
-      ],
-      usernameRules: [(value: string) => this.required(value, "username")],
-      passwordRules: [(value: string) => this.required(value, "password")],
-      passwordConfirmationRules: [
-        (value: string) => this.required(value, "password"),
-        (value: string) => this.passwordMatch(value),
-      ],
+      formType: 0,
     };
   },
   setup() {
@@ -206,77 +76,13 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions("auth", {
-      doLogin: "LOGIN",
-      registerUser: "REGISTER_USER",
-    }),
-    async login() {
-      const { valid } = await (
-        this.$refs.loginForm as HTMLFormElement
-      ).validate();
-
-      if (!valid) {
-        return;
-      }
-
-      this.doLogin(this.userData).then(() => {
-        this.$router.push({
-          name: "home",
-        });
-      });
-    },
-    async register() {
-      const { valid } = await (
-        this.$refs.registerForm as HTMLFormElement
-      ).validate();
-
-      if (!valid) {
-        return;
-      }
-
-      const userData = {
-        email: this.newUserData.email,
-        username: this.newUserData.username,
-        password: this.newUserData.password,
-      };
-
-      this.registerUser(userData).then(() => {
-        this.changeForm(false);
-      });
-    },
-    changeForm(val: boolean) {
-      this.newUser = val;
-
-      this.userData = {
-        email: "",
-        password: "",
-      };
-
-      this.newUserData = {
-        email: "",
-        username: "",
-        password: "",
-        passwordConfirmation: "",
-      };
+    changeForm(val: number) {
+      this.formType = val;
     },
     goHome() {
       this.$router.push({
         name: "home",
       });
-    },
-    required(value: string, type: string) {
-      if (value) return true;
-      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
-    },
-    validEmail(value: string) {
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-      if (emailRegex.test(value)) return true;
-      return `You must enter a valid email`;
-    },
-    passwordMatch(value: string) {
-      if (value === this.newUserData.password) return true;
-      return "The passwords must match";
     },
     changeTheme() {
       this.toggleTheme();
