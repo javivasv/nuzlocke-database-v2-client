@@ -18,6 +18,16 @@
               >
                 <v-row no-gutters>
                   <v-col>
+                    <MultiuseText :text="'Email'" />
+                    <v-row no-gutters>
+                      <v-text-field
+                        v-model="newUserData.email"
+                        variant="outlined"
+                        color="secondary"
+                        density="compact"
+                        :rules="emailRules"
+                      ></v-text-field>
+                    </v-row>
                     <MultiuseText :text="'Username'" />
                     <v-row no-gutters>
                       <v-text-field
@@ -83,10 +93,10 @@
               <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
                 <v-row no-gutters>
                   <v-col>
-                    <MultiuseText :text="'Username'" />
+                    <MultiuseText :text="'Email'" />
                     <v-row no-gutters>
                       <v-text-field
-                        v-model="userData.username"
+                        v-model="userData.email"
                         variant="outlined"
                         color="secondary"
                         density="compact"
@@ -152,15 +162,17 @@ export default defineComponent({
   data() {
     return {
       userData: {
-        username: "",
+        email: "",
         password: "",
       },
       newUser: false,
       newUserData: {
+        email: "",
         username: "",
         password: "",
         passwordConfirmation: "",
       },
+      emailRules: [(value: string) => this.required(value, "email")],
       usernameRules: [(value: string) => this.required(value, "username")],
       passwordRules: [(value: string) => this.required(value, "password")],
       passwordConfirmationRules: [
@@ -199,6 +211,7 @@ export default defineComponent({
       }
 
       const userData = {
+        email: this.newUserData.email,
         username: this.newUserData.username,
         password: this.newUserData.password,
       };
@@ -211,11 +224,12 @@ export default defineComponent({
       this.newUser = val;
 
       this.userData = {
-        username: "",
+        email: "",
         password: "",
       };
 
       this.newUserData = {
+        email: "",
         username: "",
         password: "",
         passwordConfirmation: "",
