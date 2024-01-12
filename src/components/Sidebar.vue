@@ -13,6 +13,12 @@
           <v-row class="py-6" no-gutters align="center" justify="center">
             <span>NDB</span>
           </v-row>
+          <template v-if="getUser">
+            <v-divider class="my-3"></v-divider>
+            <v-row no-gutters align="center" justify="center">
+              <span>{{ getUser.username }}</span>
+            </v-row>
+          </template>
           <v-divider class="my-3"></v-divider>
           <template v-for="item in sidebarItems" :key="item.name">
             <v-row
