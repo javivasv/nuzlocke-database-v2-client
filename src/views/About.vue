@@ -185,7 +185,7 @@ export default defineComponent({
 
       const data = {
         ...this.suggestion,
-        username: this.getUser.username,
+        username: this.getUser ? this.getUser.username : null,
       };
 
       this.sendSuggestion(data)
