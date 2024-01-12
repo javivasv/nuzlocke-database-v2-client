@@ -153,6 +153,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions } from "vuex";
+import { useTheme } from "vuetify";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "Login",
@@ -180,6 +181,26 @@ export default defineComponent({
         (value: string) => this.passwordMatch(value),
       ],
     };
+  },
+  setup() {
+    const theme = useTheme();
+
+    return {
+      theme,
+      toggleTheme: () =>
+        (theme.global.name.value = theme.global.current.value.dark
+          ? "customLightTheme"
+          : "customDarkTheme"),
+    };
+  },
+  mounted() {
+    const theme = window.localStorage.getItem("ndb_theme");
+
+    if (theme === "customDarkTheme") {
+      if (this.$vuetify.theme.name !== "customDarkTheme") {
+        this.changeTheme();
+      }
+    }
   },
   methods: {
     ...mapActions("auth", {
@@ -247,6 +268,10 @@ export default defineComponent({
     passwordMatch(value: string) {
       if (value === this.newUserData.password) return true;
       return "The passwords must match";
+    },
+    changeTheme() {
+      this.toggleTheme();
+      window.localStorage.setItem("ndb_theme", this.$vuetify.theme.name);
     },
   },
 });
