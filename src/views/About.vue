@@ -137,7 +137,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "About",
@@ -167,6 +167,11 @@ export default defineComponent({
       ],
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      getUser: "GET_USER",
+    }),
+  },
   methods: {
     ...mapActions("suggestions", {
       sendSuggestion: "SEND_SUGGESTION",
@@ -177,7 +182,13 @@ export default defineComponent({
       }
 
       this.isLoading = true;
-      this.sendSuggestion(this.suggestion)
+
+      const data = {
+        ...this.suggestion,
+        username: this.getUser.username,
+      };
+
+      this.sendSuggestion(data)
         .then(() => {
           this.suggestion.name = "";
           this.suggestion.text = "";
