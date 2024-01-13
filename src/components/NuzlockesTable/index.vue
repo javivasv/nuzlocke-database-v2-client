@@ -1,68 +1,70 @@
 <template>
   <v-row no-gutters>
     <v-col>
-      <template v-if="getNuzlockes.length === 0">
-        <v-row class="py-3" no-gutters align="center" justify="center">
-          <h2>There are no nuzlockes registered yet</h2>
-        </v-row>
-      </template>
+      <v-row
+        v-if="isLoading"
+        class="py-5"
+        no-gutters
+        align="center"
+        justify="center"
+      >
+        <v-progress-circular
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </v-row>
       <template v-else>
-        <v-row class="mb-3" no-gutters>
-          <v-text-field
-            v-model="search"
-            prepend-inner-icon="search"
-            placeholder="Search"
-            hide-details
-            variant="outlined"
-            color="secondary"
-            density="compact"
-          ></v-text-field>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <v-row class="py-5 table-header" no-gutters>
-              <v-col
-                v-for="header in headers"
-                :key="header.name"
-                :cols="header.cols"
-              >
-                <v-row no-gutters align="center" justify="center">
-                  {{ header.text }}
-                </v-row>
-              </v-col>
-            </v-row>
-            <v-row
-              v-if="isLoading"
-              class="py-5"
-              no-gutters
-              align="center"
-              justify="center"
-            >
-              <v-progress-circular
-                color="primary"
-                indeterminate
-              ></v-progress-circular>
-            </v-row>
-            <v-row v-else no-gutters>
-              <v-col
-                class="thin-scrollbar"
-                :style="{
-                  'max-height': $vuetify.display.height - 172 + 'px',
-                }"
-              >
-                <template
-                  v-for="nuzlocke in filteredNuzlockes()"
-                  :key="nuzlocke._id"
+        <template v-if="getNuzlockes.length === 0">
+          <v-row class="py-3" no-gutters align="center" justify="center">
+            <h2>There are no nuzlockes registered yet</h2>
+          </v-row>
+        </template>
+        <template v-else>
+          <v-row class="mb-3" no-gutters>
+            <v-text-field
+              v-model="search"
+              prepend-inner-icon="search"
+              placeholder="Search"
+              hide-details
+              variant="outlined"
+              color="secondary"
+              density="compact"
+            ></v-text-field>
+          </v-row>
+          <v-row no-gutters>
+            <v-col>
+              <v-row class="py-5 table-header" no-gutters>
+                <v-col
+                  v-for="header in headers"
+                  :key="header.name"
+                  :cols="header.cols"
                 >
-                  <NuzlockeRow
-                    :nuzlocke="nuzlocke"
-                    @checkNuzlocke="checkNuzlocke"
-                  />
-                </template>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
+                  <v-row no-gutters align="center" justify="center">
+                    {{ header.text }}
+                  </v-row>
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col
+                  class="thin-scrollbar"
+                  :style="{
+                    'max-height': $vuetify.display.height - 172 + 'px',
+                  }"
+                >
+                  <template
+                    v-for="nuzlocke in filteredNuzlockes()"
+                    :key="nuzlocke._id"
+                  >
+                    <NuzlockeRow
+                      :nuzlocke="nuzlocke"
+                      @checkNuzlocke="checkNuzlocke"
+                    />
+                  </template>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </template>
       </template>
     </v-col>
   </v-row>

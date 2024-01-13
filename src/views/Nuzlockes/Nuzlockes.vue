@@ -1,7 +1,7 @@
 <template>
   <v-row id="nuzlockes" no-gutters>
     <v-card class="pa-4 w-100">
-      <NuzlockesTable />
+      <NuzlockesTable :is-loading="isLoading" />
     </v-card>
   </v-row>
 </template>

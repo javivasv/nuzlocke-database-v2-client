@@ -1,6 +1,6 @@
 <template>
   <v-row class="py-3" no-gutters align="center" justify="center">
-    <v-btn color="secondary" @click="submitPokemon()">
+    <v-btn color="secondary" :loading="isLoading" @click="submitPokemon()">
       {{
         $route.name === "edit-pokemon-form" ? "Update pokemon" : "Add pokemon"
       }}
@@ -129,6 +129,7 @@ export default defineComponent({
     return {
       pokemonName: "",
       showDeleteDialog: false,
+      isLoading: false,
     };
   },
   mounted() {
@@ -154,6 +155,7 @@ export default defineComponent({
       fetchNuzlocke: "FETCH_NUZLOCKE",
     }),
     submitPokemon() {
+      this.isLoading = true;
       this.$emit("submitPokemon");
     },
     toNuzlocke() {

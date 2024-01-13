@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import Card from "@/components/InfoActions/Card.vue";
 export default defineComponent({
   name: "Nuzlockes",
@@ -36,23 +36,7 @@ export default defineComponent({
       getNuzlockes: "GET_NUZLOCKES",
     }),
   },
-  mounted() {
-    if (this.getNuzlockes.length === 0) {
-      this.isLoading = true;
-      this.fetchNuzlockes().finally(() => {
-        this.isLoading = false;
-      });
-    }
-  },
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
   methods: {
-    ...mapActions("nuzlockes", {
-      fetchNuzlockes: "FETCH_NUZLOCKES",
-    }),
     goTo() {
       if (
         this.$route.name === "nuzlocke" ||

@@ -1,6 +1,6 @@
 <template>
   <v-row class="py-3" no-gutters align="center" justify="center">
-    <v-btn color="secondary" @click="submitNuzlocke()">
+    <v-btn color="secondary" :loading="isLoading" @click="submitNuzlocke()">
       {{
         $route.name === "edit-nuzlocke-form"
           ? "Update nuzlocke"
@@ -40,8 +40,14 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "InfoActionsNuzlockeForm",
   emits: ["submitNuzlocke"],
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   methods: {
     submitNuzlocke() {
+      this.isLoading = true;
       this.$emit("submitNuzlocke");
     },
   },

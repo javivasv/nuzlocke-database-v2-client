@@ -193,9 +193,8 @@ export default defineComponent({
         .then(() => {
           this.suggestion.name = "";
           this.suggestion.text = "";
-          this.isLoading = false;
         })
-        .catch(() => {
+        .finally(() => {
           this.isLoading = false;
         });
     },
