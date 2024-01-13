@@ -31,9 +31,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions } from "vuex";
+import mixin from "@/mixin";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "ForgotPasswordForm",
+  mixins: [mixin],
   components: {
     MultiuseText,
   },
@@ -69,16 +71,6 @@ export default defineComponent({
         .finally(() => {
           this.isLoading = false;
         });
-    },
-    required(value: string, type: string) {
-      if (value) return true;
-      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
-    },
-    validEmail(value: string) {
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-      if (emailRegex.test(value)) return true;
-      return `You must enter a valid email`;
     },
   },
 });

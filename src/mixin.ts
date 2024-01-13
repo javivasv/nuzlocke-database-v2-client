@@ -111,5 +111,20 @@ export default {
       },
     ],
   }),
-  methods: {},
+  methods: {
+    required(value: string, type: string) {
+      if (value) return true;
+      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
+    },
+    validEmail(value: string) {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+      if (emailRegex.test(value)) return true;
+      return `You must enter a valid email`;
+    },
+    passwordMatch(value: string, secondValue: string) {
+      if (value === secondValue) return true;
+      return "The passwords must match";
+    },
+  },
 };

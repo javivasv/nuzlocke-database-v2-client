@@ -59,9 +59,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions } from "vuex";
+import mixin from "@/mixin";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "RegisterForm",
+  mixins: [mixin],
   components: {
     MultiuseText,
   },
@@ -82,9 +84,14 @@ export default defineComponent({
       passwordRules: [(value: string) => this.required(value, "password")],
       passwordConfirmationRules: [
         (value: string) => this.required(value, "password"),
-        (value: string) => this.passwordMatch(value),
+        (value: string) => this.passwordMatch(value, this.passwordSecondValue),
       ],
     };
+  },
+  computed: {
+    passwordSecondValue() {
+      return this.newUserData.password;
+    },
   },
   methods: {
     ...mapActions("auth", {
@@ -114,20 +121,6 @@ export default defineComponent({
         .finally(() => {
           this.isLoading = false;
         });
-    },
-    required(value: string, type: string) {
-      if (value) return true;
-      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
-    },
-    validEmail(value: string) {
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-      if (emailRegex.test(value)) return true;
-      return `You must enter a valid email`;
-    },
-    passwordMatch(value: string) {
-      if (value === this.newUserData.password) return true;
-      return "The passwords must match";
     },
   },
 });

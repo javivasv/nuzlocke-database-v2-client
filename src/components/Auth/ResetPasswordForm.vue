@@ -45,9 +45,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions } from "vuex";
+import mixin from "@/mixin";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
   name: "ResetPasswordForm",
+  mixins: [mixin],
   components: {
     MultiuseText,
   },
@@ -64,9 +66,14 @@ export default defineComponent({
       passwordRules: [(value: string) => this.required(value, "password")],
       passwordConfirmationRules: [
         (value: string) => this.required(value, "password"),
-        (value: string) => this.passwordMatch(value),
+        (value: string) => this.passwordMatch(value, this.passwordSecondValue),
       ],
     };
+  },
+  computed: {
+    passwordSecondValue() {
+      return this.newPassword.password;
+    },
   },
   mounted() {
     this.validateResetToken(this.$route.params.resetToken)
@@ -106,14 +113,6 @@ export default defineComponent({
         .finally(() => {
           this.isLoading = false;
         });
-    },
-    required(value: string, type: string) {
-      if (value) return true;
-      return `You must enter ${type === "email" ? "an" : "a"} ${type}`;
-    },
-    passwordMatch(value: string) {
-      if (value === this.newPassword.password) return true;
-      return "The passwords must match";
     },
   },
 });
