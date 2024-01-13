@@ -28,6 +28,7 @@
       :class="getNuzlocke.status === 'started' ? 'current-status' : ''"
       color="secondary"
       :variant="getNuzlocke.status !== 'started' ? 'outlined' : 'flat'"
+      :loading="isLoading"
       @click="updateNuzlockeStatus('started')"
     >
       Started
@@ -37,6 +38,7 @@
       :class="getNuzlocke.status === 'completed' ? 'current-status' : ''"
       color="success"
       :variant="getNuzlocke.status !== 'completed' ? 'outlined' : 'elevated'"
+      :loading="isLoading"
       @click="updateNuzlockeStatus('completed')"
     >
       Completed
@@ -46,6 +48,7 @@
       :class="getNuzlocke.status === 'lost' ? 'current-status' : ''"
       color="error"
       :variant="getNuzlocke.status !== 'lost' ? 'outlined' : 'elevated'"
+      :loading="isLoading"
       @click="updateNuzlockeStatus('lost')"
     >
       Lost
@@ -122,9 +125,15 @@ export default defineComponent({
         },
       };
 
-      this.updateExistingNuzlocke(data).then(() => {
-        this.fetchNuzlockes();
-      });
+      this.isLoading = true;
+
+      this.updateExistingNuzlocke(data)
+        .then(() => {
+          this.fetchNuzlockes();
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     deleteNuzlocke() {
       this.isLoading = true;
