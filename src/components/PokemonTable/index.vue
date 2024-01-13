@@ -62,6 +62,7 @@
                     :pokemon="pokemon"
                     :index="index"
                     :settings="settings"
+                    :is-loading="isLoading"
                     @toEditPokemon="toEditPokemon"
                     @updatePokemonStatus="updatePokemonStatus"
                   />
@@ -141,6 +142,7 @@ export default defineComponent({
       settings: {
         showAsObtained: false,
       },
+      isLoading: false,
     };
   },
   methods: {
@@ -230,7 +232,11 @@ export default defineComponent({
         },
       };
 
-      this.updateExistingPokemon(data);
+      this.isLoading = true;
+
+      this.updateExistingPokemon(data).finally(() => {
+        this.isLoading = false;
+      });
     },
   },
 });

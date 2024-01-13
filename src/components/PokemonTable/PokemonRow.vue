@@ -95,7 +95,11 @@
       <v-row class="h-100" no-gutters align="center" justify="center">
         <v-hover v-if="pokemon.obtained !== 'not'">
           <template #default="{ isHovering, props }">
-            <v-btn icon @click.stop="updatePokemonStatus(pokemon)">
+            <v-btn
+              icon
+              :loading="isLoading"
+              @click.stop="updatePokemonStatus(pokemon)"
+            >
               <v-icon
                 v-if="isHovering"
                 :icon="!pokemon.fainted ? 'heart_broken' : 'favorite'"
@@ -141,6 +145,10 @@ export default defineComponent({
         return {};
       },
     },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     obtainedIcon(obtained: string) {
@@ -157,6 +165,7 @@ export default defineComponent({
       }
     },
     toEditPokemon(id: string) {
+      if (this.isLoading) return;
       this.$emit("toEditPokemon", id);
     },
     updatePokemonStatus(pokemon: Pokemon) {
