@@ -8,8 +8,12 @@ export interface Token {
 }
 
 export interface UserData {
-  username: string;
+  email: string;
   password: string;
+}
+
+export interface EmailData {
+  email: string;
 }
 
 // Nuzlocke-related

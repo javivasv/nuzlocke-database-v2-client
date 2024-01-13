@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { State } from "@/store/index";
 import axios from "axios";
-import { UserData, Token } from "@/interface";
+import { UserData, Token, EmailData } from "@/interface";
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 
@@ -123,6 +123,63 @@ export const auth: Module<AuthState, State> = {
 
       commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
         root: true,
+      });
+    },
+    FORGOT_PASSWORD: ({ commit }, data: EmailData) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_API}/forgot-password`, data)
+          .then((res) => {
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+              root: true,
+            });
+            reject(error.response);
+          });
+      });
+    },
+    VALIDATE_RESET_TOKEN: (_store, resetToken: string) => {
+      if (!resetToken) {
+        return;
+      }
+
+      const data = {
+        resetToken,
+      };
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_API}/validate-reset-token`, data)
+          .then(() => {
+            const token = jwtDecode(resetToken);
+            resolve(token);
+          })
+          .catch((error) => {
+            reject(error.response);
+          });
+      });
+    },
+    RESET_PASSWORD: ({ commit }, data: UserData) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .put(`${process.env.VUE_APP_API}/users/reset-password`, data)
+          .then((res) => {
+            commit("notifications/SET_SNACKBAR_TEXT", res.data.msg, {
+              root: true,
+            });
+            resolve(res.data);
+          })
+          .catch((error) => {
+            commit("notifications/SET_SNACKBAR_TEXT", error.response.data.msg, {
+              root: true,
+            });
+            reject(error.response);
+          });
       });
     },
   },

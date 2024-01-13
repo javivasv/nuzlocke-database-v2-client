@@ -1,31 +1,24 @@
 <template>
   <v-row no-gutters>
-    <v-form ref="loginForm" class="w-100" @submit.prevent="login()">
+    <v-form
+      ref="forgotPasswordForm"
+      class="w-100"
+      @submit.prevent="sendEmail()"
+    >
       <v-row no-gutters>
         <v-col>
           <MultiuseText :text="'Email'" />
           <v-row no-gutters>
             <v-text-field
-              v-model="userData.email"
+              v-model="email"
               variant="outlined"
               color="secondary"
               density="compact"
               :rules="emailRules"
             ></v-text-field>
           </v-row>
-          <MultiuseText :text="'Password'" />
-          <v-row no-gutters>
-            <v-text-field
-              v-model="userData.password"
-              variant="outlined"
-              type="password"
-              color="secondary"
-              density="compact"
-              :rules="passwordRules"
-            ></v-text-field>
-          </v-row>
           <v-row class="py-3" no-gutters align="center" justify="center">
-            <v-btn color="primary" type="submit">Login</v-btn>
+            <v-btn color="primary" type="submit">Send email</v-btn>
           </v-row>
         </v-col>
       </v-row>
@@ -38,45 +31,34 @@ import { defineComponent } from "vue";
 import { mapActions } from "vuex";
 import MultiuseText from "@/components/MultiuseText.vue";
 export default defineComponent({
-  name: "Login",
+  name: "ForgotPasswordForm",
   components: {
     MultiuseText,
   },
   data() {
     return {
-      userData: {
-        email: "",
-        password: "",
-      },
+      email: "",
       emailRules: [
         (value: string) => this.required(value, "email"),
         (value: string) => this.validEmail(value),
-      ],
-      usernameRules: [(value: string) => this.required(value, "username")],
-      passwordRules: [(value: string) => this.required(value, "password")],
-      passwordConfirmationRules: [
-        (value: string) => this.required(value, "password"),
-        (value: string) => this.passwordMatch(value),
       ],
     };
   },
   methods: {
     ...mapActions("auth", {
-      doLogin: "LOGIN",
+      forgotPassword: "FORGOT_PASSWORD",
     }),
-    async login() {
+    async sendEmail() {
       const { valid } = await (
-        this.$refs.loginForm as HTMLFormElement
+        this.$refs.forgotPasswordForm as HTMLFormElement
       ).validate();
 
       if (!valid) {
         return;
       }
 
-      this.doLogin(this.userData).then(() => {
-        this.$router.push({
-          name: "home",
-        });
+      this.forgotPassword({ email: this.email }).then(() => {
+        this.$emit("changeForm", 0);
       });
     },
     required(value: string, type: string) {

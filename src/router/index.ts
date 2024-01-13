@@ -8,7 +8,7 @@ import NuzlockeForm from "../views/Nuzlockes/NuzlockeForm.vue";
 import Nuzlocke from "../views/Nuzlockes/Nuzlocke.vue";
 import PokemonForm from "../views/Nuzlockes/PokemonForm.vue";
 import TeamForm from "../views/Nuzlockes/TeamForm.vue";
-import Login from "../views/Login.vue";
+import Auth from "../views/Auth.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -78,7 +78,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: Auth,
+  },
+  {
+    path: "/reset-password/:resetToken",
+    name: "reset-password",
+    component: Auth,
   },
   {
     path: "/:catchAll(.*)",
@@ -95,13 +100,22 @@ router.beforeEach((to, _from, next) => {
   const token = window.localStorage.getItem("ndb_token");
 
   if (!token) {
-    if (to.name === "login" || to.name === "home" || to.name === "about") {
+    if (
+      to.name === "login" ||
+      to.name === "reset-password" ||
+      to.name === "home" ||
+      to.name === "about"
+    ) {
       next();
     } else {
       next("/home");
     }
   } else {
-    if (to.name === "login" || to.name === "dashboard") {
+    if (
+      to.name === "login" ||
+      to.name === "reset-password" ||
+      to.name === "dashboard"
+    ) {
       next("/home");
     } else {
       next();
