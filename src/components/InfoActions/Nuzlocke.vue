@@ -64,6 +64,7 @@
   <DeleteDialog
     :name="getNuzlocke.name"
     :show-dialog="showDeleteDialog"
+    :is-loading="isLoading"
     @delete="deleteNuzlocke()"
     @close="showDeleteDialog = false"
   />
@@ -88,6 +89,7 @@ export default defineComponent({
   data() {
     return {
       showDeleteDialog: false,
+      isLoading: false,
     };
   },
   methods: {
@@ -125,12 +127,18 @@ export default defineComponent({
       });
     },
     deleteNuzlocke() {
+      this.isLoading = true;
+
       this.deleteExistingNuzlocke(this.$route.params.nuzlockeId).then(() => {
-        this.fetchNuzlockes().then(() => {
-          this.$router.push({
-            name: "nuzlockes",
+        this.fetchNuzlockes()
+          .then(() => {
+            this.$router.push({
+              name: "nuzlockes",
+            });
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
-        });
       });
     },
     toAddTeam() {

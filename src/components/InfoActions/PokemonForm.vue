@@ -104,6 +104,7 @@
   <DeleteDialog
     :name="pokemonName"
     :show-dialog="showDeleteDialog"
+    :is-loading="isLoading"
     @delete="deletePokemon()"
     @close="showDeleteDialog = false"
   />
@@ -172,11 +173,17 @@ export default defineComponent({
         pokemonId: this.$route.params.pokemonId,
       };
 
-      this.deleteExistingPokemon(data).then(() => {
-        this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
-          this.toNuzlocke();
+      this.isLoading = true;
+
+      this.deleteExistingPokemon(data)
+        .then(() => {
+          this.fetchNuzlocke(this.$route.params.nuzlockeId).then(() => {
+            this.toNuzlocke();
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
-      });
     },
   },
 });
