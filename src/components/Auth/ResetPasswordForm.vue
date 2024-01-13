@@ -31,7 +31,9 @@
             ></v-text-field>
           </v-row>
           <v-row class="py-3" no-gutters align="center" justify="center">
-            <v-btn color="primary" type="submit">Reset password</v-btn>
+            <v-btn color="primary" :loading="isLoading" type="submit"
+              >Reset password</v-btn
+            >
           </v-row>
         </v-col>
       </v-row>
@@ -58,6 +60,7 @@ export default defineComponent({
         password: "",
         passwordConfirmation: "",
       },
+      isLoading: false,
       passwordRules: [(value: string) => this.required(value, "password")],
       passwordConfirmationRules: [
         (value: string) => this.required(value, "password"),
@@ -94,9 +97,15 @@ export default defineComponent({
         password: this.newPassword.password,
       };
 
-      this.resetPassword(data).then(() => {
-        this.$emit("changeForm", 0);
-      });
+      this.isLoading = true;
+
+      this.resetPassword(data)
+        .then(() => {
+          this.$emit("changeForm", 0);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     required(value: string, type: string) {
       if (value) return true;

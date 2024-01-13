@@ -18,7 +18,9 @@
             ></v-text-field>
           </v-row>
           <v-row class="py-3" no-gutters align="center" justify="center">
-            <v-btn color="primary" type="submit">Send email</v-btn>
+            <v-btn color="primary" :loading="isLoading" type="submit"
+              >Send email</v-btn
+            >
           </v-row>
         </v-col>
       </v-row>
@@ -38,6 +40,7 @@ export default defineComponent({
   data() {
     return {
       email: "",
+      isLoading: false,
       emailRules: [
         (value: string) => this.required(value, "email"),
         (value: string) => this.validEmail(value),
@@ -57,9 +60,15 @@ export default defineComponent({
         return;
       }
 
-      this.forgotPassword({ email: this.email }).then(() => {
-        this.$emit("changeForm", 0);
-      });
+      this.isLoading = true;
+
+      this.forgotPassword({ email: this.email })
+        .then(() => {
+          this.$emit("changeForm", 0);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     required(value: string, type: string) {
       if (value) return true;

@@ -25,7 +25,9 @@
             ></v-text-field>
           </v-row>
           <v-row class="py-3" no-gutters align="center" justify="center">
-            <v-btn color="primary" type="submit">Login</v-btn>
+            <v-btn color="primary" :loading="isLoading" type="submit"
+              >Login</v-btn
+            >
           </v-row>
         </v-col>
       </v-row>
@@ -48,6 +50,7 @@ export default defineComponent({
         email: "",
         password: "",
       },
+      isLoading: false,
       emailRules: [
         (value: string) => this.required(value, "email"),
         (value: string) => this.validEmail(value),
@@ -73,11 +76,17 @@ export default defineComponent({
         return;
       }
 
-      this.doLogin(this.userData).then(() => {
-        this.$router.push({
-          name: "home",
+      this.isLoading = true;
+
+      this.doLogin(this.userData)
+        .then(() => {
+          this.$router.push({
+            name: "home",
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
-      });
     },
     required(value: string, type: string) {
       if (value) return true;
