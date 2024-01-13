@@ -36,8 +36,8 @@
         </v-row>
         <v-row class="py-1" no-gutters>
           <span class="card-text">
-            <strong>Types:</strong>
-            The types of the pokemon
+            <strong>Type(s):</strong>
+            The type(s) of the pokemon
           </span>
         </v-row>
         <v-row class="py-1" no-gutters>
