@@ -31,6 +31,18 @@
             possible. This gives the player the opportunity to keep track of any
             nuzlocke of any type of Pokemon game.
           </v-card-text>
+          <v-card-text>
+            This is a side project that I made on my free time, however, I would
+            appreciate any donation that could be done in order to try and keep
+            the site running and updated. You can do so here:
+            <a
+              class="website-link"
+              :href="'https://www.buymeacoffee.com/javivasv'"
+              target="_blank"
+            >
+              Buy Me a Coffee
+            </a>
+          </v-card-text>
         </v-card>
         <v-card class="pa-4 mb-4 w-100">
           <v-card-text>
@@ -52,6 +64,12 @@
               target="_blank"
             >
               Bulbapedia</a
+            >.
+          </v-card-text>
+          <v-card-text>
+            Login background art was made by
+            <a class="website-link" href="https://openai.com/" target="_blank">
+              OpenAI</a
             >.
           </v-card-text>
         </v-card>
@@ -155,6 +173,10 @@ export default defineComponent({
         {
           name: "Personal website",
           url: "https://javivasv.com/",
+        },
+        {
+          name: "Buy Me a Coffee",
+          url: "https://www.buymeacoffee.com/javivasv",
         },
         {
           name: "Github",
