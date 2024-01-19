@@ -40,7 +40,7 @@
         ></v-img>
       </v-row>
       <v-row no-gutters align="center" justify="center">
-        <span>{{
+        <span class="table-text">{{
           settings.showAsObtained
             ? pokemon.obtainedAs.species.formattedName
             : pokemon.species.formattedName

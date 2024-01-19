@@ -43,7 +43,9 @@
                   :cols="headerCols(header.name, header.cols)"
                 >
                   <v-row no-gutters align="center" justify="center">
-                    {{ header.text }}
+                    <span class="table-text">
+                      {{ header.text }}
+                    </span>
                   </v-row>
                 </v-col>
               </template>
