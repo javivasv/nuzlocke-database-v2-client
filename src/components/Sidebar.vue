@@ -56,7 +56,7 @@
                 :class="$vuetify.display.lgAndUp ? 'pr-3' : ''"
                 no-gutters
                 align="center"
-                justify="end"
+                :justify="$vuetify.display.width ? 'center' : 'end'"
               >
                 <div>
                   <v-switch
@@ -65,13 +65,25 @@
                       'dark-mode': $vuetify.theme.name === 'customDarkTheme',
                     }"
                     :label="$vuetify.display.lgAndUp ? 'Dark mode' : ''"
-                    :append-icon="$vuetify.display.lgAndUp ? '' : 'dark_mode'"
+                    :append-icon="
+                      $vuetify.display.lgAndUp || $vuetify.display.width <= 480
+                        ? ''
+                        : 'dark_mode'
+                    "
                     color="primary"
                     density="compact"
                     hide-details
                     @change="changeTheme()"
                   ></v-switch>
                 </div>
+              </v-row>
+              <v-row
+                v-if="$vuetify.display.width <= 480"
+                no-gutters
+                align="center"
+                justify="center"
+              >
+                <v-icon icon="dark_mode" style="opacity: 0.6"></v-icon>
               </v-row>
             </div>
             <div class="empty-space" style="flex-grow: 1"></div>
