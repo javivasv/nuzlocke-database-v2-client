@@ -41,8 +41,8 @@
               ></v-checkbox>
             </v-row>
             <MultiuseText :text="'Species'" />
-            <v-row no-gutters>
-              <v-col cols="9">
+            <v-row class="mb-5" no-gutters align="center" justify="center">
+              <v-col :cols="$vuetify.display.mdAndUp ? 9 : 12">
                 <v-row no-gutters align="center" justify="center">
                   <template v-if="loadingPokemonList">
                     <v-progress-circular
@@ -75,8 +75,12 @@
                   </template>
                 </v-row>
               </v-col>
-              <v-col cols="3">
-                <v-row class="pl-3" no-gutters>
+              <v-col :cols="$vuetify.display.mdAndUp ? 3 : 12">
+                <v-row
+                  :class="$vuetify.display.mdAndUp ? 'pl-3' : ''"
+                  :style="$vuetify.display.mdAndUp ? '' : 'padding-left: 35%'"
+                  no-gutters
+                >
                   <v-checkbox
                     v-model="pokemon.originalSpecies"
                     class="type-1"
@@ -126,7 +130,7 @@
             </v-row>
             <MultiuseText :text="'Ability'" />
             <v-row class="mb-5" no-gutters>
-              <v-col cols="9">
+              <v-col :cols="$vuetify.display.mdAndUp ? 9 : 12">
                 <v-row no-gutters align="center" justify="center">
                   <template v-if="loadingPokemonAbilities">
                     <v-progress-circular
@@ -160,8 +164,12 @@
                   </template>
                 </v-row>
               </v-col>
-              <v-col cols="3">
-                <v-row class="pl-3" no-gutters>
+              <v-col :cols="$vuetify.display.mdAndUp ? 3 : 12">
+                <v-row
+                  :class="$vuetify.display.mdAndUp ? 'pl-3' : 'pt-3'"
+                  :style="$vuetify.display.mdAndUp ? '' : 'padding-left: 35%'"
+                  no-gutters
+                >
                   <v-checkbox
                     v-model="pokemon.originalAbility"
                     class="type-1"
