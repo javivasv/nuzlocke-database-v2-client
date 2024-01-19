@@ -13,7 +13,7 @@
     no-gutters
     @click="toEditPokemon(pokemon._id)"
   >
-    <v-col cols="2">
+    <v-col :cols="$vuetify.display.mdAndUp ? 2 : 3">
       <v-row
         v-if="
           settings.showAsObtained
@@ -57,14 +57,14 @@
         </template>
       </v-row>
     </v-col>
-    <v-col cols="2">
+    <v-col :cols="$vuetify.display.mdAndUp ? 2 : 3">
       <v-row class="h-100" no-gutters align="center" justify="center">
         <span class="table-text">
           {{ pokemon.nickname !== "" ? pokemon.nickname : "-" }}
         </span>
       </v-row>
     </v-col>
-    <v-col cols="2">
+    <v-col v-if="$vuetify.display.mdAndUp" cols="2">
       <v-row class="h-100" no-gutters align="center" justify="center">
         <span class="table-text">
           {{
@@ -79,19 +79,19 @@
         </span>
       </v-row>
     </v-col>
-    <v-col cols="2">
+    <v-col :cols="$vuetify.display.mdAndUp ? 2 : 3">
       <v-row class="h-100" no-gutters align="center" justify="center">
         <span class="table-text">
           {{ pokemon.location }}
         </span>
       </v-row>
     </v-col>
-    <v-col cols="2">
+    <v-col v-if="$vuetify.display.mdAndUp" cols="2">
       <v-row class="h-100" no-gutters align="center" justify="center">
         <v-icon :icon="obtainedIcon(pokemon.obtained)"></v-icon>
       </v-row>
     </v-col>
-    <v-col cols="2">
+    <v-col :cols="$vuetify.display.mdAndUp ? 2 : 3">
       <v-row class="h-100" no-gutters align="center" justify="center">
         <v-hover v-if="pokemon.obtained !== 'not'">
           <template #default="{ isHovering, props }">

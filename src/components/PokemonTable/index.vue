@@ -37,15 +37,16 @@
         <v-row no-gutters>
           <v-col>
             <v-row class="py-5 table-header" no-gutters>
-              <v-col
-                v-for="header in headers"
-                :key="header.name"
-                :cols="header.cols"
-              >
-                <v-row no-gutters align="center" justify="center">
-                  {{ header.text }}
-                </v-row>
-              </v-col>
+              <template v-for="header in headers" :key="header.name">
+                <v-col
+                  v-if="showHeaderCol(header.name)"
+                  :cols="headerCols(header.name, header.cols)"
+                >
+                  <v-row no-gutters align="center" justify="center">
+                    {{ header.text }}
+                  </v-row>
+                </v-col>
+              </template>
             </v-row>
             <v-row no-gutters>
               <v-col
@@ -237,6 +238,27 @@ export default defineComponent({
       this.updateExistingPokemon(data).finally(() => {
         this.isLoading = false;
       });
+    },
+    showHeaderCol(headerName: string) {
+      if (
+        this.$vuetify.display.smAndDown &&
+        (headerName === "ability" || headerName === "obtained")
+      ) {
+        return false;
+      }
+
+      return true;
+    },
+    headerCols(headerName: string, headerCols: number) {
+      if (this.$vuetify.display.smAndDown) {
+        if (headerName === "ability" || headerName === "obtained") {
+          return 0;
+        } else {
+          return headerCols + 1;
+        }
+      }
+
+      return headerCols;
     },
   },
 });
