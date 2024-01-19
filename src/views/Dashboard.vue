@@ -1,12 +1,12 @@
 <template>
   <div id="dashboard" class="h-100">
     <v-row class="h-100" no-gutters>
-      <v-col class="h-100" :cols="$vuetify.display.lgAndUp ? '2' : '1'">
+      <v-col class="h-100" :cols="$vuetify.display.md ? '1' : '2'">
         <v-row class="h-100" no-gutters>
           <Sidebar @changeView="changeView" />
         </v-row>
       </v-col>
-      <v-col class="h-100" :cols="$vuetify.display.lgAndUp ? '10' : '11'">
+      <v-col class="h-100" :cols="$vuetify.display.md ? '11' : '10'">
         <v-row
           class="h-100 thin-scrollbar"
           no-gutters
