@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container h-100">
+  <div class="card-container h-100 w-100">
     <v-row no-gutters align="center" justify="center">
       <v-img
         class="pokeball"
