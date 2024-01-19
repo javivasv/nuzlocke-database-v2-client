@@ -1,130 +1,20 @@
 <template>
   <div id="home" class="content">
     <v-row class="h-100 w-100" no-gutters>
-      <v-col class="pa-3" cols="8">
-        <v-card class="pa-4 mb-4 w-100">
-          <v-card-title>
-            <h2>Welcome to the Nuzlocke DataBase!</h2>
-          </v-card-title>
-          <v-card-text>
-            Here you can keep track of all of your pokemon nuzlockes. You will
-            be able to register a nuzlocke of a preexisting game, a romhack or a
-            completely original game. You will also be able to register every
-            pokemon you obtain (or not) during the run, as well as change its
-            status (alive or fainted), in order to keep it organized and
-            updated.
-          </v-card-text>
-          <MultiuseText :text="'What is a nuzlocke?'" :justify="'center'" />
-          <v-card-text>
-            A nuzlocke is a set of rules intended to create a higher level of
-            difficulty while playing the Pokémon games. Many challengers feel
-            that the rules also serve the purpose of encouraging the use of
-            Pokémon the player would not normally choose, and promoting closer
-            bonds with the player's Pokémon. The rules are not an in-game
-            function, but are self-imposed on the part of the player, and thus
-            subject to variation.
-          </v-card-text>
-        </v-card>
-        <v-card class="pa-4">
-          <v-card-title>
-            <h2>Relevant Nuzlocke Videos</h2>
-          </v-card-title>
-          <v-row no-gutters>
-            <v-carousel
-              v-if="randomizedVideos.length > 0"
-              v-model="currentVideo"
-            >
-              <v-carousel-item
-                v-for="(video, index) in randomizedVideos"
-                :key="video.url"
-              >
-                <iframe
-                  v-if="currentVideo === index"
-                  class="video-iframe"
-                  :src="`https://www.youtube.com/embed/${video.url}`"
-                  :title="video.name"
-                  allowfullscreen
-                  style="border: none"
-                ></iframe>
-              </v-carousel-item>
-            </v-carousel>
-          </v-row>
-        </v-card>
-      </v-col>
-      <v-col class="pa-3" cols="4">
-        <v-card class="pa-4 mb-4">
-          <MultiuseText :text="'Nuzlocke Basic Rules'" :justify="'center'" />
-          <v-row no-gutters>
-            <v-card-text>
-              <v-row class="mb-5" no-gutters>
-                <span>
-                  Any Pokémon that faints is considered dead, and must be
-                  released or put in the Pokémon Storage System permanently (or
-                  may be transferred to another game, as long as the Pokémon is
-                  never able to be used again during this run).
-                </span>
-              </v-row>
-              <v-row no-gutters>
-                <span>
-                  The player may only catch the first wild Pokémon encountered
-                  in each area, and none else. If the first wild Pokémon
-                  encountered faints or flees, there are no second chances. If
-                  the first encounter in the area is a double battle, the player
-                  is free to choose which of the two wild Pokémon they would
-                  like to catch but may only catch one of them. This restriction
-                  does not apply to Pokémon able to be captured during static
-                  encounters, nor to Shiny Pokémon
-                </span>
-              </v-row>
-            </v-card-text>
-          </v-row>
-        </v-card>
-        <v-card class="pa-4">
-          <MultiuseText
-            :text="'Commonly accepted extra rules'"
-            :justify="'center'"
-          />
-          <v-card-text>
-            <v-row class="mb-5" no-gutters>
-              <span>
-                The two basic rules are not in effect until the player has
-                gained their first Poké Balls and thus the ability to catch
-                Pokémon
-              </span>
-            </v-row>
-            <v-row class="mb-5" no-gutters>
-              <span>
-                The player must nickname all of their Pokémon, for the sake of
-                forming stronger emotional bonds
-              </span>
-            </v-row>
-            <v-row class="mb-5" no-gutters>
-              <span>
-                Species/Dupes Clause: The "first wild Pokémon in each area" rule
-                does not apply in an area until a species or evolution line is
-                encountered that has not been caught yet
-              </span>
-            </v-row>
-            <v-row class="mb-5" no-gutters>
-              <span>
-                Shiny Clause: Shiny Pokémon do not need to be released if they
-                faint
-              </span>
-            </v-row>
-            <v-row no-gutters>
-              <span>
-                If the player has no Pokémon that can use a field move that is
-                required to continue the game, they may catch another Pokémon
-                that can learn the required field move. However, this Pokémon
-                cannot be used in battle for any reason, and must be released,
-                permanently put into a PC box, or migrated as soon as it is no
-                longer needed or if the player catches another Pokémon that can
-                use this field move
-              </span>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
+      <template v-if="$vuetify.display.mdAndUp">
+        <v-col class="pa-3" cols="8">
+          <MainContent />
+        </v-col>
+        <v-col class="pa-3" cols="4">
+          <SecondaryContent />
+        </v-col>
+      </template>
+      <template v-else>
+        <v-col class="pa-3" cols="12">
+          <MainContent />
+          <SecondaryContent />
+        </v-col>
+      </template>
     </v-row>
   </div>
 </template>
@@ -132,20 +22,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
-import MultiuseText from "@/components/MultiuseText.vue";
-import { Video } from "@/interface";
+import MainContent from "@/components/Home/MainContent.vue";
+import SecondaryContent from "@/components/Home/SecondaryContent.vue";
 export default defineComponent({
   name: "Home",
   components: {
-    MultiuseText,
+    MainContent,
+    SecondaryContent,
   },
   computed: {
     ...mapGetters("videos", {
       getVideos: "GET_VIDEOS",
     }),
-    randomizedVideos(): Array<Video> {
-      return [...this.getVideos].sort(() => Math.random() - 0.5);
-    },
   },
   mounted() {
     if (this.getVideos.length === 0) {
